@@ -1,0 +1,184 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* background-color: antiquewhite; */
+}
+.container{
+    background-color: #fff;
+    width: 60em;
+    display: flex;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px #666;
+}
+/* divided containers */
+.sign-up{
+    width:80%;
+    padding: 40px 20px;
+}
+.section-image{
+    width:78%;
+    background-image: url(../assets/loginpage-images/image.avif);
+    border-radius: 5px;
+    
+}
+/* border-radius text */
+.paragraph{
+    background-color: hsl(0, 1%, 14%);
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 8em;
+    height: 8em;
+    text-align: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 14em;
+    left: 10em;
+}
+/* heading */
+.title {
+    position: relative;
+    bottom: 50px;
+    font-family: "Lora", serif;
+    margin: 0;
+}
+/* bookmyshow image adjust */
+.logo {
+    position: relative;
+    top: 34px;
+    padding: 0px 2px;
+}
+/* form */
+form{
+    position: relative;
+    bottom: 30px;
+    margin-top: 10px;
+}
+/* input transition */
+.input-group{
+    position: relative;
+    margin: 10px 0px;
+}
+.input-group label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    padding:0 5px;
+    pointer-events: none;
+    font-family: "Roboto Condensed", sans-serif;
+}
+.input-group input{
+    width: 350px;
+    height: 40px;
+    font-size: 16px;
+    padding: 0 10px;
+    background: transparent;
+    border: 2px solid #04AA6D;
+    box-shadow: 0px 0px 3px #04AA6D ;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+ .input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label,
+.input-group input.focused + label {
+    top: 0;
+    font-size: 12px;
+    color: #04AA6D;
+    background: #fff;
+    transition: all 0.3s ease;
+} 
+/* password visibility */
+.Io-eye{
+    position: relative;
+    right: 30px;
+    top: 5px;
+    font-size: 20px;
+    color: hsl(0, 2%, 26%);
+}
+
+/* mail validation */
+.error-message {
+    color: hsl(0, 96%, 44%);
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
+    padding-top: 2px;
+    font-family: 'Lora';
+    width: 350px;
+} 
+/* sign up */
+.submit-button{
+    cursor: pointer;
+    background-color: hsl(223, 88%, 46%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    position: relative;
+    left: 9em;
+    top: 15px;
+}
+.submit-button:hover{
+    background-color: hsl(223, 88%, 36%);
+}
+/* divider */
+.divider{
+    position: relative;
+    top: 15px;
+    width: 80%;
+}
+.h2-divider{
+    position: relative;
+    left: 7em;
+    top: -23px;
+    margin: 0px;
+    padding: 0 10px;
+    background: #fff;
+    display: inline;
+    
+}
+/* google login */
+.google-login{
+    position: relative;
+    left: 6em;
+    top: 30px;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
