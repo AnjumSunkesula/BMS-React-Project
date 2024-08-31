@@ -1,0 +1,527 @@
+.film-container{
+    width:100% ;
+}
+
+
+
+
+
+
+/* ABOUT MOVIE CONTAINER */
+.aboutMovie-container {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 8.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ticket-booking-container{
+    display: flex;
+    max-width: 100vw;
+    width: 100%;
+    padding:16px ;
+}
+/* image */
+.tBcIMg{
+    max-width: 350px;
+    max-height: 445px;
+    border-radius: 8px;
+    margin-right:32px ;
+    margin-left: 34px;
+}
+/* whole image-details */
+.image-details{
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* movie-name */
+.movie-title{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 40px;
+    color: aliceblue;
+    font-weight: normal;
+    margin: 0;
+}
+/* whole rating div */
+.rating-box{
+    background-color: hsl(0, 0%, 20%);
+    border-radius: 8px;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    margin: 16px 0px;
+    justify-content: space-between;
+}
+/* rating div */
+.div-rating{
+    display: inline-flex;
+    align-items: center;
+    color: aliceblue;
+    margin-right: 5em;
+}
+/* star icon */
+.div-rating .star-icon {
+    color: hsl(349, 93%, 62%);
+    font-size: 25px;
+    margin-left: 10px;
+    padding: 0 10px;
+}
+/* rating */
+.div-rating .rating{
+    font-size: 24px;
+    font-family: sans-serif;
+}
+/* votes */
+.div-rating .votes{
+    padding-left: 10px;
+    font-size: 20px;
+    font-family: sans-serif;
+
+}
+/* rating button div */
+.rating-box .hshjF{
+    padding: 15px;
+}
+/* rating button */
+.rating-box .rating-button{
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    padding: 10px;
+    cursor: pointer;
+} 
+/* dimension-language */
+ .dim-lan{
+    display: flex;
+    flex-wrap: wrap;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    max-width: 580px;
+    margin-bottom: 16px;
+}
+.dim-lan .dimension, .language{
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    background-color: aliceblue;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin: 4px 3px;
+}
+.dim-lan .language{
+    text-transform: capitalize;
+}
+/* duration-certification-genre-releaseDate */
+.dur-gen-c{
+    display: flex;
+    flex-wrap: wrap;
+    font-family: sans-serif;
+    color: aliceblue;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+/* span dot */
+.dCrDoT{
+    color: aliceblue;
+    padding: 0px 8px;
+    font-size:16px ;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+}
+/* button div */
+.hDaghA{
+    margin: 20px 0;
+}
+/* ticket booking button */
+.book-tickets{
+    text-transform: capitalize;
+    background-color:hsl(349, 93%, 62%);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    padding: 15px 60px;
+    color: aliceblue;
+}
+
+/* MOVIE DETAILS */
+
+/* movie-details-container */
+.movie-details-container {
+    position: relative;
+    top: 39.5em;
+    display: flex;
+    flex-direction: column;
+    width: 89vw;
+}
+.plot-summary{
+    margin-top: 25px;
+    font-family: sans-serif;
+}
+.plot-summary .film-name{
+    text-transform: capitalize;
+    font-size: 25px;
+}
+.plot-summary .plot{
+    white-space: pre-line;
+    max-width: 800px;
+    font-size: 14px;
+    margin-bottom: 25px;
+    color: hsl(0, 0%, 30%);
+
+}
+.cast-container, .crew-container{
+    padding: 8px 0;
+    border-top: 1px solid hsl(0, 6%, 87%);
+    max-width: 800px;
+}
+/* cast and crew heading */
+.hDgvjh{
+    text-transform: capitalize;
+    font-size: 25px;
+    font-family: system-ui;
+    margin-bottom: 15px;
+}
+/* cast and crew images, role and names div */
+.members-details{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    position: relative;
+    /* position:relative => on the .members-details container,
+    you make it the reference point for the child elements with position: absolute;,which are my arrows. 
+    This ensures that the arrows are positioned relative to this container and not the entire page or another unintended container. */
+}
+/* cast and crew image, role and name individual div */
+.members{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* cast and crew images */
+.jhFcHj{
+    border-radius: 50%;
+    max-width: 120px;
+}
+/* cast and crew member name */
+.bFgFYv{
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.2px; 
+    margin-bottom: 5px ;
+    margin-top:0 ;
+    width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* cast and crew member role */
+.gfSgRc{
+    color: hsl(0, 0%, 40%);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    margin: 0;
+    margin-left: 10px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* cast and crew previous arrow */
+.GysTbv{
+    /* applying postion:absolute to an element,its positioning is based on the nearest ancestor that has position: relative;, position: absolute;,or position: fixed;
+    . If no such ancestor exists,it will be positioned relative to the initial containing block (typically the entire viewport) */
+    position: absolute; 
+    top: 33%;
+    transform: translateY(-50%);
+    left: -27px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: hsla(0, 0%, 13%, 0.8);
+    opacity: 0.8;
+    border-radius: 20px;
+}    
+/* cast and crew next arrow */
+.JgyDk{
+    position: absolute;
+    top: 33%;
+    transform: translateY(-50%);
+    right: 120px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(34, 34, 34, 0.8);
+    opacity: 0.8;
+    border-radius: 20px;
+}
+
+
+/* RATING BUTTON CONTAINER POPUP */
+/* from developer tools */
+.popup-content {
+    max-width: 20%;
+    padding: 0;
+}
+/* rating-button-section-container */
+.rating-button-section{
+    max-width: 360px;
+    height: fit-content;
+    max-height: 600px;
+    text-align: center;
+}
+/* header box */
+.rating-header{
+    background: #fff;
+    box-shadow: 0 4px 6px 0 #0000001a;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 8px;
+    
+}
+/* header text div */
+.box-text{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 30px;
+
+}
+/* header text */
+.p-box-text{
+    text-transform: capitalize;
+    font-family: system-ui;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 18px;
+    margin: 0;
+    color: hsl(0, 0%, 20%);
+}
+/* x div */
+.close-icon-container{
+    cursor: pointer;
+    width: 15%;
+    
+}
+/* x */
+.close-icon{
+    font-size: 30px;
+}
+
+
+
+
+.rating-area{
+    padding: 8px;
+}
+/* how would u rate the movie? */
+.rating-caption{
+    font-size: 14px;
+    color: hsl(0, 0%, 20%);
+    font-weight: 500;
+    font-family: system-ui;
+    line-height: 25px;
+    margin-top: 10px;
+    text-align: left;
+    text-transform: capitalize;
+}
+/* slide to rate div */
+.rating-section{
+    padding: 25px 0 0;
+    overflow: hidden;
+}
+/* slide to rate */
+.rating-section .rating-direction{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: hsl(0, 0%, 60%);
+    font-size: 10px;
+    font-family: system-ui;
+    justify-content: center;
+    line-height: 12px;
+    text-align: center;
+    text-transform: uppercase;
+}
+/* -> */
+.rating-direction .icon{
+    font-size: 15px;
+}
+
+
+
+
+
+.rating-slider-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.rating-slider{
+    max-height: 20px;
+    position: relative;
+    width: 80%; 
+}
+#range{
+    appearance: none;
+    background-color: hsl(352, 79%, 56%);
+    cursor: pointer;
+    border-radius: 5px;
+    height: 6px;
+    margin-top: 8px;
+    outline: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: opacity .15s ease-in-out;
+    transition: background 0.3s ease;
+    width: 100%;
+} 
+/* range slider dot */
+.rating-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: hsl(352, 79%, 56%);
+    cursor: pointer;
+    border-radius: 50%;
+}
+.dividers{
+    border-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    display: flex;
+    height: 6px;
+    margin-top: 8px;
+    outline: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: all 4s ease;
+    width: 100%;
+}
+.selected-rating{
+    background: hsl(352, 79%, 56%);
+    border-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    display: flex;
+    height: 6px;
+    margin-top: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: all .4s ease;
+}
+.slider-track{
+    border-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    display: flex;
+    height: 6px;
+    transition: all .4s ease;
+    width: 100%;
+    overflow: hidden; 
+    background: hsl(352, 79%, 56%);
+}
+.slider-track span{
+    border-right: 1px solid white;
+    display: block;
+    height: 3px;
+    margin-top:2px ;
+    width: 100%;
+}
+.slider-count{
+    margin-left: 10px;
+    min-width: 25px;
+    text-align: right;
+}
+.slider-count .output{
+    color: #333;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+
+
+.ratings-matter{
+    display: flex;
+    align-items: flex-end;
+    height: auto;
+    justify-content: center;
+}
+.ratings-matter-inside{
+    padding: 30px 0;
+}
+.caveat-text{
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    color: hsl(0, 2%, 25%);
+}
+.ratings-text{
+    font-size: 12px;
+    font-family: sans-serif;
+    color: hsl(0, 0%, 72%);
+    font-weight: 400;
+    line-height: 14px;
+    padding: 5px 0;
+    text-align: center;
+}
+
+/* footer button */
+.submit-section{
+    background: #fff;
+    box-shadow: 0 -1px 13px 0 hsla(211, 21%, 57%, 0.388);
+}
+.button-wrapper{
+    overflow: hidden;
+    padding: 10px;
+}
+.submitting-button{
+    background-color: hsl(0, 0%, 88%);
+    cursor: pointer;
+    border: none;
+    padding: 12px 90px;
+    border-radius: 5px;
+}
+.submitting-button.rated{
+    background-color: hsl(352, 79%, 56%);
+}
+.submitting-button:disabled{
+    background-color: hsl(0, 0%, 88%);
+    cursor: not-allowed;
+}
+.button-text{
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    display: inline;
+
+}

@@ -1,0 +1,64 @@
+.slider-container{
+    /* width: 100%; */
+    margin: 0;
+    position: relative;
+    top: 7.75em;
+}
+.slider{
+    position: relative;
+    /* top: 7.7em; */
+}
+
+.active{
+    display: inline-block;
+}
+.inactive{
+    display: none;
+}
+.leftArrow, .rightArrow{
+    position: absolute;
+    top: 55%;
+    transform: translate(0px, -50%);
+    font-size:50px;
+    color: white;
+    cursor: pointer;
+}
+.leftArrow:hover, .rightArrow:hover{
+    opacity: 0.25;
+}
+
+.leftArrow{
+    left: 15px;
+}
+.rightArrow{
+    right: 15px;
+}
+
+.all-dots{
+    margin: 82px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -7em;
+
+}
+.dot{
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0px 6px;
+    background-color: grey;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot:hover{
+    opacity: 0.5;
+}
+.active-dot{
+    background-color:teal ;
+    width: 30px;
+    border-radius: 30px;
+}
+.active-dot:hover{
+    opacity: 1;
+}

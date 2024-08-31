@@ -1,0 +1,151 @@
+
+/* first header */
+.header1{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: -webkit-fill-available;
+    background-color: hsl(237, 17%, 23%);
+}
+/* first header logo */
+.header1 .header-logo{
+    background-color: transparent;
+    position: relative;
+    top: 10px;
+    padding-left: 50px;
+}
+/* search button */
+.header1 input{
+    width: 30em;
+    padding: 8px 0;
+    margin-right:25em;
+    border: none;
+    outline-style: none;
+    border-radius: 3px;
+    position: relative;
+    bottom: 30px;
+}
+.header1 input[type=text]{
+    padding-left: 50px;
+    font-size: 16px;
+}
+/* search-logo */
+.search-logo{
+    position: relative;
+    bottom: 1.4em;
+    left: 1.5em;
+    text-align: center;
+    z-index: 10;
+    color: hsl(0, 1%, 64%);
+}
+/* search button placeholder */
+.header1 input::placeholder{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    position: relative;
+    right: 4px;
+}
+/* user and city selection header */
+.header-right{
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+/* select city */
+.header-right span{
+    color: white;
+    font-size: 20px;
+    text-transform: capitalize;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    max-width: 100px;
+}
+/* arrow-button */
+.arrow-button{
+    padding: 0;
+    margin: 0;
+    border: none;
+    position: relative; 
+    top: -0.5em;
+    /* background-color: hsl(237, 17%, 23%); */
+}
+.material-symbols-outlined{
+    position: absolute;
+    /* right: 4em; */
+}
+/* user profile icon */
+.user-logo{
+    position: relative;
+    top: 0;
+    margin-left: 30px;
+}
+/* hi,user */
+.user-profile{
+    margin-left: 5px;
+}
+
+
+
+/* header 2 */
+.header2{
+    display: flex;
+    position: absolute;
+    top: 6.4em;
+    right: 0;
+    width: -webkit-fill-available;
+    background-color: hsla(236, 54%, 11%, 0.896);
+}
+.navbar{
+    overflow: hidden;
+}
+.navbar a{
+    float: left;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 17px;
+    padding: 10px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navbar a:hover{
+    cursor: pointer;
+    background-color: #ddd;
+    color: black;
+}
+.nav-right{
+    float: right;
+    position: absolute;
+    right: 0;
+}
+.navbar .movies-margin{
+    margin-left: 3em;
+}
+.nav-right .giftcards-margin{
+    margin-right: 3.5em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.header-body{
+    /* background-color: blueviolet; */
+    /* margin: auto;
+    padding: auto;
+    display: auto; */
+    /* align-items: unset;
+    justify-content: unset; */
+    min-height: max-content;
+}
