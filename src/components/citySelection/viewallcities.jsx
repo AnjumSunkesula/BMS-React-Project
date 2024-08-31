@@ -2,7 +2,7 @@ import React from "react";
 
 const allCityNames = [
 // A
-    'Abohar', 'Abu Road', 'Achampet', 'Acharapakkam', 'Addanki',
+    'Abohara', 'Abu Road', 'Achampet', 'Acharapakkam', 'Addanki',
     'Adilabad', 'Adimali', 'Adipur', 'Adoni', 'Agar Malwa',
     'Aalo', 'Agartala', 'Agiripalli', 'Agra', 'Ahmedgarh',
     'Ahmednagar', 'Ahore', 'Aizwal', 'Ajmer', 'Akaltara', 'Akbarpur',
