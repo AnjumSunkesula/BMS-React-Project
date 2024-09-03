@@ -53,7 +53,7 @@
 .rating-box{
     background-color: hsl(0, 0%, 20%);
     border-radius: 8px;
-    max-width: 500px;
+    max-width: 450px;
     display: flex;
     align-items: center;
     margin: 16px 0px;
@@ -64,7 +64,6 @@
     display: inline-flex;
     align-items: center;
     color: aliceblue;
-    margin-right: 5em;
 }
 /* star icon */
 .div-rating .star-icon {
@@ -99,6 +98,25 @@
     padding: 10px;
     cursor: pointer;
 } 
+/* after rating display */
+.rating-button.rated{
+    background-color: hsl(0, 0%, 20%);
+    color: whitesmoke;
+    padding: 0;
+    width: 150px;
+}
+/* numeric rating */
+.submitted-rating{
+    margin-left: 38px;
+}
+/* after rating satr */
+.star-symbol{
+    color: hsl(349, 93%, 62%);
+    font-size: 20px;
+    position: relative;
+    right: 80px;
+    top: 1px;
+}
 /* dimension-language */
  .dim-lan{
     display: flex;
@@ -278,11 +296,7 @@
 
 
 /* RATING BUTTON CONTAINER POPUP */
-/* from developer tools */
-.popup-content {
-    max-width: 20%;
-    padding: 0;
-}
+
 /* rating-button-section-container */
 .rating-button-section{
     max-width: 360px;
