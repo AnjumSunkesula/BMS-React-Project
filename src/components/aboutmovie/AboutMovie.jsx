@@ -146,18 +146,18 @@ function AboutMovies () {
                                 </div>
                             )}
                             <Popup 
-                            modal 
+                            modal                  
                             nested
                             trigger =
                                 {<div className="hshjF">
                                     <button 
-                                       className={`rating-button ${isRated ? 'rated' : ''}`}
+                                       className={`rating-button ${isSubmitted ? 'rated' : ''}`}
                                        disabled={isSubmitted}   
                                     >
                                         {isSubmitted ? (
                                             <>
-                                            <span className="submitted-rating">Your Rating: {submittedRating}/10</span>
-                                            <IoStar />
+                                            <span >Your Rating: <span className="submitted-rating">{submittedRating}/10</span></span>
+                                            <IoStar className="star-symbol"/>
                                             </>
                                         ) : (
                                             'rate now'
@@ -167,6 +167,7 @@ function AboutMovies () {
                                 </div>}
                                  onOpen={() => setRating(0)} //reset rating to 0 when popup opens
                                  onClose={() =>  setIsRated(false)} // reset isRated when popup closes.
+                                 contentStyle={{ width: '20%'}} //width of the popup
                                 >
                                 {close => (
                                     <div className="rating-button-section">
