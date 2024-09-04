@@ -1,7 +1,6 @@
 import '../Recommended Movies/RM.css'
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { MdOutlineArrowRight } from "react-icons/md";
 import img1 from '../../assets/recommended movies/D & W.avif'
 import img2  from '../../assets/recommended movies/IEWU.avif'
@@ -14,7 +13,6 @@ import img8    from '../../assets/recommended movies/KKM.avif'
 import img9    from '../../assets/recommended movies/nunakkuzhi.avif'
 import img10 from '../../assets/recommended movies/vedaa.avif'
 import stream from '../../assets/recommended movies/stream-leadin-web-collection-202210241242.avif'
-// import AboutMovies from '../aboutmovie/AboutMovie';
 
 
 function RecommendedMovies () {
@@ -29,10 +27,12 @@ function RecommendedMovies () {
         });
     };
 
-    // const navigate = useNavigate();
-    // const handleMovieClick = (movie) => {
-    //     navigate('/aboutmovies', { state: {movie} });
-    // };
+    const handleSeeAllClick = () => {
+        console.log("see all clicked")
+        history.push("/seeall"); // Navigate to the See All page
+    };
+
+    
     
 
 
@@ -79,11 +79,10 @@ function RecommendedMovies () {
                 <div className='r-m'>
                     <h3>Recommended Movies</h3>
                 </div>
-                <div className='s-a'>
-                    <h3>see all <span className='arrow-right'><MdOutlineArrowRight /></span> </h3>
+                <div className='s-a' onClick={handleSeeAllClick}>
+                    <h3 className='div-cursor'>see all <span className='arrow-right'><MdOutlineArrowRight /></span> </h3>
                 </div>
             </div>
-
 
             <div className='movies-captions'>
                 {displayedMovies.map((movie, index) => (
