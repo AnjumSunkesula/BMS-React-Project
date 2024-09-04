@@ -2,10 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Login from '../src/pages/login';
 import Home from '../src/pages/home';
-// import RegionSelection from './components/citySelection/regionselection';
-// import ViewAllCities from './components/citySelection/viewallcities';
 import AboutMovies from './components/aboutmovie/AboutMovie';
-
+import SeeAll from './pages/see all/seeAll'
 function App() {
   return(
     <>
@@ -13,9 +11,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login}/>
         <Route exact path="/home" component={Home}/>
-        {/* <Route path="/regionselection" component={RegionSelection}/> */}
-        {/* <Route  path="/viewallcities" element={<ViewAllCities/>}/> */}
         <Route path="/aboutmovies" component={AboutMovies}/>
+        <Route path= "/seeall" component={SeeAll} />
       </Switch>
     </Router>
     </>
