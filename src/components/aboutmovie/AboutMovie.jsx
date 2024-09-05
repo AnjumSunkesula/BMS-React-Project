@@ -1,7 +1,7 @@
 import Header from "../header/header";
 import '../aboutmovie/AboutMovie.css';
 import MovieDetails from "./movieDetails";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import { IoStar } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
@@ -21,6 +21,7 @@ function AboutMovies () {
     const [isRated, setIsRated] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submittedRating, setSubmittedRating] = useState(null);
+    const [movieDescriptions, setMovieDescriptions] = useState([]);
 
     const details = MovieDetails[index + 1]; //to get the movie details based on index
 
@@ -60,9 +61,16 @@ function AboutMovies () {
     }
 
     const handleSubmitRating = (close) => {
-        const updatedVotes = `(${(Number(selectedDescription.votes.match(/\d+/)[0]) + 1).toLocaleString()} Votes)`;
-        selectedDescription.votes = updatedVotes; //to display updated votes in the "votes" section
+        // const updatedVotes = `(${(Number(selectedDescription.votes.match(/\d+/)[0]) + 1).toLocaleString()} Votes)`;
+        // selectedDescription.votes = updatedVotes; //to display updated votes in the "votes" section
+        const updatedDescriptions = [...movieDescriptions];
+        const movieDetails = updatedDescriptions[index];
+        
+        const updatedVotes = `(${(Number(movieDetails.votes.match(/\d+/)[0]) + 1).toLocaleString()} Votes)`;
+        movieDetails.votes = updatedVotes;
+        
         //disable button after submission
+        setMovieDescriptions(updatedDescriptions);
         setIsRated(false);
         setIsSubmitted(true);
         setSubmittedRating(rating);//store the submitted rating
@@ -76,32 +84,56 @@ function AboutMovies () {
     const showNextCrew = currentCrewIndex < details.crew.length - crewPerPage;
     const showPreviousCrew = currentCrewIndex > 0;
 
-
-
-    const description = [
-       { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
-            rating: '8.7/10' ,    votes:'(125.3K Votes)', releaseDate:'26 jul, 2024',         certification:'a',                    duration:'2h 12m'} ,
+     useEffect(() => {
+        // Initialize movie descriptions here or fetch from an API
+        setMovieDescriptions([
+            { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
+            rating: '8.7/10' ,    votes:'(6 Votes)', releaseDate:'26 jul, 2024',         certification:'a',                    duration:'2h 12m'} ,
        { dimension: '2d' ,     language: 'english',              icon:<IoStar />,   
-            rating: '8.5/10',     votes:'(11.9K Votes)',  releaseDate:'9 aug, 2024',         certification:'a',                    duration:'2h 12m'} ,
+            rating: '8.5/10',     votes:'(3 Votes)',  releaseDate:'9 aug, 2024',         certification:'a',                    duration:'2h 12m'} ,
        { dimension: '2d' ,     language: 'telugu, kannada, malayalam, tamil, hindi', icon:<IoStar />, 
-            rating: '6.7/10' ,    votes:'(165.3K Likes)', releaseDate:'15 aug, 2024',         certification:'a',                    duration:'2h 42m' } ,
+            rating: '6.7/10' ,    votes:'(8 Votes)', releaseDate:'15 aug, 2024',         certification:'a',                    duration:'2h 42m' } ,
        { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />, 
-            rating: '9.1/10',     votes:'(246.7K Likes)', releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 29m'} ,
+            rating: '9.1/10',     votes:'(13 Votes)', releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 29m'} ,
        { dimension: '2d, imax 3d, 4dx, mx4d 3d,ice 3d,3d,mx4d,4dx 3d,imax 2d' ,        language: 'english, hindi, tamil', icon:<IoStar />, 
-            rating: '9.2/10' ,    votes:'(34.6K Votes)',  releaseDate:'14 jun, 2024',         certification:'u',                    duration:'1h 36m'}, 
+            rating: '9.2/10' ,    votes:'(9 Votes)',  releaseDate:'14 jun, 2024',         certification:'u',                    duration:'1h 36m'}, 
        { dimension: '2d,3d,mx4d 3d, 2d screen x,  imax 3d,4dx 3d,3d screen x,ice 3d' , language: 'english', icon:<IoStar />, 
-            rating: '8.4/10' ,    votes:'(11.5K Votes)',  releaseDate:'5 jul, 2024',         certification:'u',                    duration:'1h 34m'} ,
+            rating: '8.4/10' ,    votes:'(12 Votes)',  releaseDate:'5 jul, 2024',         certification:'u',                    duration:'1h 34m'} ,
        { dimension: '2d' ,     language: 'marathi',              icon:<IoStar />,   
-            rating: '9.2/10' ,    votes:'(6.4K Votes)',   releaseDate:'26 jul, 2024',         certification:'u',                    duration:'2h 19m'} ,
+            rating: '9.2/10' ,    votes:'(5 Votes)',   releaseDate:'26 jul, 2024',         certification:'u',                    duration:'2h 19m'} ,
        { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />,   
-            rating: '8.2/10' ,    votes:'(24.5K Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 14m'} ,
+            rating: '8.2/10' ,    votes:'(15 Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 14m'} ,
        { dimension: '2d' ,     language: 'malayalam',            icon:<IoStar />,   
-            rating: '8.4/10' ,    votes:'(4.6K Votes)',   releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 6m'} ,
+            rating: '8.4/10' ,    votes:'(24 Votes)',   releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 6m'} ,
        { dimension: '2d' ,     language: 'hindi, tamil, telugu', icon:<IoStar />, 
-            rating: '8/10' ,      votes:'(27.5K Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 31m'} 
-    ];
+            rating: '8/10' ,      votes:'(18 Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 31m'} 
+        ]);
+    }, []);
 
-    const selectedDescription = description[index];
+    // const description = [
+    //    { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
+    //         rating: '8.7/10' ,    votes:'0', releaseDate:'26 jul, 2024',         certification:'a',                    duration:'2h 12m'} ,
+    //    { dimension: '2d' ,     language: 'english',              icon:<IoStar />,   
+    //         rating: '8.5/10',     votes:'1',  releaseDate:'9 aug, 2024',         certification:'a',                    duration:'2h 12m'} ,
+    //    { dimension: '2d' ,     language: 'telugu, kannada, malayalam, tamil, hindi', icon:<IoStar />, 
+    //         rating: '6.7/10' ,    votes:'0', releaseDate:'15 aug, 2024',         certification:'a',                    duration:'2h 42m' } ,
+    //    { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />, 
+    //         rating: '9.1/10',     votes:'0', releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 29m'} ,
+    //    { dimension: '2d, imax 3d, 4dx, mx4d 3d,ice 3d,3d,mx4d,4dx 3d,imax 2d' ,        language: 'english, hindi, tamil', icon:<IoStar />, 
+    //         rating: '9.2/10' ,    votes:'0',  releaseDate:'14 jun, 2024',         certification:'u',                    duration:'1h 36m'}, 
+    //    { dimension: '2d,3d,mx4d 3d, 2d screen x,  imax 3d,4dx 3d,3d screen x,ice 3d' , language: 'english', icon:<IoStar />, 
+    //         rating: '8.4/10' ,    votes:'0',  releaseDate:'5 jul, 2024',         certification:'u',                    duration:'1h 34m'} ,
+    //    { dimension: '2d' ,     language: 'marathi',              icon:<IoStar />,   
+    //         rating: '9.2/10' ,    votes:'0',   releaseDate:'26 jul, 2024',         certification:'u',                    duration:'2h 19m'} ,
+    //    { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />,   
+    //         rating: '8.2/10' ,    votes:'0',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 14m'} ,
+    //    { dimension: '2d' ,     language: 'malayalam',            icon:<IoStar />,   
+    //         rating: '8.4/10' ,    votes:'0',   releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 6m'} ,
+    //    { dimension: '2d' ,     language: 'hindi, tamil, telugu', icon:<IoStar />, 
+    //         rating: '8/10' ,      votes:'0',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 31m'} 
+    // ];
+
+    const selectedDescription = movieDescriptions[index];
 
     const backgroundGradients = [
         "linear-gradient(270deg, rgb(250,255,251), rgb(143,95,31), rgb(119,20,15) )",
