@@ -1,0 +1,163 @@
+.see-all-container{
+    display: flex;
+    gap: 3em;
+    transform: translate(0, -20%);
+}
+
+
+
+
+
+
+
+
+/* FILTER BOX */
+.filter-container{
+    max-width: 350px;
+    display: flex;
+    width: 250px; 
+    flex-direction: column;
+    gap: 20px;
+}
+/* filter word */
+.filters{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    font-size: 25px;
+    color: rgb(56, 55, 55);
+}
+/* filters div */
+.filters-division{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.language-container, .genre-container, .format-container{
+    background-color: rgba(241, 241, 241, 1);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    /* position: relative; */
+}
+/* arrow and filter div each */
+.bGHvsh{
+    gap: 5px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* drop arrow */
+.arrow{
+    display: flex;
+    color: grey;
+    font-size: 15px;
+}
+/* text */
+.Gsjsa{
+    padding: 8px 5px;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: capitalize;
+    font-family: system-ui;
+    margin: 0;
+    display: flex;
+}
+/* arrow and text div */
+.jadFjh{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.clear{
+    display: flex;
+    /* margin-left: 105px; */
+    justify-content: flex-end;
+    font-size: 12px;
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+    font-family: sans-serif;
+}
+.clear:hover{
+    color: hsl(347, 70%, 54%);
+}
+/* filter container */
+.language-options, .genre-options, .format-options{
+    display: flex;
+    flex-direction: column wrap;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+    /* position: absolute; */
+    /* top: 100%; */
+    /* z-index: 10; */
+    /* flex-grow: 1; */
+    
+    
+}
+/* Options */
+.yGpFs{
+    padding: 8px;
+    color: hsl(347, 70%, 54%);
+    text-transform: capitalize;
+    /* background-color: #fff; */
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+    width: max-content;
+    flex-flow: column wrap;
+    font-family:  sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.yGpFs:hover{
+    background-color: hsl(347, 70%, 54%);
+    color: whitesmoke;
+}
+
+
+/* MOVIES CONTAINER */
+.movie-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 70em;
+}
+.selected-heading{
+    font-size: 25px;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    color: rgb(56, 55, 55);
+    font-weight: bold;
+    letter-spacing: 0.2px;
+
+}
+.hbVTjn{
+    display: flex;
+    gap: 5px;
+}
+/* .selected-options{
+    display: flex;
+} */
+.uo-li{
+    display: flex;
+    gap: 5px;
+    margin: 0;
+    padding:0 ;
+}
+.o-l{
+    color:hsl(347, 70%, 54%) ;
+    border: 1px solid hsl(0, 1%, 77%);
+    border-radius: 15px;
+    padding: 5px 8px;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+}
+.o-l:hover{
+    background-color: hsl(347, 70%, 54%);
+    border: 1px solid hsl(347, 70%, 54%);
+    color: hsl(0, 10%, 94%);
+    cursor: pointer;
+}
