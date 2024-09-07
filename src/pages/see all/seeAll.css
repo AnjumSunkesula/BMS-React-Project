@@ -1,7 +1,8 @@
 .see-all-container{
     display: flex;
     gap: 3em;
-    transform: translate(0, -20%);
+    transform: translate(0, 5.5%);
+    margin-left: 16px;
 }
 
 
@@ -39,7 +40,6 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
-    /* position: relative; */
 }
 /* arrow and filter div each */
 .bGHvsh{
@@ -90,12 +90,6 @@
     flex-wrap: wrap;
     gap: 5px;
     margin-top: 5px;
-    /* position: absolute; */
-    /* top: 100%; */
-    /* z-index: 10; */
-    /* flex-grow: 1; */
-    
-    
 }
 /* Options */
 .yGpFs{
@@ -148,16 +142,58 @@
     padding:0 ;
 }
 .o-l{
-    color:hsl(347, 70%, 54%) ;
-    border: 1px solid hsl(0, 1%, 77%);
+    background-color: hsl(347, 70%, 54%);
+    border: 1px solid hsl(347, 70%, 54%);
+    color: hsl(0, 10%, 94%);
     border-radius: 15px;
     padding: 5px 8px;
     letter-spacing: 0.2px;
     text-transform: capitalize;
+    font-family: sans-serif;
 }
 .o-l:hover{
-    background-color: hsl(347, 70%, 54%);
-    border: 1px solid hsl(347, 70%, 54%);
+    background-color: hsl(347, 68%, 61%);
     color: hsl(0, 10%, 94%);
     cursor: pointer;
+}
+
+/* movie-cards container */
+.movie-cards-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.displayed-movie-cards {
+    cursor: pointer;
+    width: 200px;
+    border-radius: 10px;
+    height: 350px;
+}
+.film-title {
+    margin: 0px 0px 4px;
+    word-break: break-word;
+    color: rgb(34, 34, 34);
+    font-family: system-ui;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.33;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    text-transform: capitalize;
+}
+/* genre and languages */
+.Ylsgya {
+    margin: 0px;
+    word-break: break-word;
+    color: rgb(102, 102, 102);
+    font-family: system-ui;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 2;
+    overflow: hidden;
+    text-transform: capitalize;
+    text-overflow: ellipsis;
+    width: 200px;
+
 }
