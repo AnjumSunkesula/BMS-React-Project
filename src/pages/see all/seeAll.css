@@ -1,8 +1,12 @@
 .see-all-container{
     display: flex;
     gap: 3em;
-    transform: translate(0, 5.5%);
     margin-left: 16px;
+    /* position: relative; 
+    top: 150px; */
+    margin-top: 150px; 
+    /* had to add margin-top instaed of top
+    150px due to filter options height manipulation */
 }
 
 
@@ -126,15 +130,15 @@
     color: rgb(56, 55, 55);
     font-weight: bold;
     letter-spacing: 0.2px;
-
 }
 .hbVTjn{
     display: flex;
     gap: 5px;
 }
-/* .selected-options{
+.selected-options{
     display: flex;
-} */
+    height: 30px;
+}
 .uo-li{
     display: flex;
     gap: 5px;

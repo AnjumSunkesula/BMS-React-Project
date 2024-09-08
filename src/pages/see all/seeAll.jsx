@@ -103,46 +103,46 @@ function SeeAll () {
     };
 
     const movies = [
-    { img: img1  ,  movieName: 'deadpool & wolverine',       genre: 'action, adventure, comedy',           languages: 'english, hindi, tamil, telugu' },
-    { img: img2  ,  movieName: 'it ends with us',            genre: 'drama, romantic',                     languages: 'english' },
-    { img: img3  ,  movieName: 'double ismart',              genre: 'action, sci-fi, thriller',            languages: 'telugu, kannada, malayalam, tamil, hindi' },
-    { img: img4  ,  movieName: 'stree 2: sarkate ka aatank', genre: 'comedy, horror',                      languages: 'hindi' },
-    { img: img5  ,  movieName: 'inside out 2',               genre: 'animation, comedy, drama',            languages: 'english, hindi, tamil' },
-    { img: img6  ,  movieName: 'despicable me 4',            genre: 'action, adventure, animation, comedy',languages: 'english, hindi, tamil, telugu' },
-    { img: img7  ,  movieName: 'gharat ganpati',             genre: 'comedy, drama, family',               languages: 'marathi' },
-    { img: img8  ,  movieName: 'khel khel mein',             genre: 'comedy, drama',                       languages: 'hindi' },
-    { img: img9  ,  movieName: 'nunakkuzhi',                 genre: 'comedy, thriller',                    languages: 'malayalam' },
-    { img: img10 ,  movieName: 'vedaa',                      genre: 'action, drama',                       languages: 'hindi, tamil, telugu' },
-    { img: img11 ,  movieName: 'beetlejuice beetlejuice' ,   genre: 'comedy, fantasy, horror',             languages: 'english' },
-    { img: img12 ,  movieName: 'detective conan vs. kid the phantom thief', genre: 'anime, crime, mystery',languages: 'japanese' },
-    { img: img13 ,  movieName: 'the greatest of all time' ,  genre: 'action, drama, thriller',             languages: 'tamil, telugu' },
-    { img: img14 ,  movieName: 'joker' ,                     genre: 'drama, suspense, thriller',           languages: 'english' },
-    { img: img15 ,  movieName: 'kill' ,                      genre: 'action, thriller',                    languages: 'hindi' },
-    { img: img16 ,  movieName: 'saripodha sanivaram' ,       genre: 'action, drama',                       languages: 'telugu' },
-    { img: img17 ,  movieName: 'udan chhoo' ,                genre: 'comedy, drama, family',               languages: 'gujarathi' },
-    { img: img18 ,  movieName: 'alien: romulus' ,            genre: 'horror, sci-fi, thriller',            languages: 'english, hindi, telugu, tamil'},
-    { img: img19 ,  movieName: 'fakt purusho maate' ,        genre: 'comedy, drama, fantasy',              languages: 'gujarathi'},
-    { img: img20 ,  movieName: 'shriyut non maharashtrian' , genre: 'drama, mystery, thriller',            languages: 'marathi'},
-    { img: img21 ,  movieName: 'a wedding story' ,           genre: 'horror, thriller',                    languages: 'hindi'},
-    { img: img22 ,  movieName: 'vaazhai' ,                   genre: 'drama',                               languages: 'tamil'},
-    { img: img23 ,  movieName: 'maharaja (hindi)' ,          genre: 'action, drama',                       languages: 'hindi'},
-    { img: img24 ,  movieName: 'demonte colony 2-vengeance of the unholy' ,    genre: 'horror, thriller',  languages: 'tamil'},
-    { img: img25 ,  movieName: 'gangs of wasseypur' ,        genre: 'crime, drama, thriller',              languages: 'hindi'},
-    { img: img26 ,  movieName: 'strange darling' ,           genre: 'adventure, horror, mystery, thriller',languages: 'english'},
-    { img: img27 ,  movieName: 'rehnaa hai tere dil mein' ,  genre: 'drama, romantic',                     languages: 'hindi'},
-    { img: img28 ,  movieName: 'gangs of wasseypur 2' ,      genre: 'action, drama, thriller',             languages: 'hindi'},
-    { img: img29 ,  movieName: `seventeen tour 'follow' again to cinemas`, genre: 'documentary, musical',  languages: 'korean'},
-    { img: img30 ,  movieName: 'laila majnu',                genre: 'drama, romantic',                    languages: 'hindi'},
-    { img: img31 ,  movieName: 'dilwale dulhaniya le jayenge',genre: 'classic, drama, romantic',           languages: 'hindi'}
+    { img: img1  ,  movieName: 'deadpool & wolverine',       genre: 'action, adventure, comedy',           languages: 'english, hindi, tamil, telugu',  formats: '2D,2D SCREEN X ,3D,MX4D 3D,4DX 3D,3D SCREEN X,IMAX 2D,ICE 3D, IMAX 3D' },
+    { img: img2  ,  movieName: 'it ends with us',            genre: 'drama, romantic',                     languages: 'english',  formats: '2D' },
+    { img: img3  ,  movieName: 'double ismart',              genre: 'action, sci-fi, thriller',            languages: 'telugu, kannada, malayalam, tamil, hindi',  formats: '2D' },
+    { img: img4  ,  movieName: 'stree 2: sarkate ka aatank', genre: 'comedy, horror',                      languages: 'hindi',  formats: '2D' },
+    { img: img5  ,  movieName: 'inside out 2',               genre: 'animation, comedy, drama',            languages: 'english, hindi, tamil',  formats: '2D,4DX,3D,MX4D 3D,MX4D,4DX 3D,IMAX 2D,ICE 3D, IMAX 3D' },
+    { img: img6  ,  movieName: 'despicable me 4',            genre: 'action, adventure, animation, comedy',languages: 'english, hindi, tamil, telugu',  formats: '2D,3D,MX4D 3D, 2D SCREEN X, IMAX 3D,4DX 3D,3D SCREEN X,ICE 3D' },
+    { img: img7  ,  movieName: 'gharat ganpati',             genre: 'comedy, drama, family',               languages: 'marathi',  formats: '2D' },
+    { img: img8  ,  movieName: 'khel khel mein',             genre: 'comedy, drama',                       languages: 'hindi',  formats: '2D' },
+    { img: img9  ,  movieName: 'nunakkuzhi',                 genre: 'comedy, thriller',                    languages: 'malayalam',  formats: '2D' },
+    { img: img10 ,  movieName: 'vedaa',                      genre: 'action, drama',                       languages: 'hindi, tamil, telugu',  formats: '2D' },
+    { img: img11 ,  movieName: 'beetlejuice beetlejuice' ,   genre: 'comedy, fantasy, horror',             languages: 'english',  formats: '2D, MX4D, IMAX 2D, ICE, 4DX, 2D SCREEN X' },
+    { img: img12 ,  movieName: 'detective conan vs. kid the phantom thief', genre: 'anime, crime, mystery',languages: 'japanese',  formats: '2D' },
+    { img: img13 ,  movieName: 'the greatest of all time' ,  genre: 'action, drama, thriller',             languages: 'tamil, telugu',  formats: '2D, IMAX 2D' },
+    { img: img14 ,  movieName: 'joker' ,                     genre: 'drama, suspense, thriller',           languages: 'english',  formats: '2D, MX4D, 2D SCREEN X, 4DX, ICE' },
+    { img: img15 ,  movieName: 'kill' ,                      genre: 'action, thriller',                    languages: 'hindi',  formats: '2D' },
+    { img: img16 ,  movieName: 'saripodha sanivaram' ,       genre: 'action, drama',                       languages: 'telugu',  formats: '2D' },
+    { img: img17 ,  movieName: 'udan chhoo' ,                genre: 'comedy, drama, family',               languages: 'gujarathi',  formats: '2D' },
+    { img: img18 ,  movieName: 'alien: romulus' ,            genre: 'horror, sci-fi, thriller',            languages: 'english, hindi, telugu, tamil',  formats: '2D, IMAX 2D,MX4D, 4DX, ICE, 2D SCREEN X'},
+    { img: img19 ,  movieName: 'fakt purusho maate' ,        genre: 'comedy, drama, fantasy',              languages: 'gujarathi',  formats: ' 2D'},
+    { img: img20 ,  movieName: 'shriyut non maharashtrian' , genre: 'drama, mystery, thriller',            languages: 'marathi',  formats: '2D'},
+    { img: img21 ,  movieName: 'a wedding story' ,           genre: 'horror, thriller',                    languages: 'hindi',  formats: '2D'},
+    { img: img22 ,  movieName: 'vaazhai' ,                   genre: 'drama',                               languages: 'tamil',  formats: '2D'},
+    { img: img23 ,  movieName: 'maharaja (hindi)' ,          genre: 'action, drama',                       languages: 'hindi',  formats: '2D'},
+    { img: img24 ,  movieName: 'demonte colony 2-vengeance of the unholy' ,    genre: 'horror, thriller',  languages: 'tamil',  formats: '2D'},
+    { img: img25 ,  movieName: 'gangs of wasseypur' ,        genre: 'crime, drama, thriller',              languages: 'hindi',  formats: '2D'},
+    { img: img26 ,  movieName: 'strange darling' ,           genre: 'adventure, horror, mystery, thriller',languages: 'english',  formats: '2D'},
+    { img: img27 ,  movieName: 'rehnaa hai tere dil mein' ,  genre: 'drama, romantic',                     languages: 'hindi',  formats: '2D'},
+    { img: img28 ,  movieName: 'gangs of wasseypur 2' ,      genre: 'action, drama, thriller',             languages: 'hindi',  formats: '2D'},
+    { img: img29 ,  movieName: `seventeen tour 'follow' again to cinemas`, genre: 'documentary, musical',  languages: 'korean',  formats: '2D, 4DX, 2D SCREEN X'},
+    { img: img30 ,  movieName: 'laila majnu',                genre: 'drama, romantic',                    languages: 'hindi',  formats: '2D'},
+    { img: img31 ,  movieName: 'dilwale dulhaniya le jayenge',genre: 'classic, drama, romantic',           languages: 'hindi',  formats: '2D'}
     ];
 
     //filter the movies based on selected filters
     const filteredMovies = movies.filter((movie) => {
         const languageMatch = selectedLanguages.length === 0 || selectedLanguages.some((lang) => movie.languages.includes(lang));
         const genreMatch = selectedGenres.length === 0 || selectedGenres.some((genre) => movie.genre.includes(genre));
-        // const formatMatch = selectedFormatslength === 0 || selectedFormats.some((format) => movie.format.includes(format));
+        const formatMatch = selectedFormats.length === 0 || selectedFormats.some((format) => movie.formats.includes(format));
 
-        return languageMatch && genreMatch;
+        return languageMatch && genreMatch && formatMatch ;
 
     })
 
@@ -171,7 +171,7 @@ function SeeAll () {
                         </div>
                         {visibleDropdown === 'language' && (
                             <div className='language-options'>
-                                {['english', 'hindi', 'marathi', 'tamil', 'telugu', 'gujarathi', 'japanese', 
+                                {['english', 'hindi', 'marathi', 'tamil', 'telugu', 'kannada', 'gujarathi', 'japanese', 
                                 'bhojpuri', 'malayalam', 'multi-language', 'punjabi'].map(option => (
                                     <div
                                         key={option}
@@ -263,7 +263,7 @@ function SeeAll () {
                             </ul>
                         )}
                     </div>
-                    <div>
+                    <div className='selected-options'>
                         {selectedGenres.length > 0 && (
                             <ul className='uo-li'>
                                 {selectedGenres.map(filter => (
@@ -277,7 +277,7 @@ function SeeAll () {
                             </ul>
                         )}
                     </div>
-                    <div>
+                    <div className='selected-options'>
                         {selectedFormats.length > 0 && (
                             <ul className='uo-li'>
                                 {selectedFormats.map(filter => (
@@ -291,6 +291,7 @@ function SeeAll () {
                             </ul>
                         )}
                     </div>
+                    
                 </div>
 
 
