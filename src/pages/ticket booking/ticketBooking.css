@@ -1,0 +1,141 @@
+/* HEADER */
+.hBHgh{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: -webkit-fill-available;
+    background-color: hsl(237, 17%, 23%);
+}
+/* movie and city name div */
+.VYTR{
+    margin-left: 20px;
+    color: white;
+    text-transform:capitalize ;
+    font-family: sans-serif;
+
+}
+/* movie name */
+.jgFGg{
+   font-weight: 500;
+   margin: 15px 0;
+    display: flex;
+   letter-spacing: 0.3px;
+}
+/* city name */
+.gVFRt{
+    font-weight: 100;
+    font-size: 13px;
+    display: flex;
+    letter-spacing: 0.2px;
+    margin-bottom: 8px;
+}
+
+/* SEATING DIV */
+.seats{
+    /* padding-bottom:20px ; */
+    width: 60em;
+}
+#layout{
+    width: 786px;
+    margin: 0 auto;
+}
+/* seating-rows-div */
+.HGVYT{
+    padding-top: 15px;
+}
+/* row-heading */
+.recliner{
+    font-size: 12px;
+    padding-bottom: 5px;
+    font-family: system-ui;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: hsl(0, 0%, 60%);
+    width:55vw;
+    border-bottom: 1px solid hsl(0, 0%, 93%);
+}
+/* letter and seats div */
+.hsanBH{
+    margin-top: 10px;
+    display: flex ;
+    flex-direction: column;
+}
+/* letter and seats tr */
+.Rows{
+    display: flex;
+}
+/* letter td */
+.hgsbw{
+    display: flex;
+}
+/* letter */
+.letter{
+    font-family: sans-serif;
+    color: hsl(0, 0%, 60%);
+    font-size: 12px;
+    text-align: left;
+    width: 25px;
+}
+/* Seats row */
+.row-seats{
+    display: flex;
+    gap: 5px;
+}
+.no-seat{
+    width: 25px;
+}
+/*each seat  */
+.seat{
+    box-sizing: border-box ;
+    padding: 5px;
+    margin-bottom:5px ;
+    width: 25px;
+    text-align: center;
+    font-size: 12px;
+    font-family: sans-serif;
+    border: 1px solid hsl(133, 70%, 39%);
+    border-radius: 3px;
+    color: hsl(133, 70%, 39%);
+    transition: ease-in-out 0.3s;
+}
+.seat:hover{
+    background:hsl(133, 70%, 39%) ;
+    color: white;
+    cursor: pointer;
+}
+
+/* SCREEN */
+
+
+/* FOOTER */
+.check-boxes{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.gVYSF{
+    display: flex;
+    gap: 5px;
+}
+.Gefs{
+    border-radius: 3px;
+    width: 18px;
+}
+.available-checkbox{
+    border: 1px solid hsl(133, 70%, 39%);
+}
+.selected-checkbox{
+    background-color: hsl(133, 70%, 39%);
+}
+.sold-checkbox{
+    background-color: hsl(0, 4%, 89%);
+}
+.status-text{
+    text-transform: capitalize;
+    font-family: system-ui;
+    font-size: 12px;
+    color: hsl(0, 1%, 49%);
+    letter-spacing: 0.5px;
+}
