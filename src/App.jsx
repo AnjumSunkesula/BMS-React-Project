@@ -4,6 +4,7 @@ import Login from '../src/pages/login';
 import Home from '../src/pages/home';
 import AboutMovies from './components/aboutmovie/AboutMovie';
 import SeeAll from './pages/see all/seeAll'
+import BookTickets from './pages/ticket booking/ticketBooking';
 function App() {
   return(
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/home" component={Home}/>
         <Route path="/aboutmovies" component={AboutMovies}/>
         <Route path= "/seeall" component={SeeAll} />
+        <Route path="/booktickets" component={BookTickets}/>
       </Switch>
     </Router>
     </>
