@@ -2,18 +2,31 @@ import Header from "../header/header";
 import '../aboutmovie/AboutMovie.css';
 import MovieDetails from "./movieDetails";
 import React, {useState, useEffect} from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { IoStar } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import Popup from "reactjs-popup";
-import 'reactjs-popup/dist/index.css'
+import 'reactjs-popup/dist/index.css';
+import img1 from '../../assets/book-tickets-popup/bicycle.png';
+import img2 from '../../assets/book-tickets-popup/scooty.png'
+import img3 from '../../assets/book-tickets-popup/auto.jpeg';
+import img4 from '../../assets/book-tickets-popup/mini car.jpg';
+import img5 from '../../assets/book-tickets-popup/car.png';
+
+import img6 from '../../assets/book-tickets-popup/van.jpg';
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function AboutMovies () {
 
    const location = useLocation();
    const {movie, index} = location.state || {}; //get movie from RM.jsx    
  
+   const history = useHistory();
+
+   const handleBookTickets = () => {
+     history.push("/booktickets");
+   }
     
     const [currentCastIndex, setCurrentCastIndex] = useState(0); // state to manage cast sliding
     const [currentCrewIndex, setCurrentCrewIndex] = useState(0); // state to manage crew sliding
@@ -110,28 +123,7 @@ function AboutMovies () {
         ]);
     }, []);
 
-    // const description = [
-    //    { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
-    //         rating: '8.7/10' ,    votes:'0', releaseDate:'26 jul, 2024',         certification:'a',                    duration:'2h 12m'} ,
-    //    { dimension: '2d' ,     language: 'english',              icon:<IoStar />,   
-    //         rating: '8.5/10',     votes:'1',  releaseDate:'9 aug, 2024',         certification:'a',                    duration:'2h 12m'} ,
-    //    { dimension: '2d' ,     language: 'telugu, kannada, malayalam, tamil, hindi', icon:<IoStar />, 
-    //         rating: '6.7/10' ,    votes:'0', releaseDate:'15 aug, 2024',         certification:'a',                    duration:'2h 42m' } ,
-    //    { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />, 
-    //         rating: '9.1/10',     votes:'0', releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 29m'} ,
-    //    { dimension: '2d, imax 3d, 4dx, mx4d 3d,ice 3d,3d,mx4d,4dx 3d,imax 2d' ,        language: 'english, hindi, tamil', icon:<IoStar />, 
-    //         rating: '9.2/10' ,    votes:'0',  releaseDate:'14 jun, 2024',         certification:'u',                    duration:'1h 36m'}, 
-    //    { dimension: '2d,3d,mx4d 3d, 2d screen x,  imax 3d,4dx 3d,3d screen x,ice 3d' , language: 'english', icon:<IoStar />, 
-    //         rating: '8.4/10' ,    votes:'0',  releaseDate:'5 jul, 2024',         certification:'u',                    duration:'1h 34m'} ,
-    //    { dimension: '2d' ,     language: 'marathi',              icon:<IoStar />,   
-    //         rating: '9.2/10' ,    votes:'0',   releaseDate:'26 jul, 2024',         certification:'u',                    duration:'2h 19m'} ,
-    //    { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />,   
-    //         rating: '8.2/10' ,    votes:'0',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 14m'} ,
-    //    { dimension: '2d' ,     language: 'malayalam',            icon:<IoStar />,   
-    //         rating: '8.4/10' ,    votes:'0',   releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 6m'} ,
-    //    { dimension: '2d' ,     language: 'hindi, tamil, telugu', icon:<IoStar />, 
-    //         rating: '8/10' ,      votes:'0',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 31m'} 
-    // ];
+    
 
     const selectedDescription = movieDescriptions[index];
 
@@ -152,6 +144,38 @@ function AboutMovies () {
         background: backgroundGradients[index] || "linear-gradient(to right, #333, #777)",
         padding: '30px',
     };
+
+    //book tickets popup images
+    const vehicleImages =  {
+        1: img1,
+        2: img2,
+        3: img3,
+        4: img4,
+        5: img5,
+        6: img5,
+        7: img5,
+        8: img6,
+        9: img6,
+        10: img6
+    };
+
+    const [hoveredImage, setHoveredImage] = useState(vehicleImages[2]);
+    // const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+
+    useEffect(() => {
+        setHoveredImage(vehicleImages[2]);
+    }, []);
+
+    const handleMouseEnter = (number) => {
+        setHoveredImage(vehicleImages[number]);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredImage(vehicleImages[2]);
+    };
+
+
 
     
 
@@ -297,9 +321,55 @@ function AboutMovies () {
                             </div>
                             </>
                         )}
+                        <Popup 
+                        modal
+                        nested
+                        trigger={
                         <div className="hDaghA">
                             <button className="book-tickets">book tickets</button>
                         </div>
+                        }
+                        contentStyle={{ width: '25%'}}
+                        >
+                            <div className="seats-popup-container">
+                                <div className="gBUY">
+                                    <div className="YBFWy">how many seats?</div>
+                                </div>
+
+                                <div className="pId">
+                                    {hoveredImage && <img  className='popup-images' src={hoveredImage}/>}
+                                </div>
+
+                                <div className="ngasy">
+                                    {Array.from({ length: 10 }, (_, index) => (
+                                        <div
+                                        className="seat-number"
+                                        key={index + 1}
+                                        onMouseEnter={() => handleMouseEnter(index + 1)}
+                                        onMouseLeave={handleMouseLeave}
+                                        >
+                                            {index + 1}
+                                        </div>
+                                    ))}
+                                    
+                                </div>
+
+                                <div className="HYUs">
+                                    <div 
+                                    className="select-seats"
+                                     onClick={handleBookTickets}
+                                    >
+                                        select seats
+                                    </div>
+                                </div>
+
+                                
+
+
+                            </div>
+
+                        </Popup>
+                        
 
                     </div>
                 </div>
