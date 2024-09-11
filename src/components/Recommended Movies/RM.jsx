@@ -23,12 +23,11 @@ function RecommendedMovies () {
     const handleMovieClick = (movie, index,) => { //function to handle movie click and navigate to aboutmovies component
         history.push({
             pathname: '/aboutmovies',
-            state: {movie, index} //passing movie data and index to aboutmovies as/via state
+            state: {movie, index} //passing movie data and index from here to aboutmovies as/via state
         });
     };
 
     const handleSeeAllClick = () => {
-        console.log("see all clicked")
         history.push("/seeall"); // Navigate to the See All page
     };
 
