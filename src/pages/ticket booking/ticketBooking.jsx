@@ -1,6 +1,15 @@
+import { useLocation } from 'react-router-dom';
 import './ticketBooking.css';
+import { FiEdit2 } from "react-icons/fi";
 
 function BookTickets () {
+
+    const location = useLocation();
+    const { selectedSeat } = location.state || { selectedSeat }
+
+
+
+
     return (
         <>
 {/* HEADER  */}
@@ -9,6 +18,12 @@ function BookTickets () {
                <div className='VYTR'>
                   <div className='jgFGg'>movieName</div>
                   <div className='gVFRt'>selected city</div>
+                </div>
+                <div className='selected-seats-display'>
+                    <div className='gFVrj'>{selectedSeat} tickets 
+                        <div className='edit-icon'><FiEdit2 /></div>
+                    </div>
+                    
                 </div>
             </div>
            

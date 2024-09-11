@@ -1,20 +1,21 @@
 /* HEADER */
 .hBHgh{
     display: flex;
-    flex-direction: column;
     position: absolute;
+    justify-content: space-between;
     top: 0;
     right: 0;
     width: -webkit-fill-available;
-    background-color: hsl(237, 17%, 23%);
+    background-color:#f5f5fa ;
 }
 /* movie and city name div */
 .VYTR{
     margin-left: 20px;
-    color: white;
     text-transform:capitalize ;
     font-family: sans-serif;
-
+    display: flex;
+    flex-direction: column;
+    color: hsl(0, 0%, 40%);
 }
 /* movie name */
 .jgFGg{
@@ -30,6 +31,28 @@
     display: flex;
     letter-spacing: 0.2px;
     margin-bottom: 8px;
+}
+/* selected seats div */
+.selected-seats-display{
+    display: flex;
+    align-items: center; 
+}
+.gFVrj{
+    display: flex;
+    gap: 8px;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 14px;
+    padding: 5px;
+    color: hsl(0, 0%, 40%);
+    border: 1px solid hsl(0, 0%, 60%);
+    border-radius: 3px;
+    cursor: pointer;
+}
+.edit-icon{
+    display: flex;
+    align-items: center;
 }
 
 /* SEATING DIV */
