@@ -13,9 +13,7 @@ import img2 from '../../assets/book-tickets-popup/scooty.png'
 import img3 from '../../assets/book-tickets-popup/auto.jpeg';
 import img4 from '../../assets/book-tickets-popup/mini car.jpg';
 import img5 from '../../assets/book-tickets-popup/car.png';
-
 import img6 from '../../assets/book-tickets-popup/van.jpg';
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function AboutMovies () {
 
@@ -24,9 +22,7 @@ function AboutMovies () {
  
    const history = useHistory();
 
-   const handleBookTickets = () => {
-     history.push("/booktickets");
-   }
+    
     
     const [currentCastIndex, setCurrentCastIndex] = useState(0); // state to manage cast sliding
     const [currentCrewIndex, setCurrentCrewIndex] = useState(0); // state to manage crew sliding
@@ -101,25 +97,25 @@ function AboutMovies () {
         // Initialize movie descriptions here or fetch from an API
         setMovieDescriptions([
             { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
-            rating: '8.7/10' ,    votes:'(6 Votes)', releaseDate:'26 jul, 2024',         certification:'a',                    duration:'2h 12m'} ,
+            rating: '8.7/10' ,    votes:'(6 Votes)', releaseDate:'26 jul, 2024',         certification:'A',                    duration:'2h 12m'} ,
        { dimension: '2d' ,     language: 'english',              icon:<IoStar />,   
-            rating: '8.5/10',     votes:'(3 Votes)',  releaseDate:'9 aug, 2024',         certification:'a',                    duration:'2h 12m'} ,
+            rating: '8.5/10',     votes:'(3 Votes)',  releaseDate:'9 aug, 2024',         certification:'A',                    duration:'2h 12m'} ,
        { dimension: '2d' ,     language: 'telugu, kannada, malayalam, tamil, hindi', icon:<IoStar />, 
-            rating: '6.7/10' ,    votes:'(8 Votes)', releaseDate:'15 aug, 2024',         certification:'a',                    duration:'2h 42m' } ,
+            rating: '6.7/10' ,    votes:'(8 Votes)', releaseDate:'15 aug, 2024',         certification:'A',                    duration:'2h 42m' } ,
        { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />, 
-            rating: '9.1/10',     votes:'(13 Votes)', releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 29m'} ,
+            rating: '9.1/10',     votes:'(13 Votes)', releaseDate:'15 aug, 2024',         certification:'UA',                    duration:'2h 29m'} ,
        { dimension: '2d, imax 3d, 4dx, mx4d 3d,ice 3d,3d,mx4d,4dx 3d,imax 2d' ,        language: 'english, hindi, tamil', icon:<IoStar />, 
-            rating: '9.2/10' ,    votes:'(9 Votes)',  releaseDate:'14 jun, 2024',         certification:'u',                    duration:'1h 36m'}, 
+            rating: '9.2/10' ,    votes:'(9 Votes)',  releaseDate:'14 jun, 2024',         certification:'U',                    duration:'1h 36m'}, 
        { dimension: '2d,3d,mx4d 3d, 2d screen x,  imax 3d,4dx 3d,3d screen x,ice 3d' , language: 'english', icon:<IoStar />, 
-            rating: '8.4/10' ,    votes:'(12 Votes)',  releaseDate:'5 jul, 2024',         certification:'u',                    duration:'1h 34m'} ,
+            rating: '8.4/10' ,    votes:'(12 Votes)',  releaseDate:'5 jul, 2024',         certification:'U',                    duration:'1h 34m'} ,
        { dimension: '2d' ,     language: 'marathi',              icon:<IoStar />,   
-            rating: '9.2/10' ,    votes:'(5 Votes)',   releaseDate:'26 jul, 2024',         certification:'u',                    duration:'2h 19m'} ,
+            rating: '9.2/10' ,    votes:'(5 Votes)',   releaseDate:'26 jul, 2024',         certification:'U',                    duration:'2h 19m'} ,
        { dimension: '2d' ,     language: 'hindi',                icon:<IoStar />,   
-            rating: '8.2/10' ,    votes:'(15 Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 14m'} ,
+            rating: '8.2/10' ,    votes:'(15 Votes)',  releaseDate:'15 aug, 2024',         certification:'UA',                    duration:'2h 14m'} ,
        { dimension: '2d' ,     language: 'malayalam',            icon:<IoStar />,   
-            rating: '8.4/10' ,    votes:'(24 Votes)',   releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 6m'} ,
+            rating: '8.4/10' ,    votes:'(24 Votes)',   releaseDate:'15 aug, 2024',         certification:'UA',                    duration:'2h 6m'} ,
        { dimension: '2d' ,     language: 'hindi, tamil, telugu', icon:<IoStar />, 
-            rating: '8/10' ,      votes:'(18 Votes)',  releaseDate:'15 aug, 2024',         certification:'ua',                    duration:'2h 31m'} 
+            rating: '8/10' ,      votes:'(18 Votes)',  releaseDate:'15 aug, 2024',         certification:'UA',                    duration:'2h 31m'} 
         ]);
     }, []);
 
@@ -160,7 +156,7 @@ function AboutMovies () {
     };
 
     const [hoveredImage, setHoveredImage] = useState(vehicleImages[2]);
-    // const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [selectedSeat, setSelectedSeat] = useState(2); //default selected seat is 2
 
 
     useEffect(() => {
@@ -172,10 +168,22 @@ function AboutMovies () {
     };
 
     const handleMouseLeave = () => {
-        setHoveredImage(vehicleImages[2]);
+        if ( selectedSeat === 2) {
+            setHoveredImage(vehicleImages[2]);
+        }
+    };
+    
+    const handleSeatClick = (number) => {
+        setSelectedSeat(number); // update the selcted seat
     };
 
 
+    const handleBookTickets = () => {
+        history.push({
+            pathname: '/booktickets',
+            state: { selectedSeat }
+        });
+    }
 
     
 
@@ -321,6 +329,8 @@ function AboutMovies () {
                             </div>
                             </>
                         )}
+
+                        {/* book tickets popup */}
                         <Popup 
                         modal
                         nested
@@ -329,48 +339,50 @@ function AboutMovies () {
                             <button className="book-tickets">book tickets</button>
                         </div>
                         }
-                        contentStyle={{ width: '25%'}}
+                        contentStyle={{ width: '25%', padding: '0'}}
                         >
                             <div className="seats-popup-container">
                                 <div className="gBUY">
                                     <div className="YBFWy">how many seats?</div>
                                 </div>
-
+                                
+                                {/* seat image */}
                                 <div className="pId">
                                     {hoveredImage && <img  className='popup-images' src={hoveredImage}/>}
                                 </div>
-
+                                
+                                {/* seat numbers */}
                                 <div className="ngasy">
                                     {Array.from({ length: 10 }, (_, index) => (
                                         <div
-                                        className="seat-number"
-                                        key={index + 1}
-                                        onMouseEnter={() => handleMouseEnter(index + 1)}
-                                        onMouseLeave={handleMouseLeave}
+                                            className={`seat-number ${ selectedSeat === index + 1 ?  'seat-number' : ''}`}
+                                            key={index + 1}Seat
+                                            onMouseEnter={() => handleMouseEnter(index + 1)}
+                                            onMouseLeave={handleMouseLeave}
+                                            onClick={() => handleSeatClick(index + 1)} //to track seat click
+                                            style={ selectedSeat === index + 1 ? {
+                                                backgroundColor: 'hsl(349, 93%, 62%)',
+                                                borderRadius: '50px',
+                                                color: 'white',
+                                                margin: ' 0px 5px'
+                                            } : {}}
                                         >
                                             {index + 1}
                                         </div>
                                     ))}
-                                    
                                 </div>
 
+                                {/* select seats button */}
                                 <div className="HYUs">
                                     <div 
-                                    className="select-seats"
-                                     onClick={handleBookTickets}
+                                      className="select-seats"
+                                      onClick={handleBookTickets}
                                     >
                                         select seats
                                     </div>
                                 </div>
-
-                                
-
-
                             </div>
-
                         </Popup>
-                        
-
                     </div>
                 </div>
             </div>
