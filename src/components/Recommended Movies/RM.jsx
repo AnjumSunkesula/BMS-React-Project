@@ -20,10 +20,10 @@ function RecommendedMovies () {
        
     const history = useHistory();//hook for navigation
 
-    const handleMovieClick = (movie, index,) => { //function to handle movie click and navigate to aboutmovies component
+    const handleMovieClick = (movie, index) => { //function to handle movie click and navigate to aboutmovies component
         history.push({
             pathname: '/aboutmovies',
-            state: {movie, index} //passing movie data and index from here to aboutmovies as/via state
+            state: {movie, index}, //passing movie data and index from here to aboutmovies as/via state
         });
     };
 
@@ -130,32 +130,9 @@ function RecommendedMovies () {
                         </div>
                     </div>  
                 )}
-
-
-
-                 
-
-
-
-            
-               
-
-                
-
             </div>
             <img src={stream} className='stream' alt="" />
         </div>
-
-
-
-
-
-
-
-
-
-
-
         </>
     );
 
