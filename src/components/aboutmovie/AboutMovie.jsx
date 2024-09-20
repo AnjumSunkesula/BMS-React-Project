@@ -15,15 +15,13 @@ import img4 from '../../assets/book-tickets-popup/mini car.jpg';
 import img5 from '../../assets/book-tickets-popup/car.png';
 import img6 from '../../assets/book-tickets-popup/van.jpg';
 
-function AboutMovies () {
+function AboutMovies ({ selectedCity, setSelectedCity }) {
 
-   const location = useLocation();
-   const {movie, index} = location.state || {}; //get movie from RM.jsx    
+    const location = useLocation();
+    const {movie, index} = location.state || {}; //get movie from RM.jsx    
  
-   const history = useHistory();
+    const history = useHistory();
 
-    
-    
     const [currentCastIndex, setCurrentCastIndex] = useState(0); // state to manage cast sliding
     const [currentCrewIndex, setCurrentCrewIndex] = useState(0); // state to manage crew sliding
     const [rating, setRating] = useState(0);
@@ -32,9 +30,51 @@ function AboutMovies () {
     const [submittedRating, setSubmittedRating] = useState(null);
     const [movieDescriptions, setMovieDescriptions] = useState([]);
 
-    const details = MovieDetails[index + 1]; //to get the movie details based on index
+    const details = MovieDetails[index + 1];                                        //to get the movie details based on index
+    const movieDetails = movieDescriptions[index];                                  // Define movieDetails here
 
+    // Load votes from localStorage when the component mounts or when movieDetails.id changes
+      useEffect(() => {
+        if (movieDetails) { // Ensure movieDetails is defined
+            const storedVotes = localStorage.getItem(`movieVotes-${movieDetails.id}`);
+            if (storedVotes) {
+                const updatedDescriptions = [...movieDescriptions];
+                updatedDescriptions[index].votes = storedVotes;                     // Use the stored value
+                setMovieDescriptions(updatedDescriptions);
+            }
+        }
+    }, [index, movieDetails]);
+
+    //handle rating slider change
+    const handleRatingChange = (e) => {
+        const newRating = Number(e.target.value);
+        setRating(newRating);
+        setIsRated(true);                                                           //mark as rated when the slider is being used
+    }
+
+    const handleSubmitRating = (close) => {
+         const updatedDescriptions = [...movieDescriptions];
+        const movieDetails = updatedDescriptions[index];
+        
+        // Extract the current votes, increment by 1, and format it
+        const currentVotes = Number(movieDetails.votes.match(/\d+/)[0]);
+        const updatedVotes = `(${(currentVotes + 1).toLocaleString()} Votes)`;
+        movieDetails.votes = updatedVotes;                                          // Update the votes in movieDetails
+
+        localStorage.setItem(`movieVotes-${movieDetails.id}`, updatedVotes);        // Save the new vote count to local storage
+        setMovieDescriptions(updatedDescriptions);                                  //updating the state with the new movie description
+
+        //disable button after submission
+        setIsRated(false);
+        setIsSubmitted(true);
+        setSubmittedRating(rating);                                                 //store the submitted rating
+        close();
+    }
+
+   
     
+
+
     const castPerPage = 5;
     const crewPerPage = 5;
 
@@ -63,29 +103,6 @@ function AboutMovies () {
     };
 
 
-    const handleRatingChange = (e) => {
-        const newRating = Number(e.target.value);
-        setRating(newRating);
-        setIsRated(true); //mark as rated when the slider is being used
-    }
-
-    const handleSubmitRating = (close) => {
-        // const updatedVotes = `(${(Number(selectedDescription.votes.match(/\d+/)[0]) + 1).toLocaleString()} Votes)`;
-        // selectedDescription.votes = updatedVotes; //to display updated votes in the "votes" section
-        const updatedDescriptions = [...movieDescriptions];
-        const movieDetails = updatedDescriptions[index];
-        
-        const updatedVotes = `(${(Number(movieDetails.votes.match(/\d+/)[0]) + 1).toLocaleString()} Votes)`;
-        movieDetails.votes = updatedVotes;
-        
-        //disable button after submission
-        setMovieDescriptions(updatedDescriptions);
-        setIsRated(false);
-        setIsSubmitted(true);
-        setSubmittedRating(rating);//store the submitted rating
-        close();
-
-    }
 
     const showNextCast = currentCastIndex < details.cast.length - castPerPage;
     const showPreviousCast = currentCastIndex > 0;
@@ -93,7 +110,7 @@ function AboutMovies () {
     const showNextCrew = currentCrewIndex < details.crew.length - crewPerPage;
     const showPreviousCrew = currentCrewIndex > 0;
 
-     useEffect(() => {
+    useEffect(() => {
         // Initialize movie descriptions here or fetch from an API
         setMovieDescriptions([
             { dimension: '2d,2d screen x ,3d,mx4d 3d,4dx 3d,3d screen x,imax 2d,ice 3d, imax 3d' , language:'english, telugu, hindi, tamil', icon:<IoStar />, 
@@ -181,10 +198,13 @@ function AboutMovies () {
     const handleBookTickets = () => {
         history.push({
             pathname: '/booktickets',
-            state: { selectedSeat }
+            state: { 
+                movieName: movie.movieName, //to pass the movieName to display the movie name in the booktickets header.
+                selectedSeat ,
+            }
         });
     }
-
+    
     
 
    
@@ -192,7 +212,7 @@ function AboutMovies () {
 
     return(
         <>
-        <Header/>
+        <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
         <div className="film-container">
             <div className='aboutMovie-container'>
                 <div className="ticket-booking-container" style={containerStyle}>
@@ -301,10 +321,11 @@ function AboutMovies () {
                                                 <button 
                                                    className={`submitting-button ${isRated ? 'rated' : ''}`}
                                                 //    disabled={ !isRated || isSubmitted} //disable after submission
-                                                   onClick={() => handleSubmitRating(close)}
+                                                   onClick={() => handleSubmitRating(close)} disabled={!isRated}
                                                 >
                                                     <span className="button-text">Submit Rating</span>
                                                 </button>
+                                                {isSubmitted && <p>{submittedRating}</p>}
                                             </div>
                                         </div>
                                     </div>
@@ -330,7 +351,7 @@ function AboutMovies () {
                             </>
                         )}
 
-                        {/* book tickets popup */}
+                        {/* SEAT SELECTION POPUP */}
                         <Popup 
                         modal
                         nested
