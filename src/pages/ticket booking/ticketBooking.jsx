@@ -8,27 +8,27 @@ function BookTickets ({ selectedCity }) {
     const location = useLocation();
 
     const { movieName } = location.state || { movieName: 'no movies selected' };
-    const { selectedSeat } = location.state || { selectedSeat }; //default to empty array if no selectedd seat
-     const initialSelectedSeats = Array.isArray(location.state?.selectedSeat) ? location.state.selectedSeat : []; // Ensure it's an array
+    const { selectedSeat } = location.state || { selectedSeat };                 //default to empty array if no selectedd seat
+    //  const initialSelectedSeats = Array.isArray(location.state?.selectedSeat) ? location.state.selectedSeat : []; // Ensure it's an array
     const { certification } = location.state || { certification };
     const { genre = '' } = location.state || {};
     
-     const totalSeatsToSelect = selectedSeat; // Use selectedSeat directly
-    const [selectedSeats, setSelectedSeats] = useState([]); // Track selected seats
+     const totalSeatsToSelect = selectedSeat;                                    // Use selectedSeat directly
+    const [selectedSeats, setSelectedSeats] = useState([]);                      // Track selected seats
 
     
     
     const handleSeatClick = (seatNumber) => {
         if (selectedSeats.includes(seatNumber)) {
-            // Remove the seat if it's already selected
-            setSelectedSeats(prevSelectedSeats => prevSelectedSeats.filter(seat => seat !== seatNumber));
+            setSelectedSeats(prevSelectedSeats => prevSelectedSeats.filter(seat => seat !== seatNumber)); // Remove the seat if it's already selected
         } else if (selectedSeats.length < totalSeatsToSelect) {
-            // Add the seat to selectedSeats if it's not selected and the limit is not reached
-            setSelectedSeats(prevSelectedSeats => [...prevSelectedSeats, seatNumber]);
+            setSelectedSeats(prevSelectedSeats => [...prevSelectedSeats, seatNumber]);  // Add the seat to selectedSeats if it's not selected and the limit is not reached
         }
     };
 
     const isSelected = (seatNumber) => selectedSeats.includes(seatNumber); 
+
+
     return (
         <>
 {/* HEADER  */}
@@ -42,8 +42,10 @@ function BookTickets ({ selectedCity }) {
                         
                     <div className='BHGa'>
                         <div className='genre-box'>
-                            {genre.split(',').map((word, index) => (
-                            <div className='hgVF' key={index}>{word.trim()}</div>
+                            {genre.split(',').map((word, index) => (                  //to remove the commas and add a border to each word seperately
+                            <div className='hgVF' key={index}>
+                                {word.trim()}
+                            </div>
                             ))}
                         </div>
 
@@ -82,25 +84,47 @@ function BookTickets ({ selectedCity }) {
 
                                         <td className='row-seats'>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>14</div>
-                                            <div className='seat'>13</div>
-                                            <div className='seat'>12</div>
-                                            <div className='seat'>11</div>
+                                            {['14', '13', '12', '11'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>10</div>
-                                            <div className='seat'>9</div>
+                                            {['9', '10'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>8</div>
-                                            <div className='seat'>7</div>
-                                            <div className='seat'>6</div>
-                                            <div className='seat'>5</div>
+                                            {['8', '7', '6', '5'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>4</div>
-                                            <div className='seat'>3</div>
-                                            <div className='seat'>2</div>
-                                            <div className='seat'>1</div>
+                                            {['4', '3', '2', '1'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                             <div className='no-seat'>&nbsp;</div>
                                         </td>
                                     </tr>
@@ -213,20 +237,15 @@ function BookTickets ({ selectedCity }) {
                                         <td className='row-seats'>
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>14</div>
-                                            <div className='seat'>13</div>
-                                            <div className='seat'>12</div>
-                                            <div className='seat'>11</div>
-                                            <div className='seat'>10</div>
-                                            <div className='seat'>9</div>
-                                            <div className='seat'>8</div>
-                                            <div className='seat'>7</div>
-                                            <div className='seat'>6</div>
-                                            <div className='seat'>5</div>
-                                            <div className='seat'>4</div>
-                                            <div className='seat'>3</div>
-                                            <div className='seat'>2</div>
-                                            <div className='seat'>1</div>
+                                            {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`D${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`D${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                         </td>
                                     </tr>   
                                     {/*third row line-2  */}
@@ -238,20 +257,15 @@ function BookTickets ({ selectedCity }) {
                                         <td className='row-seats'>
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>14</div>
-                                            <div className='seat'>13</div>
-                                            <div className='seat'>12</div>
-                                            <div className='seat'>11</div>
-                                            <div className='seat'>10</div>
-                                            <div className='seat'>9</div>
-                                            <div className='seat'>8</div>
-                                            <div className='seat'>7</div>
-                                            <div className='seat'>6</div>
-                                            <div className='seat'>5</div>
-                                            <div className='seat'>4</div>
-                                            <div className='seat'>3</div>
-                                            <div className='seat'>2</div>
-                                            <div className='seat'>1</div>
+                                            {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`C${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`C${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                         </td>
                                     </tr> 
                                     {/*third row line-3  */}
@@ -263,20 +277,15 @@ function BookTickets ({ selectedCity }) {
                                         <td className='row-seats'>
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>14</div>
-                                            <div className='seat'>13</div>
-                                            <div className='seat'>12</div>
-                                            <div className='seat'>11</div>
-                                            <div className='seat'>10</div>
-                                            <div className='seat'>9</div>
-                                            <div className='seat'>8</div>
-                                            <div className='seat'>7</div>
-                                            <div className='seat'>6</div>
-                                            <div className='seat'>5</div>
-                                            <div className='seat'>4</div>
-                                            <div className='seat'>3</div>
-                                            <div className='seat'>2</div>
-                                            <div className='seat'>1</div>
+                                            {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`B${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`B${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                         </td>
                                     </tr>  
                                 </div>
@@ -301,16 +310,15 @@ function BookTickets ({ selectedCity }) {
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            <div className='seat'>10</div>
-                                            <div className='seat'>9</div>
-                                            <div className='seat'>8</div>
-                                            <div className='seat'>7</div>
-                                            <div className='seat'>6</div>
-                                            <div className='seat'>5</div>
-                                            <div className='seat'>4</div>
-                                            <div className='seat'>3</div>
-                                            <div className='seat'>2</div>
-                                            <div className='seat'>1</div>
+                                            {['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
+                                                <div
+                                                    key={seat}
+                                                    className={`seat ${isSelected(`A${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`A${seat}`)}
+                                                >
+                                                    {seat}
+                                                </div>
+                                            ))}
                                         </td>
                                     </tr>  
                                 </div>
