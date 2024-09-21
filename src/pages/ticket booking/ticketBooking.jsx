@@ -2,30 +2,50 @@ import { useLocation } from 'react-router-dom';
 import './ticketBooking.css';
 import { FiEdit2 } from "react-icons/fi";
 
-function BookTickets () {
+function BookTickets ({ selectedCity }) {
 
     const location = useLocation();
-    const { selectedSeat } = location.state || { selectedSeat }
 
-
-
+    const { movieName } = location.state || { movieName: 'no movies selected' };
+    const { selectedSeat } = location.state || { selectedSeat }; //default to empty array if no selectedd seat
+    const { certification } = location.state || { certification };
+    const { genre = '' } = location.state || {};
+    
 
     return (
         <>
 {/* HEADER  */}
-        <div className='ticket-booking-container'>
+        <div className='ticket-booking'>
             <div className='hBHgh'>
-               <div className='VYTR'>
-                  <div className='jgFGg'>movieName</div>
-                  <div className='gVFRt'>selected city</div>
+                <div className='VYTR'>
+                    <div className='BHGa'>
+                       <div className='jgFGg'>{movieName}</div>
+                       <div className='Htags'>{certification}</div>
+                    </div>
+                        
+                    <div className='BHGa'>
+                        <div className='genre-box'>
+                            {genre.split(',').map((word, index) => (
+                            <div className='hgVF' key={index}>{word.trim()}</div>
+                            ))}
+                        </div>
+
+                        <div className='gVFRt'>{selectedCity}</div>
+
+                    </div>
                 </div>
                 <div className='selected-seats-display'>
                     <div className='gFVrj'>{selectedSeat} tickets 
-                        <div className='edit-icon'><FiEdit2 /></div>
+                        <div className='edit-icon' >
+                            <FiEdit2 />
+                        </div>
                     </div>
                     
                 </div>
             </div>
+
+             
+
            
 {/* SEAT BOOKING */}
             <div className='seats'>
@@ -319,8 +339,7 @@ function BookTickets () {
                </div>
                {/* screen */}
                 <div class="theater-screen">
-                    <div className='curve'></div>
-                    <p>All eyes this way please!</p>
+                    <h5 className='screen'>All eyes this way please!</h5>
                 </div>
                 {/* FOOTER */}
                 <div className='check-boxes'>
