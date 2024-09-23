@@ -1,64 +1,109 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory} from 'react-router-dom';
 import React, {useState} from 'react';
 import './ticketBooking.css';
-import { FiEdit2 } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 function BookTickets ({ selectedCity }) {
 
     const location = useLocation();
 
+    const history = useHistory();
+
+    const handleSeatSelectionClose = () => {
+        history.push('/seeall');
+    }
+
+    const SeatSelectionClose = () => {
+        history.push('/home');
+    }
+     
+
     const { movieName } = location.state || { movieName: 'no movies selected' };
     const { selectedSeat } = location.state || { selectedSeat };                 //default to empty array if no selectedd seat
-    //  const initialSelectedSeats = Array.isArray(location.state?.selectedSeat) ? location.state.selectedSeat : []; // Ensure it's an array
     const { certification } = location.state || { certification };
     const { genre = '' } = location.state || {};
     
-     const totalSeatsToSelect = selectedSeat;                                    // Use selectedSeat directly
-    const [selectedSeats, setSelectedSeats] = useState([]);                      // Track selected seats
-
-    
-    
-    const handleSeatClick = (seatNumber) => {
-        if (selectedSeats.includes(seatNumber)) {
-            setSelectedSeats(prevSelectedSeats => prevSelectedSeats.filter(seat => seat !== seatNumber)); // Remove the seat if it's already selected
-        } else if (selectedSeats.length < totalSeatsToSelect) {
-            setSelectedSeats(prevSelectedSeats => [...prevSelectedSeats, seatNumber]);  // Add the seat to selectedSeats if it's not selected and the limit is not reached
-        }
+    const seatPrices = {
+        recliner : 940,
+        prime : 280,
+        classic : 170,
+        lounger : 320,
     };
+    
+    const [selectedSeats, setSelectedSeats] = useState([]);                      // Track selected seats
+    const [selectedDivision, setSelectedDivision] = useState(null);
+    const totalSeatsToSelect = selectedSeat;                                    // Use selectedSeat directly
 
-    const isSelected = (seatNumber) => selectedSeats.includes(seatNumber); 
+    
 
+
+   const handleSeatClick = (seatNumber, seatType) => {
+    // Reset all previously selected seats when selecting a new seat
+    setSelectedSeats([]);
+
+    const selectedRow = seatNumber[0]; // Get the row letter (e.g., 'A', 'B')
+    const seatIndex = parseInt(seatNumber.slice(1)); // Get the seat number (e.g., '1', '2', etc.)
+
+    // Generate new selection based on the clicked seat
+    const newSelection = [];
+    for (let i = 0; i < totalSeatsToSelect; i++) {
+        const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
+        newSelection.push(nextSeatNumber);
+    }
+
+    // Update selected seats with the new selection
+    setSelectedSeats(newSelection);
+    setSelectedDivision(seatType); // Set the currently selected division
+};
+
+
+
+
+
+
+
+
+
+    const isSelected = (seatNumber) => selectedSeats.includes(seatNumber);
+
+    // Calculate total price
+    const totalPrice = selectedSeats.length * (seatPrices[selectedDivision] || 0);
+
+    
 
     return (
         <>
 {/* HEADER  */}
         <div className='ticket-booking'>
             <div className='hBHgh'>
-                <div className='VYTR'>
-                    <div className='BHGa'>
-                       <div className='jgFGg'>{movieName}</div>
-                       <div className='Htags'>{certification}</div>
-                    </div>
-                        
-                    <div className='BHGa'>
-                        <div className='genre-box'>
-                            {genre.split(',').map((word, index) => (                  //to remove the commas and add a border to each word seperately
-                            <div className='hgVF' key={index}>
-                                {word.trim()}
-                            </div>
-                            ))}
+                <div className='VHtfg'>
+                    <div className='l-arrow-icon' onClick={handleSeatSelectionClose}><MdKeyboardArrowLeft /></div>
+                    <div className='VYTR'>
+                        <div className='BHGa'>
+                            <div className='jgFGg'>{movieName}</div>
+                            <div className='Htags'>{certification}</div>
                         </div>
+                            
+                        <div className='BHGa'>
+                            <div className='genre-box'>
+                                {genre.split(/[/,]/).map((word, index) => (                  //to remove the commas and forardslashes and add a border to each word seperately
+                                    <div className='hgVF' key={index}>
+                                        {word.trim()}
+                                    </div>
+                                ))}
+                            </div>
 
-                        <div className='gVFRt'>{selectedCity}</div>
-
+                            <div className='gVFRt'>{selectedCity}</div>
+                        </div>
                     </div>
                 </div>
+
                 <div className='selected-seats-display'>
-                    <div className='gFVrj'>{totalSeatsToSelect} tickets 
-                        <div className='edit-icon' >
-                            <FiEdit2 />
-                        </div>
+                    <div className='gFVrj'>
+                        {totalSeatsToSelect} tickets 
                     </div>
+                    <div className='edit-icon' onClick={SeatSelectionClose}><IoMdClose /></div>
                 </div>
             </div>
 
@@ -71,7 +116,7 @@ function BookTickets ({ selectedCity }) {
                             <div className='HGVYT'>
                                 <tr>
                                     <td>
-                                        <div className='recliner'>rs. 940 recliner</div>
+                                        <div className='recliner'>rs. {seatPrices.recliner} recliner</div>
                                     </td>
                                 </tr>
 
@@ -88,18 +133,18 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
                                             ))}
                                             <div className='no-seat'>&nbsp;</div>
                                             <div className='no-seat'>&nbsp;</div>
-                                            {['9', '10'].map((seat) => (
+                                            {['10', '9'].map((seat) => (
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -110,7 +155,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -120,7 +165,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`)}
+                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -134,7 +179,7 @@ function BookTickets ({ selectedCity }) {
                             <div className='HGVYT'>
                                 <tr>
                                     <td>
-                                        <div className='recliner'>rs. 280 prime</div>
+                                        <div className='recliner'>rs. {seatPrices.prime} prime</div>
                                     </td> 
                                 </tr>
                                 {/* ROW-2-line-1 */}
@@ -151,7 +196,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`H${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`H${seat}`)}
+                                                    onClick={() => handleSeatClick(`H${seat}`, 'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -171,7 +216,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`G${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`G${seat}`)}
+                                                    onClick={() => handleSeatClick(`G${seat}`,'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -191,7 +236,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`F${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`F${seat}`)}
+                                                    onClick={() => handleSeatClick(`F${seat}`,'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -211,7 +256,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`E${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`E${seat}`)}
+                                                    onClick={() => handleSeatClick(`E${seat}`,'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -224,7 +269,7 @@ function BookTickets ({ selectedCity }) {
                             <div className='HGVYT'>
                                 <tr>
                                     <td>
-                                    <div className='recliner'>rs. 170 classic</div>
+                                    <div className='recliner'>rs. {seatPrices.classic} classic</div>
                                     </td> 
                                 </tr>
                                 {/*third row line-1  */}
@@ -241,7 +286,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`D${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`D${seat}`)}
+                                                    onClick={() => handleSeatClick(`D${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -261,7 +306,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`C${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`C${seat}`)}
+                                                    onClick={() => handleSeatClick(`C${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -281,7 +326,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`B${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`B${seat}`)}
+                                                    onClick={() => handleSeatClick(`B${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -294,7 +339,7 @@ function BookTickets ({ selectedCity }) {
                             <div className='HGVYT'>
                                 <tr>
                                     <td>
-                                        <div className='recliner'>rs. 280 lounger</div>
+                                        <div className='recliner'>rs. {seatPrices.lounger} lounger</div>
                                     </td> 
                                 </tr> 
                                 {/* row-4 line-1 */}
@@ -314,7 +359,7 @@ function BookTickets ({ selectedCity }) {
                                                 <div
                                                     key={seat}
                                                     className={`seat ${isSelected(`A${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`A${seat}`)}
+                                                    onClick={() => handleSeatClick(`A${seat}`, 'lounger')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -344,6 +389,14 @@ function BookTickets ({ selectedCity }) {
                         <div className='sold-checkbox Gefs'></div>
                         <div className='status-text'>sold</div>
                     </div>
+                </div>
+                {/* payment box */}
+                <div>
+                    {selectedSeats.length > 0 && (
+                        <div>
+                            <div>preie: {totalPrice}</div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
