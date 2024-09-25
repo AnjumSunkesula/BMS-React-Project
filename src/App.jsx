@@ -8,14 +8,17 @@ import BookTickets from './pages/ticket booking/ticketBooking';
 
 function App() {
 
-  const [selectedCity, setSelectedCity] = useState(   // Retrieve selectedCity from localStorage, or default to 'Select City'
-    () => localStorage.getItem('selectedCity') || 'select city'
-  );                         //when u go to another page the selected city should be displayed instead of'select city'.thats why using useEffect and useState
+  // city visibility in header of involved components
 
-  useEffect(() => {        //Using useEffect to store the selectedCity in localStorage whenever it changes
+  const [selectedCity, setSelectedCity] = useState(                // Retrieve selectedCity from localStorage, or default to 'Select City'
+    () => localStorage.getItem('selectedCity') || 'select city'
+  );                                                                //when u go to another page the selected city should be displayed instead of'select city'.thats why using useEffect and useState
+
+  useEffect(() => {                                                 //Using useEffect to store the selectedCity in localStorage whenever it changes
     localStorage.setItem('selectedCity', selectedCity);
   }, [selectedCity]);
 
+  
 
 
   return(
@@ -32,7 +35,9 @@ function App() {
           <AboutMovies selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
         </Route>
 
-        <Route path= "/seeall" component={SeeAll} />
+        <Route  path="/seeall"> 
+          <SeeAll selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
+        </Route>
 
         <Route path="/booktickets">
           <BookTickets selectedCity={selectedCity} /> {/* Pass selectedCity to BookTickets */}
