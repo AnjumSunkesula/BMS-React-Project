@@ -36,10 +36,10 @@ import img30   from '../../assets/recommended movies/movie-cards/laila majnu.avi
 import img31   from  '../../assets/recommended movies/movie-cards/DDLJ.avif'
 
 
-function SeeAll () {
+function SeeAll ({ selectedCity, setSelectedCity }) {
 
     const history = useHistory();
-    const startIndex = 0;
+    // const startIndex = 0;
 
     const handleMovieClick = (movie, index,) => { 
         history.push({
@@ -149,7 +149,7 @@ function SeeAll () {
 
     return(
         <>
-        <Header/>
+        <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
         {/* filter container */}
         <div className='see-all-container'>
             <div className='filter-container'>
