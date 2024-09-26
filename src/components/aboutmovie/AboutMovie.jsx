@@ -29,10 +29,13 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submittedRating, setSubmittedRating] = useState(null);
     const [movieDescriptions, setMovieDescriptions] = useState([]);
+
     
     const details = MovieDetails[index + 1];                                        //to get the movie details based on index
     const movieDetails = movieDescriptions[index];                                  // Define movieDetails here
 
+    
+    
     // Load votes from localStorage when the component mounts or when movieDetails.id changes
     useEffect(() => {
         if (movieDetails) { // Ensure movieDetails is defined
@@ -44,14 +47,14 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
             }
         }
     }, [index, movieDetails]);
-
+    
     //handle rating slider change
     const handleRatingChange = (e) => {
         const newRating = Number(e.target.value);
         setRating(newRating);
         setIsRated(true);                                                           //mark as rated when the slider is being used
     }
-
+    
     const handleSubmitRating = (close) => {
         const updatedDescriptions = [...movieDescriptions];
         const movieDetails = updatedDescriptions[index];
@@ -60,58 +63,58 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
         const currentVotes = Number(movieDetails.votes.match(/\d+/)[0]);
         const updatedVotes = `(${(currentVotes + 1).toLocaleString()} Votes)`;
         movieDetails.votes = updatedVotes;                                          // Update the votes in movieDetails
-
+        
         localStorage.setItem(`movieVotes-${movieDetails.id}`, updatedVotes);        // Save the new vote count to local storage
         setMovieDescriptions(updatedDescriptions);                                  //updating the state with the new movie description
-
+        
         //disable button after submission
         setIsRated(false);
         setIsSubmitted(true);
         setSubmittedRating(rating);                                                 //store the submitted rating
         close();
     }
-
-
-
-   
     
-
-
+    
+    
+    
+    
+    
+    
     const castPerPage = 5;
     const crewPerPage = 5;
-
+    
     const handleNextCast = () => {
         if(currentCastIndex < details.cast.length - castPerPage) {
             setCurrentCastIndex(currentCastIndex + castPerPage);
         }
     };
-
+    
     const handlePreviousCast = () => {
         if(currentCastIndex > 0 ) {
             setCurrentCastIndex(currentCastIndex - castPerPage);
         }
     };
-
+    
     const handleNextCrew = () => {
         if (currentCrewIndex < details.crew.length - crewPerPage) {
             setCurrentCrewIndex(currentCrewIndex + crewPerPage);
         }
     };
-
+    
     const handlePreviousCrew = () => {
         if (currentCrewIndex > 0) {
             setCurrentCrewIndex(currentCrewIndex - crewPerPage);
         }
     };
-
-
-
+    
+    
+    
     const showNextCast = currentCastIndex < details.cast.length - castPerPage;
     const showPreviousCast = currentCastIndex > 0;
-
+    
     const showNextCrew = currentCrewIndex < details.crew.length - crewPerPage;
     const showPreviousCrew = currentCrewIndex > 0;
-
+    
     useEffect(() => {
         // Initialize movie descriptions here or fetch from an API
         setMovieDescriptions([
@@ -210,6 +213,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
             }
         });
     }
+
     
     
 
@@ -415,6 +419,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
             </div>
 
             {/* movieDetails */}
+            
             <div className="movie-details-container">
                 <div className="plot-summary">
                     <h1 className="film-name">about the movie</h1>
