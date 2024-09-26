@@ -1,4 +1,6 @@
-import { useLocation, useHistory} from 'react-router-dom';
+import 'reactjs-popup/dist/index.css';
+import Popup from 'reactjs-popup';
+import { useLocation, useHistory, } from 'react-router-dom';
 import React, {useState} from 'react';
 import './ticketBooking.css';
 import { IoMdClose } from "react-icons/io";
@@ -30,6 +32,7 @@ function BookTickets ({ selectedCity }) {
         classic : 170,
         lounger : 320,
     };
+
     
     const [selectedSeats, setSelectedSeats] = useState([]);                      // Track selected seats
     const [selectedDivision, setSelectedDivision] = useState(null);
@@ -39,31 +42,22 @@ function BookTickets ({ selectedCity }) {
 
 
    const handleSeatClick = (seatNumber, seatType) => {
-    // Reset all previously selected seats when selecting a new seat
-    setSelectedSeats([]);
+       setSelectedSeats([]);                                                    // Reset all previously selected seats when selecting a new seat
 
-    const selectedRow = seatNumber[0]; // Get the row letter (e.g., 'A', 'B')
-    const seatIndex = parseInt(seatNumber.slice(1)); // Get the seat number (e.g., '1', '2', etc.)
+    const selectedRow = seatNumber[0];                                          // Get the row letter (e.g., 'A', 'B')
+    const seatIndex = parseInt(seatNumber.slice(1));                            // Get the seat number (e.g., '1', '2', etc.)
 
-    // Generate new selection based on the clicked seat
+                                                                                // Generate new selection based on the clicked seat
     const newSelection = [];
     for (let i = 0; i < totalSeatsToSelect; i++) {
         const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
         newSelection.push(nextSeatNumber);
     }
 
-    // Update selected seats with the new selection
+                                                                                // Update selected seats with the new selection
     setSelectedSeats(newSelection);
-    setSelectedDivision(seatType); // Set the currently selected division
+    setSelectedDivision(seatType);                                               // Set the currently selected division
 };
-
-
-
-
-
-
-
-
 
     const isSelected = (seatNumber) => selectedSeats.includes(seatNumber);
 
@@ -376,28 +370,78 @@ function BookTickets ({ selectedCity }) {
                     <h5 className='screen'>All eyes this way please!</h5>
                 </div>
                 {/* FOOTER */}
-                <div className='check-boxes'>
-                    <div className='gVYSF'>
-                        <div className='available-checkbox Gefs'></div>
-                        <div className='status-text'>available</div>
-                    </div>
-                    <div className='gVYSF'>
-                        <div className='selected-checkbox Gefs'></div>
-                        <div className='status-text'>selected</div>
-                    </div>
-                    <div className='gVYSF'>
-                        <div className='sold-checkbox Gefs'></div>
-                        <div className='status-text'>sold</div>
-                    </div>
-                </div>
-                {/* payment box */}
-                <div>
-                    {selectedSeats.length > 0 && (
-                        <div>
-                            <div>preie: {totalPrice}</div>
+                {selectedSeats.length === 0 && (          //this condition means this footer will be displayed only when no seats are selected
+                    <div className='check-boxes'>
+                        <div className='gVYSF'>
+                            <div className='available-checkbox Gefs'></div>
+                            <div className='status-text'>available</div>
                         </div>
-                    )}
-                </div>
+                        <div className='gVYSF'>
+                            <div className='selected-checkbox Gefs'></div>
+                            <div className='status-text'>selected</div>
+                        </div>
+                        <div className='gVYSF'>
+                            <div className='sold-checkbox Gefs'></div>
+                            <div className='status-text'>sold</div>
+                        </div>
+                    </div>
+                )}
+                {/* payment box */}
+                {selectedSeats.length > 0 && (
+                    <Popup 
+                       modal 
+                       nested
+                       contentStyle={{ width : '27%' }}
+                       trigger={
+                            <div className='payment-popup'>
+                                <div className='payment-price'>pay rs: {totalPrice}</div>
+                            </div>
+                        }>
+                        {close => (
+                            <>
+                                <div className='terms-conditions-popup'>
+
+                                    <div className='terms-conditions'>
+                                        <div className='dbxshe'>terms & conditions</div>
+                                        <div className='edit-icon' onClick={close}><IoMdClose /></div>
+                                    </div>
+
+                                    <div className='conditions'>
+                                        1. Food & Beverages are not allowed inside the auditorium as per the state government guidelines.
+                                        <br/>
+                                        2. Entry is allowed only for valid ticket holders.
+                                        <br/>
+                                        3. Guets aged under 18 will not be allowed in 'A' rated movies.
+                                        <br/>
+                                        4. Children above the age of 3 years and above require tickets.
+                                        <br/>
+                                        5. In case a ticket is lost or misplaced, a duplicate ticket cannot be issued.
+                                        <br/>
+                                        6. Tickets once purchased cannot be cancelled, exchanged or refunded.
+                                        <br/>
+                                        7. Patrons once enter in theatre premises will not be allowed to go outside cinemas till movie gets over, if patron wish to leave the theatre premises there will be no re-entry on same ticket.
+                                        <br/>
+                                        8. Items like laptops, cameras, knives, lighter, match box, cigarattes, firearms & all types of inflammable objects are strictly prohibited.
+                                        <br/>
+                                        9. On single ticket one patron will be allowed to the cinema (kindly check while booking the seats for couple recliner).
+                                        <br/>
+                                        10. Decision taken by MAXUS shall be final and binding rights of admission reserved.
+                                        <br/>
+                                    </div>
+
+                                    <div className='payment-options'>
+                                        <div onClick={close} className='cancel-button'>cancel</div>
+                                        <div className='accept-button'>accept</div>
+                                    </div>
+
+                                </div>
+
+
+                            </>
+                        )}
+
+                    </Popup>
+                )}
             </div>
         </div>
         </>
