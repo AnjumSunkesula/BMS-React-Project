@@ -5,6 +5,8 @@ import Home from '../src/pages/home';
 import AboutMovies from './components/aboutmovie/AboutMovie';
 import SeeAll from './pages/see all/seeAll'
 import BookTickets from './pages/ticket booking/ticketBooking';
+import AddFoods from './pages/food&beverages/food&beverages';
+import Payment from './pages/payment/payment';
 
 function App() {
 
@@ -42,6 +44,10 @@ function App() {
         <Route path="/booktickets">
           <BookTickets selectedCity={selectedCity} /> {/* Pass selectedCity to BookTickets */}
         </Route>
+
+        <Route path='/addfoods' component={AddFoods}/>
+
+        <Route path='/payment' component={Payment} />
 
       </Switch>
     </Router>
