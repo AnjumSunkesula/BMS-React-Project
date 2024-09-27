@@ -1,0 +1,273 @@
+.addfoods-container{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 0;
+    left: 15em;
+    margin-top: 10px;
+}
+.food-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 770px;
+}
+.banner-div{
+    display: flex;
+}
+.banner-img{
+    display: flex;
+    border-radius: 10px;
+    width: 770px;
+}
+.GbWHQ{
+    background-color: hsl(0, 0%, 98%);
+    box-shadow: 0 4px 8px 1px rgba(0, 0, 0, .25);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px 0px;
+    margin: 12px 0;
+}
+.FVGF{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px ;
+}
+.Fhts{
+    font-family: "Montserrat";
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 28px;
+    letter-spacing: 3px;
+}
+.Fhts span{
+    color: hsl(355, 63%, 46%);
+}
+.gBSg{
+    font-family: sans-serif;
+    color: hsl(0, 0%, 40%);
+    font-size: 14px;
+}
+.food-filter{
+    display: flex;
+    gap: 10px;
+}
+.filter-options{
+    text-transform: uppercase;
+    border-radius: 12px;
+    font-size: 10px;
+    border: 1px solid hsl(210, 14%, 89%);
+    background-color: transparent;
+    color: hsl(0, 0%, 40%);
+    cursor: pointer;
+    padding: 4px 10px;
+}
+
+.food-options-container{
+    display: flex;
+    flex-wrap: wrap ;
+    overflow-y: auto;
+    max-height: 550px;
+    width: 100%;
+    margin-left: 7px;
+    /* to remove scroll bar but to have its functionality */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.food-options{
+    background-color: #fff;
+    box-shadow: 0 4px 8px 1px rgba(0, 0, 0, .25);
+    border-radius: 8px;
+    display: flex;
+    padding: 16px;
+    margin: 8px;
+    width: 43%;
+    height: 110px;
+    gap: 5px;
+}
+.BVFsg{
+    display: flex;
+    align-items: center;
+}
+.food-image{
+    width: 80px;
+}
+.hGShg{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.GFSGh{
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: sans-serif;
+    height: 63px;
+}
+.card-title{
+    font-size: 14px;
+    color: hsl(0, 0%, 0%);
+    
+}
+.card-info{
+    color: #666;
+    font-size: 11px;
+    /* white-space: nowrap; */
+}
+.gbSga{
+    display: flex;
+    justify-content: space-between;
+}
+.food-price{
+    font-weight: 600;
+    font-family: system-ui;
+}
+.add-button{
+    color: hsl(355, 63%, 46%);
+    border: 1px solid hsl(355, 63%, 46%);
+    text-transform: capitalize;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+.add-button:hover{
+    color: #fff;
+    background-color: hsl(355, 63%, 56%);
+    transition: ease-in-out 0.4s;
+}
+/* NOTE-INOX */
+.note-inox{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: hsl(0, 0%, 60%);
+    font-family: sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    margin-left: 18px;
+}
+.note, .inox{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.gHDs{
+    letter-spacing: 0.3px;
+}
+
+/* TICKET DISPLAY */
+
+
+.ticket-display {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Required for absolute positioning of pseudo-elements */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-height: 500px;
+    width: 270px;
+}
+
+.ticket-display::before,
+.ticket-display::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+.ticket-display::before {
+    left: -10px; /* Half outside the box */
+    box-shadow: 1px 0 0 0 #ccc; /* Match the border color */
+}
+.ticket-display::after {
+    right: -10px; /* Half outside the box */
+    box-shadow: -1px 0 0 0 #ccc; /* Match the border color */
+}
+.ticket-title{
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    padding-bottom: 38px ;
+    color: hsl(355, 63%, 46%);
+}
+.booking-summary{
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.Gnjgs, .gsJA{
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+.hvWJ{
+    max-width: 161px;
+}
+.gGwJH{
+    max-width: 80px;
+    display: flex;
+    align-items: center;
+}
+.hahkz{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.drop-icon{
+    display: flex;
+    cursor: pointer;
+    gap: 2px;
+    align-items: center;
+    color: #666;
+}
+.gsJA{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    border-bottom: 1px dotted hsl(0, 0%, 40%);
+}
+.nsbjh{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3px;
+    padding-left: 15px;
+    margin-top: 5px;
+    color: #666;
+}
+.HSWj{
+    display: flex;
+    justify-content: space-between;
+}
+.GUqwy{
+    font-size: 10px;
+}
+.GErgd{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+
+
+
+
+
