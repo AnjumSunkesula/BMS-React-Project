@@ -13,6 +13,8 @@ import fig9 from '../../assets/foods/kichdi.avif';
 import fig10 from '../../assets/foods/mac.avif';
 import fig11 from '../../assets/foods/mac & cheese.avif'; 
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+import { MdDeleteOutline } from "react-icons/md";
+import { TiDeleteOutline } from "react-icons/ti";
 import { useState } from 'react';
 
 
@@ -26,7 +28,7 @@ function AddFoods () {
 
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
 
-    // convenience fee
+    // to toggle convenience fee
     const [showFeeDetails, setShowFeeDetails] = useState(false);
 
     const toggleDetails = () => {
@@ -37,6 +39,92 @@ function AddFoods () {
     const convenienceFee = 283.20;
 
     const subTotal = totalPrice + convenienceFee;
+
+    // food addition
+     
+    const [selectedFoods, setSelectedFoods] = useState([]); //to store selected food item
+
+    const handleAddFood = (food) => {
+       const existingFood = selectedFoods.find((item) => item.id === food.id);
+
+        if (existingFood) {
+            const updatedFoods = selectedFoods.map((item) =>
+                item.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+            setSelectedFoods(updatedFoods);
+        } 
+        else {
+            setSelectedFoods([...selectedFoods, { ...food, quantity: 1 }]);
+        } 
+    };
+
+    // Function to remove or decrease food item quantity
+    const handleRemoveFood = (food) => {
+        const existingFood = selectedFoods.find((item) => item.id === food.id);
+
+        if (existingFood.quantity === 1) {
+            const updatedFoods = selectedFoods.filter((item) => item.id !== food.id);
+            setSelectedFoods(updatedFoods);
+        } 
+        else {
+            const updatedFoods = selectedFoods.map((item) =>
+                item.id === food.id ? { ...item, quantity: item.quantity - 1 } : item
+            );
+            setSelectedFoods(updatedFoods);
+        }
+    };
+
+
+    // New state for toggle food options
+    const [showFoodDetails, setShowFoodDetails] = useState(true); // New state for toggle
+
+    const toggleFoods = () => {
+        setShowFoodDetails(!showFoodDetails);
+    }
+
+    // Function to delete all items
+    const deleteAllItems = () => {
+        setSelectedFoods([]);       // Clear the selected foods
+        setShowFoodDetails(false);  // Hide food details after deletion
+    };
+
+    // Function to calculate the total price
+    const calculateTotalPrice = () => {
+        return selectedFoods.reduce((total, food) => total + (food.price * food.quantity), 0);
+    };
+    
+    // function to delete a single item
+    const deleteSingleItem = (foodId) => {
+        // Filter the selectedFoods array to exclude the item with the specified ID
+        const updatedFoods = selectedFoods.filter((food) => food.id !== foodId);
+        
+        // Update the state with the new array
+        setSelectedFoods(updatedFoods);
+    }
+
+    // contribute money
+
+    const [isMoneyAdded, setIsMoneyAdded] = useState(false);
+    const [totalMoney, setTotalMoney] = useState(0);
+
+    const handleClick = () => {
+        if(isMoneyAdded) {
+            setTotalMoney(totalMoney - seatCount);
+            setIsMoneyAdded(false);
+        }
+        else{
+            setTotalMoney(totalMoney + seatCount);
+            setIsMoneyAdded(true);
+        }
+    }
+
+    // amount payable
+
+    const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
+
+    
+
+
 
 
 
@@ -65,330 +153,54 @@ function AddFoods () {
                         </div>
 {/* FOOD OPTIONS */}
                         <div className='food-options-container'>
-                            {/* 1 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
+                            {[
+                                {id: 1,  name: 'medium tub salted popcorn (135g | 421.96 kcal)', price: 590, info: 'medium tub salted popcorn (135g | 421.96 kcal)', imgSrc: fig1},
+                                {id: 2,  name: 'regular coke 540ml', price: 420, info: 'regular coke (540ml | 237.60 kcal)', imgSrc: fig2},
+                                {id: 3,  name: 'jalapeno nachos with cheese & salsa', price: 490, info: 'jalapeno nachos with cheese & salsa', imgSrc: fig3},
+                                {id: 4,  name: 'maggi on the steriod (200g | 412.22 kcal)', price: 420, info: 'maggi on the steriod (200g | 412.22 kcal)', imgSrc:fig4 },
+                                {id: 5,  name: 'medium tub cheese popcorn (165g | 500.14 kcal)', price: 640, info: 'medium tub cheese popcorn (165g | 500.14 kcal)', imgSrc: fig1 },
+                                {id: 6,  name: 'club sandwich 240g', price: 440, info: 'club sandwich (240g | 564.04 kcal)', imgSrc: fig5 },
+                                {id: 7,  name: 'mumbai toastie sandwich 200g', price: 420, info: 'mumbai toastie sandwich (200g | 576.10 kcal)', imgSrc: fig6 },
+                                {id: 8,  name: 'cheesy garlic bread (180g | 421.04 kcal)', price: 380, info: 'cheesy garlic bread (180g | 421.04 kcal)', imgSrc: fig7 },
+                                {id: 9,  name: 'medium tub caramel popcorn (270g | 904.27 kcal)', price: 640, info: 'medium tub caramel popcorn (270g | 904.27 kcal)', imgSrc: fig1 },
+                                {id: 10, name: 'regular tub salted popcorn (90g | 281.31 kcal)', price: 490, info: 'regular tub salted popcorn (90g | 281.31 kcal)', imgSrc: fig1 },
+                                {id: 11, name: 'regular tub cheese popcorn (110g | 333.43 kcal)', price: 540, info: 'regular tub cheese popcorn (110g | 333.43 kcal)', imgSrc: fig1 },
+                                {id: 12, name: 'medium coke 810ml', price: 450, info: 'medium coke (810ml | 297.00 kcal)', imgSrc: fig2 },
+                                {id: 13, name: 'regular tub caramel popcorn (180g | 602.85 kcal)', price: 540, info: 'regular tub caramel popcorn (180g | 602.85 kcal)', imgSrc: fig1 },
+                                {id: 14, name: 'retro aloo tikki burger 250g', price: 440, info: 'retro aloo tikki burger (250g | 699.77 kcal)', imgSrc: fig8 },
+                                {id: 15, name: 'twice baked khichdi (300g | 542.86 kcal)', price: 470, info: 'twice baked khichdi (300g | 542.86 kcal)', imgSrc: fig9 },
+                                {id: 16, name: 'macaroni - italian tomato & fresh basil 250g', price: 490, info: 'macaroni - italian tomato & fresh basil (250g | 311.99 kcal)', imgSrc: fig10 },
+                                {id: 17, name: 'mac & cheese 200g', price: 540, info: 'mac & cheese (200g | 513.16 kcal)', imgSrc: fig11 },
+                                {id: 18, name: 'large coke 810ml', price: 600, info: 'large coke (810ml | 356.40 kcal)', imgSrc: fig2 },
+                                {id: 19, name: 'large tub salted popcorn (240g | 750.15 kcal)', price: 820, info: 'large tub salted popcorn (240g | 750.15 kcal)', imgSrc: fig1 
+                                }].map(food => (
+                                <div key={food.id} className='food-options'>
+                                    <div className='BVFsg'>
+                                       <img src={food.imgSrc} alt="" className='food-image' />
+                                    </div>
+
+                                    <div className='hGShg'>
+                                        <div className='GFSGh'>
+                                            <div className='card-title'>{food.name}</div>
+                                            <div className='card-info'>{food.info}</div>
+                                        </div>
+                                        <div className='gbSga'>
+                                            <div className='food-price'>₹{food.price}</div>
+
+                                            {selectedFoods.find((item) => item.id === food.id) ? (
+                                            <div className='NUDgy'>
+                                                <button onClick={() => handleRemoveFood(food)} className='math-symbols'>-</button>
+                                                <span>{selectedFoods.find((item) => item.id === food.id).quantity}</span>
+                                                <button onClick={() => handleAddFood(food)} className='math-symbols'>+</button>
+                                            </div>
+                                            ) : (
+                                            <button className='add-button' onClick={() => handleAddFood(food)}>add</button>
+                                            )}
+
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>medium tub salted popcorn (135g | 421.96 kcal)</div>
-                                        <div className='card-info'>medium tub salted popcorn (135g | 421.96 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹590</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 2 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig2} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>regular coke 540ml</div>
-                                        <div className='card-info'>regular coke (540ml | 237.60 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹420</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 3 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig3} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>jalapeno nachos with cheese & salsa</div>
-                                        <div className='card-info'>jalapeno nachos with cheese & salsa</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹490</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 4 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig4} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>maggi on the steriod (200g | 412.22 kcal)</div>
-                                        <div className='card-info'>maggi on the steriod (200g | 412.22 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹420</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 5 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>medium tub cheese popcorn (165g | 500.14 kcal)</div>
-                                        <div className='card-info'>medium tub cheese popcorn (165g | 500.14 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹640</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 6 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig5} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>club sandwich 240g</div>
-                                        <div className='card-info'>club sandwich (240g | 564.04 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹440</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 7 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig6} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>mumbai toastie sandwich 200g</div>
-                                        <div className='card-info'>mumbai toastie sandwich (200g | 576.10 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹420</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 8 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig7} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>cheesy garlic bread (180g | 421.04 kcal)</div>
-                                        <div className='card-info'>cheesy garlic bread (180g | 421.04 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹380</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 9 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>medium tub caramel popcorn (270g | 904.27 kcal)</div>
-                                        <div className='card-info'>medium tub caramel popcorn (270g | 904.27 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹640</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 10 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>regular tub salted popcorn (90g | 281.31 kcal)</div>
-                                        <div className='card-info'>regular tub salted popcorn (90g | 281.31 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹490</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 11 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>regular tub cheese popcorn (110g | 333.43 kcal)</div>
-                                        <div className='card-info'>regular tub cheese popcorn (110g | 333.43 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹540</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 12 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig2} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>medium coke 810 ml</div>
-                                        <div className='card-info'>medium coke (810 ml | 297.00 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹450</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 13 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>regular tub caramel popcorn (180g | 602.85 kcal)</div>
-                                        <div className='card-info'>regular tub caramel popcorn (180g | 602.85 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹540</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 14 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig8} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>retro aloo tikki burger 250g</div>
-                                        <div className='card-info'>retro aloo tikki burger (250g | 699.77 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹440</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 15 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig9} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>twice baked khichdi (300g | 542.86 kcal)</div>
-                                        <div className='card-info'>twice baked khichdi (300g | 542.86 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹470</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 16 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig10} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>macaroni - italian tomato & fresh basil 250g</div>
-                                        <div className='card-info'>macaroni - italian tomato & fresh basil (250g | 311.99 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹490</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 17 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig11} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>mac & cheese 200g</div>
-                                        <div className='card-info'>mac & cheese (200g | 513.16 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹450</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 18 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig2} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>large coke 810ml</div>
-                                        <div className='card-info'>large coke (810ml | 356.40 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹600</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-                            {/* 19 */}
-                            <div className='food-options'>
-                                <div className='BVFsg'>
-                                    <img src={fig1} alt="" className='food-image' />
-                                </div>
-
-                                <div className='hGShg'>
-                                    <div className='GFSGh'>
-                                        <div className='card-title'>large tub salted popcorn (240g | 750.15 kcal)</div>
-                                        <div className='card-info'>large tub salted popcorn (240g | 750.15 kcal)</div>
-                                    </div>
-                                    <div className='gbSga'>
-                                        <div className='food-price'>₹820</div>
-                                        <button className='add-button'>add</button>
-                                    </div>
-                                </div> 
-                            </div>
-
+                            ))}
                         </div>
 {/* NOTE */}
                         <div className='note-inox'>
@@ -424,60 +236,154 @@ function AddFoods () {
                 </div>
 {/* TICKET DISPLAY */}
                 <div class="ticket-display">
-                    <div className='ticket-title'>booking summary</div>
+                    <div className='jgjS'>
+                        <div className='ticket-title'>booking summary</div>
 
-                    <div className='booking-summary'>
+                        <div className='booking-summary'>
 
-                        <div className='Gnjgs'>
-                            <div className='hvWJ'>
-                                {selectedSeats.join(', ')} ({seatCount} tickets)  
-                            </div>
-                            {/* toFixed: to add cents value number */}
-                            <div className='gGwJH'>rs. {totalPrice.toFixed(2)}</div>   
-                        </div>
-
-                        <div className='gsJA'>
-                            <div className='hahkz' >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                    <span className='drop-icon' onClick={toggleDetails}>
-                                        {showFeeDetails ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}    
-                                    </span>
-                                    Convenience Fees
+                            <div className='Gnjgs'>
+                                <div className='hvWJ'>
+                                    {selectedSeats.join(', ')} ({seatCount} tickets)  
                                 </div>
-                                <div>rs.283.20</div>
+                                {/* toFixed: to add cents value number */}
+                                <div className='gGwJH'>rs. {totalPrice.toFixed(2)}</div>   
                             </div>
-                            {showFeeDetails && (
-                                <div className='nsbjh'>
-                                    <div className='HSWj'>
-                                        <div className='GUqwy'>Base Amount: </div>
-                                        <div className='GUqwy'>Rs.240.00</div>
+
+                            <div className='gsJA'>
+                                <div className='hahkz' >
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                                        <span className='drop-icon' onClick={toggleDetails}>
+                                            {showFeeDetails ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}    
+                                        </span>
+                                        Convenience Fees
                                     </div>
-                                    <div className='HSWj'>
-                                        <div className='GUqwy'>Central GST (CGST) @ 9%: </div>
-                                        <div className='GUqwy'>Rs.21.60</div>
-                                    </div>
-                                    <div className='HSWj'>
-                                        <div className='GUqwy'>State GST (SGST) @ 9%: </div>
-                                        <div className='GUqwy'>Rs.21.60</div>
-                                    </div>
+                                    <div>rs.283.20</div>
                                 </div>
-                            )}
-                        </div>
+                                {showFeeDetails && (
+                                    <div className='nsbjh'>
+                                        <div className='HSWj'>
+                                            <div className='GUqwy'>Base Amount: </div>
+                                            <div className='GUqwy'>Rs.240.00</div>
+                                        </div>
+                                        <div className='HSWj'>
+                                            <div className='GUqwy'>Central GST (CGST) @ 9%: </div>
+                                            <div className='GUqwy'>Rs.21.60</div>
+                                        </div>
+                                        <div className='HSWj'>
+                                            <div className='GUqwy'>State GST (SGST) @ 9%: </div>
+                                            <div className='GUqwy'>Rs.21.60</div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
 
-                        <div className='hahkz'>
-                            <div className='GErgd'>sub total</div>
-                            <div className='GErgd'>Rs.{subTotal.toFixed(2)}</div>
-                        </div>
+                            <div className='hahkz'>
+                                <div className='GErgd'>sub total</div>
+                                <div className='GErgd'>Rs.{subTotal.toFixed(2)}</div>
+                            </div>
 
+                            <div className='Whdq'>
+                                {selectedFoods.length > 0 && (
+                                    <>
+                                        <div className='HGaha'>
+                                            <div className='Uhdwq'>
+                                                <div onClick={toggleFoods} className='fhVSw'>
+                                                    {showFoodDetails ?  <IoIosArrowDropup /> : <IoIosArrowDropdown />}
+                                                </div>
+                                                <div className='Qyugbw'>food and beverage</div>
+                                                <div onClick={deleteAllItems} className='fhVSw'><MdDeleteOutline /></div>
+                                            </div>
+                                            <div className='total-food-price'>₹{calculateTotalPrice()}</div>
+                                        </div>
+
+                                        <div className='fVHs'>
+                                            {showFoodDetails && (
+                                                <>
+                                                    {selectedFoods.map((food) => (
+                                                        <div className='gbGW'>
+                                                            <div  className='vfYVs'>
+                                                                <div key={food.id} className='bgYS'>
+                                                                    <TiDeleteOutline onClick={() => deleteSingleItem(food.id)} className='x-icon'/> 
+                                                                </div>
+                                                                <div className='vrTAh'>
+                                                                    {food.name} (Qty. {food.quantity})   
+                                                                </div>
+                                                            </div>
+                                                            <div className='vrTAh'>
+                                                                ₹{food.price * food.quantity}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </>
+                                            )}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+{/* CONTRIBUTION */}
+                        <div className='book-a-change'>
+                            <div className='heading'>
+                                <div>Contribute to BookAChange</div>
+                                <div >Rs. {totalMoney}</div>
+                            </div>
+                            <div className='adding-money'>
+                                <div className='hGFS' onClick={handleClick}>
+                                    {isMoneyAdded ? 'remove' : `add rs. ${seatCount}`}
+                                </div>
+                                <div className='GVSq'>(₹1 rupee per ticket has been added)</div>
+                            </div>
+                            <div className='tooltip'>
+                                VIEW T&C
+                                <div className='tooltip-text'>
+                                    <div className='GSam'>
+                                        <div className='bookachange'>
+                                            <span className='book'>book</span>
+                                            <span className='a'>a</span>
+                                            <span className='change'>change</span>
+                                        </div>
+                                        <div className='hgJHGq'>BookMyShow's charity initiative BookAChange was created with a vision to enrich the lives of the less fortunate
+                                            through activities and experiences from across genres like Cinema, Sport, Theatre, Music & Arts.
+                                        </div>
+                                    </div>
+
+                                    <div className='disclaimer'>disclaimer</div>
+
+                                    <div className='points'>
+                                        <div className='point'>
+                                            1. Big Tree Entertainment Pvt Ltd (BEPL) is faciliating the transactions on the platform <strong>https://www.bookachange.org</strong>. The proceeds of the same will
+                                            be used for social initiatives for the underprivileged sections of society.
+                                        </div>
+                                        <div className='point'>
+                                            2. Apart from this, BEPL is not engaged is any partnership, association or tie-up with the NGOs.
+                                        </div>
+                                        <div className='point'>
+                                            3.BEPL expressly disclaims any and all liability and assumes no responsibility whatsoever for consequences resulting from any actions or inactions of the NGO.
+                                        </div>
+                                        <div className='point'>
+                                            4. By procceding to donate the money, you do so at your own risk and expressly waive any and all claims, rights of actions and/or remedies (under law otherwise) 
+                                            that you may have against BEPL arising out of or in connection with the aforesaid transaction.
+                                        </div>
+                                        <div className='point'>
+                                            5. BEPL will not be held responsible for the issuance of 80G certificate.
+                                        </div>
+                                        <div className='point'>
+                                            6.The amount contributed towards BookAChange is purely a voluntary act of kindness to contribute to the smiles of the less fortunate. In case you have made the contribution to BookAChange by mistake,
+                                            please reach out to us at  <strong>email</strong> for a refund of the same. The refund shall be made into the same bank account/wallet/payment channel through which the contribution was made by you.
+                                        </div>
+                                        <div className='point'>
+                                            7. For any queries,kindly  <strong>email us</strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        contribute to book a change
-                    </div>
-
-                    <div class="total-amount">
-                        <p>Amount Payable</p>
-                        <p>addition of everything</p>
+                    <div class="final-price">
+                        <div>Amount Payable</div>
+                        <div>Rs. {amountPayable.toFixed(2)}</div>
                     </div>
                 </div>
 

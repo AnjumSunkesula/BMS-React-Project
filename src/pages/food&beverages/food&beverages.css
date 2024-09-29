@@ -129,6 +129,27 @@
     font-weight: 600;
     font-family: system-ui;
 }
+.NUDgy{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: sans-serif;
+}
+.math-symbols{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: hsl(355, 63%, 56%);
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #b8b4b4;
+    background: transparent;
+    cursor: pointer;
+}
+
+
 .add-button{
     color: hsl(355, 63%, 46%);
     border: 1px solid hsl(355, 63%, 46%);
@@ -174,9 +195,12 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-height: 500px;
+    max-height: fit-content;
     width: 270px;
+    gap: 10px;
+}
+.jgjS{
+    padding: 20px ;
 }
 
 .ticket-display::before,
@@ -202,11 +226,10 @@
     font-family: "Montserrat";
     text-transform: uppercase;
     letter-spacing: 1.8px;
-    padding-bottom: 38px ;
+    padding-bottom: 20px ;
     color: hsl(355, 63%, 46%);
 }
 .booking-summary{
-    padding: 10px 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -249,9 +272,9 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 3px;
-    padding-left: 15px;
     margin-top: 5px;
     color: #666;
+    font-family: Roboto Condensed;
 }
 .HSWj{
     display: flex;
@@ -265,9 +288,183 @@
     font-family: sans-serif;
     font-size: 15px;
 }
-
-
-
+.Whdq{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 8px;
+}
+.HGaha{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+.Uhdwq{
+    display: flex;
+    gap: 2px;
+}
+.fhVSw{
+    color: #666;
+    display: flex;
+    cursor: pointer;
+}
+.Qyugbw{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+.total-food-price{
+    font-family: sans-serif;
+    font-size: 14px;
+}
+.fVHs{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.gbGW{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    color: hwb(0 63% 37%);
+    
+}
+.vfYVs{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.bgYS{
+    display: flex;
+}
+.x-icon{
+    color: hwb(0 63% 37%);
+    font-size: 14px;
+    cursor: pointer;
+}
+.vrTAh{
+    text-transform: capitalize;
+    font-size: 11px;
+}
+.book-a-change{
+    background-color: #f5f5f5;
+    font-family: sans-serif;
+    font-size: 14px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+.adding-money{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end ;
+    font-size: 12px;
+}
+.hGFS{
+    color: hsl(355, 63%, 46%);
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.GVSq{
+    margin-right: 12px;
+    color: #666;
+    font-size: 10px;
+}
+.tooltip{
+    margin-left: 77px;
+    color: #666;
+    border-bottom: 0.5px dotted #666;
+    width: fit-content;
+    cursor: pointer;
+    font-size: 10px;
+    position: relative;
+    display: inline-block;
+}
+.tooltip-text{
+    visibility: hidden;
+    width: 450px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 1px rgba(0, 0, 0, .25);
+    color: #666;
+    border-radius: 6px;
+    position: absolute;
+    right: 55px;
+    top: -18em;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+}
+.tooltip:hover  .tooltip-text{
+    visibility: visible;
+}
+.tooltip .tooltip-text::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff;
+}
+.GSam{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: sans-serif;
+}
+.bookachange{
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.book{
+    color: hsl(355, 63%, 46%);
+}
+.a{
+    color: rgb(128, 20, 20);
+}
+.change{
+    color: #956dca;
+}
+.hgJHGq{
+    font-size: 11px;
+    text-align: center;
+    letter-spacing: 0.4px;
+}
+.disclaimer{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.points{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.point{
+    line-height: 11px;
+    letter-spacing: 0.4px;
+}
+.final-price{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fffcdc;
+    font-family: sans-serif;
+    font-size: 15px;
+    padding: 12px 18px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 
 
 
