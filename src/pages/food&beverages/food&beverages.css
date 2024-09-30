@@ -6,6 +6,13 @@
     left: 15em;
     margin-top: 10px;
 }
+.go-back-icon{
+    font-size: 55px;
+    color: #666;
+    position: relative;
+    right: 4.5em;
+    cursor: pointer;
+}
 .food-container{
     display: flex;
     flex-direction: column;
@@ -66,7 +73,10 @@
     cursor: pointer;
     padding: 4px 10px;
 }
-
+.filter-options.active{
+    background:  hsl(349, 93%, 62%);;
+    color: #fff;
+}
 .food-options-container{
     display: flex;
     flex-wrap: wrap ;
@@ -151,8 +161,8 @@
 
 
 .add-button{
-    color: hsl(355, 63%, 46%);
-    border: 1px solid hsl(355, 63%, 46%);
+    color: hsl(349, 93%, 62%);
+    border: 1px solid hsl(349, 93%, 62%);
     text-transform: capitalize;
     background-color: transparent;
     border-radius: 8px;
@@ -161,7 +171,7 @@
 }
 .add-button:hover{
     color: #fff;
-    background-color: hsl(355, 63%, 56%);
+    background-color: hsl(349, 93%, 62%);
     transition: ease-in-out 0.4s;
 }
 /* NOTE-INOX */
@@ -185,7 +195,12 @@
 }
 
 /* TICKET DISPLAY */
-
+.ticket-payment-details{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 270px;
+}
 
 .ticket-display {
     display: flex;
@@ -196,7 +211,6 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: fit-content;
-    width: 270px;
     gap: 10px;
 }
 .jgjS{
@@ -464,6 +478,85 @@
     padding: 12px 18px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+/* TICKET PAYMENT */
+.ticket-payment{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+.ticket-selection{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+.qnjhW{
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #666;
+    font-size: 12px;
+}
+.ticketOptions{
+    display: flex;
+    justify-content: space-between;
+}
+.ticketOption{
+    display: flex;
+    align-items: center;
+    border: 1px solid #c3c0c0;
+}
+.radio{
+    margin: 10px;
+    color: hsl(355, 63%, 46%);
+    cursor: pointer;
+}
+.ticket-name{
+    padding: 10px ;
+    border-left: 1px dotted #b9b4b4;
+    color: hsl(355, 63%, 46%);
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+.ticket-text{
+    font-size: 10px;
+    font-family: sans-serif;
+    color: #666;
+}
+.payment-box{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.payment-text{
+    font-family: sans-serif;
+    font-size: 11px;
+    color: #666;
+}
+.payment{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+}
+.hgqJ{
+    font-family: sans-serif;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.cancelation-policy{
+    color: #9f9898;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 11px;
 }
 
 

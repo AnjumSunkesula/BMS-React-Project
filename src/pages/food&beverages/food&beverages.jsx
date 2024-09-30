@@ -1,5 +1,5 @@
 import './food&beverages.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import banner from '../../assets/foods/banner.avif';
 import fig1 from '../../assets/foods/popcorn.avif';
 import fig2 from '../../assets/foods/coke.avif';
@@ -25,6 +25,11 @@ import { useState } from 'react';
 function AddFoods () {
 
     const location = useLocation();
+    const history = useHistory();
+
+    const handlePaymentPage = () => {
+        history.push('/payment');
+    }
 
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
 
@@ -40,39 +45,62 @@ function AddFoods () {
 
     const subTotal = totalPrice + convenienceFee;
 
-    // food addition
-     
+    // food details
+
+    const foodItems = [
+        {id: 1,  name: 'medium tub salted popcorn (135g | 421.96 kcal)',  price: 590, info: 'medium tub salted popcorn (135g | 421.96 kcal)',                imgSrc: fig1, category: "popcorn"},
+        {id: 2,  name: 'regular coke 540ml',                              price: 420, info: 'regular coke (540ml | 237.60 kcal)',                            imgSrc: fig2, category: "beverages"},
+        {id: 3,  name: 'jalapeno nachos with cheese & salsa',             price: 490, info: 'jalapeno nachos with cheese & salsa',                           imgSrc: fig3, category: "snacks"},
+        {id: 4,  name: 'maggi on the steriod (200g | 412.22 kcal)',       price: 420, info: 'maggi on the steriod (200g | 412.22 kcal)',                     imgSrc: fig4, category: "snacks"},
+        {id: 5,  name: 'medium tub cheese popcorn (165g | 500.14 kcal)',  price: 640, info: 'medium tub cheese popcorn (165g | 500.14 kcal)',                imgSrc: fig1, category: "popcorn"},
+        {id: 6,  name: 'club sandwich 240g',                              price: 440, info: 'club sandwich (240g | 564.04 kcal)',                            imgSrc: fig5, category: "snacks"},
+        {id: 7,  name: 'mumbai toastie sandwich 200g',                    price: 420, info: 'mumbai toastie sandwich (200g | 576.10 kcal)',                  imgSrc: fig6, category: "snacks"},
+        {id: 8,  name: 'cheesy garlic bread (180g | 421.04 kcal)',        price: 380, info: 'cheesy garlic bread (180g | 421.04 kcal)',                      imgSrc: fig7, category: "snacks"},
+        {id: 9,  name: 'medium tub caramel popcorn (270g | 904.27 kcal)', price: 640, info: 'medium tub caramel popcorn (270g | 904.27 kcal)',               imgSrc: fig1, category: "popcorn"},
+        {id: 10, name: 'regular tub salted popcorn (90g | 281.31 kcal)',  price: 490, info: 'regular tub salted popcorn (90g | 281.31 kcal)',                imgSrc: fig1, category: "popcorn"},
+        {id: 11, name: 'regular tub cheese popcorn (110g | 333.43 kcal)', price: 540, info: 'regular tub cheese popcorn (110g | 333.43 kcal)',               imgSrc: fig1, category: "popcorn"},
+        {id: 12, name: 'medium coke 810ml',                               price: 450, info: 'medium coke (810ml | 297.00 kcal)',                             imgSrc: fig2, category: "beverages"},
+        {id: 13, name: 'regular tub caramel popcorn (180g | 602.85 kcal)',price: 540, info: 'regular tub caramel popcorn (180g | 602.85 kcal)',              imgSrc: fig1, category: "popcorn"},
+        {id: 14, name: 'retro aloo tikki burger 250g',                    price: 440, info: 'retro aloo tikki burger (250g | 699.77 kcal)',                  imgSrc: fig8, category: "snacks"},
+        {id: 15, name: 'twice baked khichdi (300g | 542.86 kcal)',        price: 470, info: 'twice baked khichdi (300g | 542.86 kcal)',                      imgSrc: fig9, category: "snacks"},
+        {id: 16, name: 'macaroni - italian tomato & fresh basil 250g',    price: 490, info: 'macaroni - italian tomato & fresh basil (250g | 311.99 kcal)',  imgSrc: fig10, category: "snacks"},
+        {id: 17, name: 'mac & cheese 200g',                               price: 540, info: 'mac & cheese (200g | 513.16 kcal)',                             imgSrc: fig11, category: "snacks"},
+        {id: 18, name: 'large coke 810ml',                                price: 600, info: 'large coke (810ml | 356.40 kcal)',                              imgSrc: fig2, category: "beverages"},
+        {id: 19, name: 'large tub salted popcorn (240g | 750.15 kcal)',   price: 820, info: 'large tub salted popcorn (240g | 750.15 kcal)',                 imgSrc: fig1, category: "popcorn"} 
+    ];
+
+    const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedFoods, setSelectedFoods] = useState([]); //to store selected food item
 
+
+    // food addition
+     
+
     const handleAddFood = (food) => {
-       const existingFood = selectedFoods.find((item) => item.id === food.id);
-
+        setSelectedFoods((prevSelectedFoods) => {
+        const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
         if (existingFood) {
-            const updatedFoods = selectedFoods.map((item) =>
-                item.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
+            return prevSelectedFoods.map((item) =>
+            item.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
             );
-            setSelectedFoods(updatedFoods);
-        } 
-        else {
-            setSelectedFoods([...selectedFoods, { ...food, quantity: 1 }]);
-        } 
-    };
-
-    // Function to remove or decrease food item quantity
-    const handleRemoveFood = (food) => {
-        const existingFood = selectedFoods.find((item) => item.id === food.id);
-
-        if (existingFood.quantity === 1) {
-            const updatedFoods = selectedFoods.filter((item) => item.id !== food.id);
-            setSelectedFoods(updatedFoods);
-        } 
-        else {
-            const updatedFoods = selectedFoods.map((item) =>
-                item.id === food.id ? { ...item, quantity: item.quantity - 1 } : item
-            );
-            setSelectedFoods(updatedFoods);
+        } else {
+            return [...prevSelectedFoods, { ...food, quantity: 1 }];
         }
+        });
     };
+
+
+    const handleRemoveFood = (food) => {
+        setSelectedFoods((prevSelectedFoods) => {
+        return prevSelectedFoods
+            .map((item) =>
+            item.id === food.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+            )
+            .filter((item) => item.quantity > 0);
+        });
+    };
+
+    const filteredFoods = selectedCategory === 'all' ? foodItems : foodItems.filter((food) => food.category === selectedCategory);
 
 
     // New state for toggle food options
@@ -95,12 +123,10 @@ function AddFoods () {
     
     // function to delete a single item
     const deleteSingleItem = (foodId) => {
-        // Filter the selectedFoods array to exclude the item with the specified ID
-        const updatedFoods = selectedFoods.filter((food) => food.id !== foodId);
+        const updatedFoods = selectedFoods.filter((food) => food.id !== foodId);    // Filter the selectedFoods array to exclude the item with the specified ID
         
-        // Update the state with the new array
-        setSelectedFoods(updatedFoods);
-    }
+        setSelectedFoods(updatedFoods);                                             // Update the state with the new array
+    };
 
     // contribute money
 
@@ -123,15 +149,6 @@ function AddFoods () {
     const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
 
     
-
-
-
-
-
-
-
-
-
     return(
         <>
             <div className='addfoods-container'>
@@ -145,35 +162,31 @@ function AddFoods () {
                             <div className='Fhts'>Grab a <span>bite!</span></div>
                             <div className='gBSg'>Prebook Your Meal and Save More!</div>
                             <div className='food-filter'>
-                                <button className='filter-options'>all</button>
-                                <button className='filter-options'>popcorn</button>
-                                <button className='filter-options'>beverages</button>
-                                <button className='filter-options'>snacks</button>
+                                <button 
+                                    className={`filter-options ${selectedCategory === 'all' ? 'active' : ''}`}
+                                    onClick={() => setSelectedCategory('all')}>
+                                    all
+                                </button>
+                                <button 
+                                    className={`filter-options ${selectedCategory === 'popcorn' ? 'active' : ''}`}
+                                    onClick={() => setSelectedCategory('popcorn')}>
+                                    popcorn
+                                </button>
+                                <button 
+                                    className={`filter-options ${selectedCategory === 'beverages' ? 'active' : ''}`}
+                                    onClick={() => setSelectedCategory('beverages')}>
+                                    beverages
+                                </button>
+                                <button 
+                                    className={`filter-options ${selectedCategory === 'snacks' ? 'active' : ''}`}
+                                    onClick={() => setSelectedCategory('snacks')}>
+                                    snacks
+                                </button>
                             </div>
                         </div>
 {/* FOOD OPTIONS */}
                         <div className='food-options-container'>
-                            {[
-                                {id: 1,  name: 'medium tub salted popcorn (135g | 421.96 kcal)', price: 590, info: 'medium tub salted popcorn (135g | 421.96 kcal)', imgSrc: fig1},
-                                {id: 2,  name: 'regular coke 540ml', price: 420, info: 'regular coke (540ml | 237.60 kcal)', imgSrc: fig2},
-                                {id: 3,  name: 'jalapeno nachos with cheese & salsa', price: 490, info: 'jalapeno nachos with cheese & salsa', imgSrc: fig3},
-                                {id: 4,  name: 'maggi on the steriod (200g | 412.22 kcal)', price: 420, info: 'maggi on the steriod (200g | 412.22 kcal)', imgSrc:fig4 },
-                                {id: 5,  name: 'medium tub cheese popcorn (165g | 500.14 kcal)', price: 640, info: 'medium tub cheese popcorn (165g | 500.14 kcal)', imgSrc: fig1 },
-                                {id: 6,  name: 'club sandwich 240g', price: 440, info: 'club sandwich (240g | 564.04 kcal)', imgSrc: fig5 },
-                                {id: 7,  name: 'mumbai toastie sandwich 200g', price: 420, info: 'mumbai toastie sandwich (200g | 576.10 kcal)', imgSrc: fig6 },
-                                {id: 8,  name: 'cheesy garlic bread (180g | 421.04 kcal)', price: 380, info: 'cheesy garlic bread (180g | 421.04 kcal)', imgSrc: fig7 },
-                                {id: 9,  name: 'medium tub caramel popcorn (270g | 904.27 kcal)', price: 640, info: 'medium tub caramel popcorn (270g | 904.27 kcal)', imgSrc: fig1 },
-                                {id: 10, name: 'regular tub salted popcorn (90g | 281.31 kcal)', price: 490, info: 'regular tub salted popcorn (90g | 281.31 kcal)', imgSrc: fig1 },
-                                {id: 11, name: 'regular tub cheese popcorn (110g | 333.43 kcal)', price: 540, info: 'regular tub cheese popcorn (110g | 333.43 kcal)', imgSrc: fig1 },
-                                {id: 12, name: 'medium coke 810ml', price: 450, info: 'medium coke (810ml | 297.00 kcal)', imgSrc: fig2 },
-                                {id: 13, name: 'regular tub caramel popcorn (180g | 602.85 kcal)', price: 540, info: 'regular tub caramel popcorn (180g | 602.85 kcal)', imgSrc: fig1 },
-                                {id: 14, name: 'retro aloo tikki burger 250g', price: 440, info: 'retro aloo tikki burger (250g | 699.77 kcal)', imgSrc: fig8 },
-                                {id: 15, name: 'twice baked khichdi (300g | 542.86 kcal)', price: 470, info: 'twice baked khichdi (300g | 542.86 kcal)', imgSrc: fig9 },
-                                {id: 16, name: 'macaroni - italian tomato & fresh basil 250g', price: 490, info: 'macaroni - italian tomato & fresh basil (250g | 311.99 kcal)', imgSrc: fig10 },
-                                {id: 17, name: 'mac & cheese 200g', price: 540, info: 'mac & cheese (200g | 513.16 kcal)', imgSrc: fig11 },
-                                {id: 18, name: 'large coke 810ml', price: 600, info: 'large coke (810ml | 356.40 kcal)', imgSrc: fig2 },
-                                {id: 19, name: 'large tub salted popcorn (240g | 750.15 kcal)', price: 820, info: 'large tub salted popcorn (240g | 750.15 kcal)', imgSrc: fig1 
-                                }].map(food => (
+                            {filteredFoods.map((food) => (
                                 <div key={food.id} className='food-options'>
                                     <div className='BVFsg'>
                                        <img src={food.imgSrc} alt="" className='food-image' />
@@ -235,156 +248,191 @@ function AddFoods () {
                     </div>
                 </div>
 {/* TICKET DISPLAY */}
-                <div class="ticket-display">
-                    <div className='jgjS'>
-                        <div className='ticket-title'>booking summary</div>
+                <div className='ticket-payment-details'>
+                    <div class="ticket-display">
+                        <div className='jgjS'>
+                            <div className='ticket-title'>booking summary</div>
 
-                        <div className='booking-summary'>
+                            <div className='booking-summary'>
 
-                            <div className='Gnjgs'>
-                                <div className='hvWJ'>
-                                    {selectedSeats.join(', ')} ({seatCount} tickets)  
-                                </div>
-                                {/* toFixed: to add cents value number */}
-                                <div className='gGwJH'>rs. {totalPrice.toFixed(2)}</div>   
-                            </div>
-
-                            <div className='gsJA'>
-                                <div className='hahkz' >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                        <span className='drop-icon' onClick={toggleDetails}>
-                                            {showFeeDetails ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}    
-                                        </span>
-                                        Convenience Fees
+                                <div className='Gnjgs'>
+                                    <div className='hvWJ'>
+                                        {selectedSeats.join(', ')} ({seatCount} tickets)  
                                     </div>
-                                    <div>rs.283.20</div>
+                                    {/* toFixed: to add cents value number */}
+                                    <div className='gGwJH'>rs. {totalPrice.toFixed(2)}</div>   
                                 </div>
-                                {showFeeDetails && (
-                                    <div className='nsbjh'>
-                                        <div className='HSWj'>
-                                            <div className='GUqwy'>Base Amount: </div>
-                                            <div className='GUqwy'>Rs.240.00</div>
+
+                                <div className='gsJA'>
+                                    <div className='hahkz' >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                                            <span className='drop-icon' onClick={toggleDetails}>
+                                                {showFeeDetails ? <IoIosArrowDropup /> : <IoIosArrowDropdown />}    
+                                            </span>
+                                            Convenience Fees
                                         </div>
-                                        <div className='HSWj'>
-                                            <div className='GUqwy'>Central GST (CGST) @ 9%: </div>
-                                            <div className='GUqwy'>Rs.21.60</div>
-                                        </div>
-                                        <div className='HSWj'>
-                                            <div className='GUqwy'>State GST (SGST) @ 9%: </div>
-                                            <div className='GUqwy'>Rs.21.60</div>
-                                        </div>
+                                        <div>rs.283.20</div>
                                     </div>
-                                )}
-                            </div>
-
-                            <div className='hahkz'>
-                                <div className='GErgd'>sub total</div>
-                                <div className='GErgd'>Rs.{subTotal.toFixed(2)}</div>
-                            </div>
-
-                            <div className='Whdq'>
-                                {selectedFoods.length > 0 && (
-                                    <>
-                                        <div className='HGaha'>
-                                            <div className='Uhdwq'>
-                                                <div onClick={toggleFoods} className='fhVSw'>
-                                                    {showFoodDetails ?  <IoIosArrowDropup /> : <IoIosArrowDropdown />}
-                                                </div>
-                                                <div className='Qyugbw'>food and beverage</div>
-                                                <div onClick={deleteAllItems} className='fhVSw'><MdDeleteOutline /></div>
+                                    {showFeeDetails && (
+                                        <div className='nsbjh'>
+                                            <div className='HSWj'>
+                                                <div className='GUqwy'>Base Amount: </div>
+                                                <div className='GUqwy'>Rs.240.00</div>
                                             </div>
-                                            <div className='total-food-price'>₹{calculateTotalPrice()}</div>
+                                            <div className='HSWj'>
+                                                <div className='GUqwy'>Central GST (CGST) @ 9%: </div>
+                                                <div className='GUqwy'>Rs.21.60</div>
+                                            </div>
+                                            <div className='HSWj'>
+                                                <div className='GUqwy'>State GST (SGST) @ 9%: </div>
+                                                <div className='GUqwy'>Rs.21.60</div>
+                                            </div>
                                         </div>
+                                    )}
+                                </div>
 
-                                        <div className='fVHs'>
-                                            {showFoodDetails && (
-                                                <>
-                                                    {selectedFoods.map((food) => (
-                                                        <div className='gbGW'>
-                                                            <div  className='vfYVs'>
-                                                                <div key={food.id} className='bgYS'>
-                                                                    <TiDeleteOutline onClick={() => deleteSingleItem(food.id)} className='x-icon'/> 
+                                <div className='hahkz'>
+                                    <div className='GErgd'>sub total</div>
+                                    <div className='GErgd'>Rs.{subTotal.toFixed(2)}</div>
+                                </div>
+
+                                <div className='Whdq'>
+                                    {selectedFoods.length > 0 && (
+                                        <>
+                                            <div className='HGaha'>
+                                                <div className='Uhdwq'>
+                                                    <div onClick={toggleFoods} className='fhVSw'>
+                                                        {showFoodDetails ?  <IoIosArrowDropup /> : <IoIosArrowDropdown />}
+                                                    </div>
+                                                    <div className='Qyugbw'>food and beverage</div>
+                                                    <div onClick={deleteAllItems} className='fhVSw'><MdDeleteOutline /></div>
+                                                </div>
+                                                <div className='total-food-price'>₹{calculateTotalPrice()}</div>
+                                            </div>
+
+                                            <div className='fVHs'>
+                                                {showFoodDetails && (
+                                                    <>
+                                                        {selectedFoods.map((food) => (
+                                                            <div className='gbGW'>
+                                                                <div  className='vfYVs'>
+                                                                    <div key={food.id} className='bgYS'>
+                                                                        <TiDeleteOutline onClick={() => deleteSingleItem(food.id)} className='x-icon'/> 
+                                                                    </div>
+                                                                    <div className='vrTAh'>
+                                                                        {food.name} (Qty. {food.quantity})   
+                                                                    </div>
                                                                 </div>
                                                                 <div className='vrTAh'>
-                                                                    {food.name} (Qty. {food.quantity})   
+                                                                    ₹{food.price * food.quantity}
                                                                 </div>
                                                             </div>
-                                                            <div className='vrTAh'>
-                                                                ₹{food.price * food.quantity}
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </>
-                                            )}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-{/* CONTRIBUTION */}
-                        <div className='book-a-change'>
-                            <div className='heading'>
-                                <div>Contribute to BookAChange</div>
-                                <div >Rs. {totalMoney}</div>
-                            </div>
-                            <div className='adding-money'>
-                                <div className='hGFS' onClick={handleClick}>
-                                    {isMoneyAdded ? 'remove' : `add rs. ${seatCount}`}
+                                                        ))}
+                                                    </>
+                                                )}
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
-                                <div className='GVSq'>(₹1 rupee per ticket has been added)</div>
                             </div>
-                            <div className='tooltip'>
-                                VIEW T&C
-                                <div className='tooltip-text'>
-                                    <div className='GSam'>
-                                        <div className='bookachange'>
-                                            <span className='book'>book</span>
-                                            <span className='a'>a</span>
-                                            <span className='change'>change</span>
-                                        </div>
-                                        <div className='hgJHGq'>BookMyShow's charity initiative BookAChange was created with a vision to enrich the lives of the less fortunate
-                                            through activities and experiences from across genres like Cinema, Sport, Theatre, Music & Arts.
-                                        </div>
+    {/* CONTRIBUTION */}
+                            <div className='book-a-change'>
+                                <div className='heading'>
+                                    <div>Contribute to BookAChange</div>
+                                    <div >Rs. {totalMoney}</div>
+                                </div>
+                                <div className='adding-money'>
+                                    <div className='hGFS' onClick={handleClick}>
+                                        {isMoneyAdded ? 'remove' : `add rs. ${seatCount}`}
                                     </div>
+                                    <div className='GVSq'>(₹1 rupee per ticket has been added)</div>
+                                </div>
+                                <div className='tooltip'>
+                                    VIEW T&C
+                                    <div className='tooltip-text'>
+                                        <div className='GSam'>
+                                            <div className='bookachange'>
+                                                <span className='book'>book</span>
+                                                <span className='a'>a</span>
+                                                <span className='change'>change</span>
+                                            </div>
+                                            <div className='hgJHGq'>BookMyShow's charity initiative BookAChange was created with a vision to enrich the lives of the less fortunate
+                                                through activities and experiences from across genres like Cinema, Sport, Theatre, Music & Arts.
+                                            </div>
+                                        </div>
 
-                                    <div className='disclaimer'>disclaimer</div>
+                                        <div className='disclaimer'>disclaimer</div>
 
-                                    <div className='points'>
-                                        <div className='point'>
-                                            1. Big Tree Entertainment Pvt Ltd (BEPL) is faciliating the transactions on the platform <strong>https://www.bookachange.org</strong>. The proceeds of the same will
-                                            be used for social initiatives for the underprivileged sections of society.
+                                        <div className='points'>
+                                            <div className='point'>
+                                                1. Big Tree Entertainment Pvt Ltd (BEPL) is faciliating the transactions on the platform <strong>https://www.bookachange.org</strong>. The proceeds of the same will
+                                                be used for social initiatives for the underprivileged sections of society.
+                                            </div>
+                                            <div className='point'>
+                                                2. Apart from this, BEPL is not engaged is any partnership, association or tie-up with the NGOs.
+                                            </div>
+                                            <div className='point'>
+                                                3.BEPL expressly disclaims any and all liability and assumes no responsibility whatsoever for consequences resulting from any actions or inactions of the NGO.
+                                            </div>
+                                            <div className='point'>
+                                                4. By procceding to donate the money, you do so at your own risk and expressly waive any and all claims, rights of actions and/or remedies (under law otherwise) 
+                                                that you may have against BEPL arising out of or in connection with the aforesaid transaction.
+                                            </div>
+                                            <div className='point'>
+                                                5. BEPL will not be held responsible for the issuance of 80G certificate.
+                                            </div>
+                                            <div className='point'>
+                                                6.The amount contributed towards BookAChange is purely a voluntary act of kindness to contribute to the smiles of the less fortunate. In case you have made the contribution to BookAChange by mistake,
+                                                please reach out to us at  <strong>email</strong> for a refund of the same. The refund shall be made into the same bank account/wallet/payment channel through which the contribution was made by you.
+                                            </div>
+                                            <div className='point'>
+                                                7. For any queries,kindly  <strong>email us</strong>
+                                            </div>
                                         </div>
-                                        <div className='point'>
-                                            2. Apart from this, BEPL is not engaged is any partnership, association or tie-up with the NGOs.
-                                        </div>
-                                        <div className='point'>
-                                            3.BEPL expressly disclaims any and all liability and assumes no responsibility whatsoever for consequences resulting from any actions or inactions of the NGO.
-                                        </div>
-                                        <div className='point'>
-                                            4. By procceding to donate the money, you do so at your own risk and expressly waive any and all claims, rights of actions and/or remedies (under law otherwise) 
-                                            that you may have against BEPL arising out of or in connection with the aforesaid transaction.
-                                        </div>
-                                        <div className='point'>
-                                            5. BEPL will not be held responsible for the issuance of 80G certificate.
-                                        </div>
-                                        <div className='point'>
-                                            6.The amount contributed towards BookAChange is purely a voluntary act of kindness to contribute to the smiles of the less fortunate. In case you have made the contribution to BookAChange by mistake,
-                                            please reach out to us at  <strong>email</strong> for a refund of the same. The refund shall be made into the same bank account/wallet/payment channel through which the contribution was made by you.
-                                        </div>
-                                        <div className='point'>
-                                            7. For any queries,kindly  <strong>email us</strong>
-                                        </div>
+
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+
+                        <div class="final-price">
+                            <div>Amount Payable</div>
+                            <div>Rs. {amountPayable.toFixed(2)}</div>
+                        </div>
                     </div>
 
-                    <div class="final-price">
-                        <div>Amount Payable</div>
-                        <div>Rs. {amountPayable.toFixed(2)}</div>
+                    <div className='ticket-payment'>
+                        
+                        <div className='ticket-selection'>
+                            <div className='qnjhW'>select ticket type</div>
+                            <div className='ticketOptions'>
+                                <div className='ticketOption'>
+                                   <input type="radio" name='ticket-type' className='radio'/>
+                                   <div className='ticket-name'>m-ticket</div>
+                                </div>
+                                <div className='ticketOption'>
+                                    <input type="radio" name='ticket-type' className='radio'/>
+                                    <div className='ticket-name'>box-office</div>
+                                </div>
+                            </div>
+                            <div className='ticket-text'>Show the m-ticket QR Code on your mobile to enter the cinema. </div>
+                        </div>
+
+                        <div className='payment-box'>
+                            <div className='payment-text'>By proceeding, I express my consent to complete this transaction</div>
+                            <div className='payment' onClick={handlePaymentPage}>
+                                <div className='hgqJ'>TOTAL:Rs. {amountPayable.toFixed(2)}</div>
+                                <div className='hgqJ'>proceed</div>
+                            </div>
+                        </div>
+
+                        <div className='cancelation-policy'>
+                            You can cancel the tickets 20 min(s) before the show. Refunds will be done according to Cancellation Policy.
+                        </div>
+
                     </div>
+
+
                 </div>
 
 
