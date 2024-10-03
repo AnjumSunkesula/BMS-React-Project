@@ -19,6 +19,15 @@ function BookTickets ({ selectedCity }) {
     const SeatSelectionClose = () => {
         history.push('/home');
     }
+
+
+    const handleFoodAdditionPage = () => {
+        history.push('/addfoods', {
+            selectedSeats: selectedSeats,   //array of selected seat numbers like [A1,A2]
+            totalPrice: totalPrice,         //total price of the selected seats
+            seatCount: selectedSeats.length //number of selected seats
+        })
+    };
      
 
     const { movieName } = location.state || { movieName: 'no movies selected' };
@@ -38,26 +47,39 @@ function BookTickets ({ selectedCity }) {
     const [selectedDivision, setSelectedDivision] = useState(null);
     const totalSeatsToSelect = selectedSeat;                                    // Use selectedSeat directly
 
-    
+    // Automatic adjacent seat selection    
 
+    // const handleSeatClick = (seatNumber, seatType) => {
+    //     setSelectedSeats([]);                                                    // Reset all previously selected seats when selecting a new seat
 
-   const handleSeatClick = (seatNumber, seatType) => {
-       setSelectedSeats([]);                                                    // Reset all previously selected seats when selecting a new seat
+    //     const selectedRow = seatNumber[0];                                          // Get the row letter (e.g., 'A', 'B')
+    //     const seatIndex = parseInt(seatNumber.slice(1));                            // Get the seat number (e.g., '1', '2', etc.)
 
-    const selectedRow = seatNumber[0];                                          // Get the row letter (e.g., 'A', 'B')
-    const seatIndex = parseInt(seatNumber.slice(1));                            // Get the seat number (e.g., '1', '2', etc.)
+    //     // Generate new selection based on the clicked seat
+    //     const newSelection = [];
+    //     for (let i = 0; i < totalSeatsToSelect; i++) {
+    //         const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
+    //         newSelection.push(nextSeatNumber);
+    //     }
+        
+    //     // Update selected seats with the new selection
+    //     setSelectedSeats(newSelection);
+    //     setSelectedDivision(seatType);                                               // Set the currently selected division
+    // };
 
-                                                                                // Generate new selection based on the clicked seat
-    const newSelection = [];
-    for (let i = 0; i < totalSeatsToSelect; i++) {
-        const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
-        newSelection.push(nextSeatNumber);
-    }
+    // manual seat selection
 
-                                                                                // Update selected seats with the new selection
-    setSelectedSeats(newSelection);
-    setSelectedDivision(seatType);                                               // Set the currently selected division
-};
+    const handleSeatClick = (seatNumber, seatType) => {
+        if (selectedSeats.includes(seatNumber)) {                                       // Check if the seat is already selected
+            setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));      // If the seat is already selected, deselect it
+        } else {
+            if (selectedSeats.length < totalSeatsToSelect) {                             // If the seat is not already selected, and we haven't reached the total seats limit
+                setSelectedSeats([...selectedSeats, seatNumber]);                        // Select the seat
+                setSelectedDivision(seatType);                                           // Set the seat type when selecting a new seat
+            }
+        }
+    };
+
 
     const isSelected = (seatNumber) => selectedSeats.includes(seatNumber);
 
@@ -118,7 +140,7 @@ function BookTickets ({ selectedCity }) {
                                 <div className='hsanBH'>
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>J</div>
+                                            <div className='letter'>A</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -180,7 +202,7 @@ function BookTickets ({ selectedCity }) {
                                 <div className='hsanBH'>
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>H</div>
+                                            <div className='letter'>B</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -200,7 +222,7 @@ function BookTickets ({ selectedCity }) {
                                     {/* ROW-2 line-2 */}
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>G</div>
+                                            <div className='letter'>C</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -220,7 +242,7 @@ function BookTickets ({ selectedCity }) {
                                     {/* row-2 line-3 */}
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>F</div>
+                                            <div className='letter'>D</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -270,7 +292,7 @@ function BookTickets ({ selectedCity }) {
                                 <div className='hsanBH'>
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>D</div>
+                                            <div className='letter'>F</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -290,7 +312,7 @@ function BookTickets ({ selectedCity }) {
                                     {/*third row line-2  */}
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>C</div>
+                                            <div className='letter'>G</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -310,7 +332,7 @@ function BookTickets ({ selectedCity }) {
                                     {/*third row line-3  */}
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>B</div>
+                                            <div className='letter'>H</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -340,7 +362,7 @@ function BookTickets ({ selectedCity }) {
                                 <div className='hsanBH'>
                                     <tr className='Rows'>
                                         <td className='hgsbw'>
-                                            <div className='letter'>A</div>
+                                            <div className='letter'>I</div>
                                         </td>
 
                                         <td className='row-seats'>
@@ -387,7 +409,7 @@ function BookTickets ({ selectedCity }) {
                     </div>
                 )}
                 {/* payment box */}
-                {selectedSeats.length > 0 && (
+                {selectedSeats.length === totalSeatsToSelect && (
                     <Popup 
                        modal 
                        nested
@@ -431,7 +453,7 @@ function BookTickets ({ selectedCity }) {
 
                                     <div className='payment-options'>
                                         <div onClick={close} className='cancel-button'>cancel</div>
-                                        <div className='accept-button'>accept</div>
+                                        <div className='accept-button' onClick={handleFoodAdditionPage}>accept</div>
                                     </div>
 
                                 </div>
