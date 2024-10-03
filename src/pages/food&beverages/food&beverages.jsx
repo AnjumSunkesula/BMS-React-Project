@@ -26,25 +26,25 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
 
     const location = useLocation();
     const history = useHistory();
-
+    
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
-
+    
     // to toggle convenience fee
     const [showFeeDetails, setShowFeeDetails] = useState(false);
-
+    
     const toggleDetails = () => {
         setShowFeeDetails(!showFeeDetails);
     };
-
     
-
+    
+    
     // subtotal
     const convenienceFee = 283.20;
-
+    
     const subTotal = totalPrice + convenienceFee;
-
+    
     // food details
-
+    
     const foodItems = [
         {id: 1,  name: 'medium tub salted popcorn (135g | 421.96 kcal)',  price: 590, info: 'medium tub salted popcorn (135g | 421.96 kcal)',                imgSrc: fig1, category: "popcorn"},
         {id: 2,  name: 'regular coke 540ml',                              price: 420, info: 'regular coke (540ml | 237.60 kcal)',                            imgSrc: fig2, category: "beverages"},
@@ -66,19 +66,19 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
         {id: 18, name: 'large coke 810ml',                                price: 600, info: 'large coke (810ml | 356.40 kcal)',                              imgSrc: fig2, category: "beverages"},
         {id: 19, name: 'large tub salted popcorn (240g | 750.15 kcal)',   price: 820, info: 'large tub salted popcorn (240g | 750.15 kcal)',                 imgSrc: fig1, category: "popcorn"} 
     ];
-
+    
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedFoods, setSelectedFoods] = useState([]); //to store selected food item
-
-
+    
+    
     // FOOD FUNCTIONALITY
     
     // food addition
     const handleAddFood = (food) => {
         setSelectedFoods((prevSelectedFoods) => {
-        const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
-        if (existingFood) {
-            return prevSelectedFoods.map((item) =>
+            const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
+            if (existingFood) {
+                return prevSelectedFoods.map((item) =>
             item.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
             );
         } else {
@@ -86,15 +86,13 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
         }
         });
     };
-
-
+    
+    
     const handleRemoveFood = (food) => {
         setSelectedFoods((prevSelectedFoods) => {
-        return prevSelectedFoods
-            .map((item) =>
-            item.id === food.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-            )
-            .filter((item) => item.quantity > 0);
+            return prevSelectedFoods.map((item) =>
+                item.id === food.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+            ).filter((item) => item.quantity > 0);
         });
     };
 
@@ -118,19 +116,18 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
     const calculateTotalPrice = () => {
         return selectedFoods.reduce((total, food) => total + (food.price * food.quantity), 0);
     };
-    
+
     // function to delete a single item
     const deleteSingleItem = (foodId) => {
         const updatedFoods = selectedFoods.filter((food) => food.id !== foodId);    // Filter the selectedFoods array to exclude the item with the specified ID
-        
         setSelectedFoods(updatedFoods);                                             // Update the state with the new array
     };
-
+    
     // CONTRIBUTE MONEY
-
+    
     const [isMoneyAdded, setIsMoneyAdded] = useState(false);
     const [totalMoney, setTotalMoney] = useState(0);
-
+    
     const handleClick = () => {
         if(isMoneyAdded) {
             setTotalMoney(totalMoney - seatCount);
@@ -141,16 +138,16 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
             setIsMoneyAdded(true);
         }
     }
-
     
-
+    
+    
     // AMOUNT PAYABLE
-
+    
     const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
-
+    
     // STATE PASSAGE
-    const { movie, index } = location.state || {}; //passing moviename and genre to payment
-
+    const { movie } = location.state || {};     //passing movie object to payment component
+    
     const handlePaymentPage = () => {
         history.push({
             pathname: '/payment',
