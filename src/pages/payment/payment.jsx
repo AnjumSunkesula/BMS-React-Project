@@ -2,10 +2,24 @@ import './payment.css';
 import img1 from '../../assets/loginpage-images/main-logo.png';
 import { useLocation } from 'react-router-dom';
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
-function Payment () {
+
+// Helper function to format the date
+const formatDate = (date) => {
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  const formattedDate = date.toLocaleDateString(undefined, options);
+
+  // Reformat to "Thu, 3 Oct, 2024" (manually rearranging)
+  const [weekday, day, month, year] = formattedDate.split(' ');
+  return `${weekday} ${day} ${month} ${year}`;
+};
+
+
+
+
+function Payment ({ selectedTicketType, movieData }) {
 
 	const location = useLocation();
 
@@ -41,6 +55,18 @@ function Payment () {
         setShowFoodDetails(!showFoodDetails);
     }
 
+	// DATE AND DAY DISPLAY
+
+    const [currentDate, setCurrentDate] = useState('');
+
+	useEffect(() => {
+		// Get and format the current date
+		const today = new Date();
+		setCurrentDate(formatDate(today)); // Set the formatted date
+	}, []);
+
+
+    const { movieName, genre } = location.state || {};
 
 
 	return(
@@ -58,10 +84,10 @@ function Payment () {
 							<div className='hFAh'>
 								<div className='summary'>order summary</div>
 								<div className='hfvs'>
-								    <div className='name'>movie name</div>
-									<div className='certified'>certification</div>
+								    <div className='name'>{movieName}</div>
+									<div className='certified'>{movieData?.certification}</div>
 								</div>
-								<div className='category'>genre</div>
+								<div className='category'>{genre}</div>
 							</div>
 							<div className='no-of-tickets'>
 								<div className='number'>{seatCount}</div>
@@ -69,11 +95,15 @@ function Payment () {
 							</div>
 					    </div>
 
-						<div className='ticket-type'>m-ticket</div>
+						<div className='ticket-type'>
+							{selectedTicketType ? selectedTicketType : '(selected ticket type)'}
+						</div>
 
 						<div>
 							<div>{selectedSeats.join(', ')}</div>
-							<div>date</div>
+							<div className='ticket-date'>
+								{currentDate ? `${currentDate}` : '(selected date)'}
+							</div>
 						</div>
 
 						<div>
@@ -94,9 +124,6 @@ function Payment () {
 								</div>
 							)}
 
-							{/* {showFoodDetails && (
-
-							)} */}
 
 							{showFoodDetails && (
 								<div className='fVHs'>

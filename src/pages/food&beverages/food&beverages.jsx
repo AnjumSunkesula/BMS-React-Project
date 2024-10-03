@@ -22,12 +22,10 @@ import { useState } from 'react';
 
 
 
-function AddFoods () {
+function AddFoods ({ selectedTicketType, onTicketSelection }) {
 
     const location = useLocation();
     const history = useHistory();
-
-    
 
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
 
@@ -151,11 +149,14 @@ function AddFoods () {
     const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
 
     // STATE PASSAGE
+    const { movie, index } = location.state || {}; //passing moviename and genre to payment
 
     const handlePaymentPage = () => {
         history.push({
             pathname: '/payment',
             state: {
+                movieName: movie.movieName,
+                genre: movie.genre,
                 selectedSeats: selectedSeats,
                 totalPrice: totalPrice,
                 seatCount : seatCount,
@@ -166,6 +167,9 @@ function AddFoods () {
         });
     }
 
+    
+
+    
     
     return(
         <>
@@ -423,11 +427,25 @@ function AddFoods () {
                             <div className='qnjhW'>select ticket type</div>
                             <div className='ticketOptions'>
                                 <div className='ticketOption'>
-                                   <input type="radio" name='ticket-type' className='radio'/>
-                                   <div className='ticket-name'>m-ticket</div>
+                                    <input 
+                                       type="radio" 
+                                       name='ticket-type' 
+                                       className='radio'
+                                       value='m-ticket'
+                                       checked={selectedTicketType === 'm-ticket'} // Check if this option is selected
+                                       onChange={() => onTicketSelection('m-ticket')} // Update the state in Parent Component
+                                    />
+                                    <div className='ticket-name'>m-ticket</div>
                                 </div>
                                 <div className='ticketOption'>
-                                    <input type="radio" name='ticket-type' className='radio'/>
+                                    <input 
+                                        type="radio" 
+                                        name='ticket-type' 
+                                        className='radio'
+                                        value='box-office'
+                                        checked={selectedTicketType === 'box-office'}
+                                        onChange={() => onTicketSelection('box-office')}
+                                    />
                                     <div className='ticket-name'>box-office</div>
                                 </div>
                             </div>
