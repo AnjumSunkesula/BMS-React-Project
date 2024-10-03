@@ -27,9 +27,7 @@ function AddFoods () {
     const location = useLocation();
     const history = useHistory();
 
-    const handlePaymentPage = () => {
-        history.push('/payment');
-    }
+    
 
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
 
@@ -39,6 +37,8 @@ function AddFoods () {
     const toggleDetails = () => {
         setShowFeeDetails(!showFeeDetails);
     };
+
+    
 
     // subtotal
     const convenienceFee = 283.20;
@@ -73,9 +73,9 @@ function AddFoods () {
     const [selectedFoods, setSelectedFoods] = useState([]); //to store selected food item
 
 
+    // FOOD FUNCTIONALITY
+    
     // food addition
-     
-
     const handleAddFood = (food) => {
         setSelectedFoods((prevSelectedFoods) => {
         const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
@@ -128,7 +128,7 @@ function AddFoods () {
         setSelectedFoods(updatedFoods);                                             // Update the state with the new array
     };
 
-    // contribute money
+    // CONTRIBUTE MONEY
 
     const [isMoneyAdded, setIsMoneyAdded] = useState(false);
     const [totalMoney, setTotalMoney] = useState(0);
@@ -144,9 +144,27 @@ function AddFoods () {
         }
     }
 
-    // amount payable
+    
+
+    // AMOUNT PAYABLE
 
     const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
+
+    // STATE PASSAGE
+
+    const handlePaymentPage = () => {
+        history.push({
+            pathname: '/payment',
+            state: {
+                selectedSeats: selectedSeats,
+                totalPrice: totalPrice,
+                seatCount : seatCount,
+                subTotal: subTotal,
+                amountPayable: amountPayable,
+                selectedFoods: selectedFoods
+            }
+        });
+    }
 
     
     return(
@@ -291,7 +309,7 @@ function AddFoods () {
                                     )}
                                 </div>
 
-                                <div className='hahkz'>
+                                <div className='hahz'>
                                     <div className='GErgd'>sub total</div>
                                     <div className='GErgd'>Rs.{subTotal.toFixed(2)}</div>
                                 </div>
@@ -310,27 +328,25 @@ function AddFoods () {
                                                 <div className='total-food-price'>₹{calculateTotalPrice()}</div>
                                             </div>
 
-                                            <div className='fVHs'>
-                                                {showFoodDetails && (
-                                                    <>
-                                                        {selectedFoods.map((food) => (
-                                                            <div className='gbGW'>
-                                                                <div  className='vfYVs'>
-                                                                    <div key={food.id} className='bgYS'>
-                                                                        <TiDeleteOutline onClick={() => deleteSingleItem(food.id)} className='x-icon'/> 
-                                                                    </div>
-                                                                    <div className='vrTAh'>
-                                                                        {food.name} (Qty. {food.quantity})   
-                                                                    </div>
+                                            {showFoodDetails && (
+                                                <div className='fVHs'>
+                                                    {selectedFoods.map((food) => (
+                                                        <div className='gbGW'>
+                                                            <div  className='vfYVs'>
+                                                                <div key={food.id} className='bgYS'>
+                                                                    <TiDeleteOutline onClick={() => deleteSingleItem(food.id)} className='x-icon'/> 
                                                                 </div>
                                                                 <div className='vrTAh'>
-                                                                    ₹{food.price * food.quantity}
+                                                                    {food.name} (Qty. {food.quantity})   
                                                                 </div>
                                                             </div>
-                                                        ))}
-                                                    </>
-                                                )}
-                                            </div>
+                                                            <div className='vrTAh'>
+                                                                ₹{food.price * food.quantity}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </>
                                     )}
                                 </div>
@@ -341,12 +357,12 @@ function AddFoods () {
                                     <div>Contribute to BookAChange</div>
                                     <div >Rs. {totalMoney}</div>
                                 </div>
-                                <div className='adding-money'>
-                                    <div className='hGFS' onClick={handleClick}>
-                                        {isMoneyAdded ? 'remove' : `add rs. ${seatCount}`}
-                                    </div>
+
+                                <div className='hGFS' onClick={handleClick}>
                                     <div className='GVSq'>(₹1 rupee per ticket has been added)</div>
+                                    {isMoneyAdded ? 'remove' : `add rs. ${seatCount}`}
                                 </div>
+
                                 <div className='tooltip'>
                                     VIEW T&C
                                     <div className='tooltip-text'>
