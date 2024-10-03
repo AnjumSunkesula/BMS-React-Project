@@ -11,6 +11,7 @@ function BookTickets ({ selectedCity }) {
     const location = useLocation();
 
     const history = useHistory();
+     const { movie, index } = location.state || {}; 
 
     const handleSeatSelectionClose = () => {
         history.push('/seeall');
@@ -23,6 +24,7 @@ function BookTickets ({ selectedCity }) {
 
     const handleFoodAdditionPage = () => {
         history.push('/addfoods', {
+            movie, index,
             selectedSeats: selectedSeats,   //array of selected seat numbers like [A1,A2]
             totalPrice: totalPrice,         //total price of the selected seats
             seatCount: selectedSeats.length //number of selected seats
