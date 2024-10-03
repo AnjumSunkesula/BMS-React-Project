@@ -28,20 +28,6 @@ function App() {
     setSelectedTicketType(ticketType); // Update the ticket type
   };
 
-  // MOVIE DESCRIPTION FROM ABOUTMOVIE TO PAYMENT
-
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  const handleMovieDataChange = (movieData) => {
-    setSelectedMovie(movieData);  // Store movie data
-  };
-
-
-
-
-
-  
-
 
   return(
     <>
@@ -54,7 +40,7 @@ function App() {
         </Route>
 
         <Route  path="/aboutmovies"> 
-          <AboutMovies selectedCity={selectedCity} setSelectedCity={setSelectedCity} onMovieDataChange={handleMovieDataChange}/> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
+          <AboutMovies selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
         </Route>
 
         <Route  path="/seeall"> 
@@ -66,11 +52,11 @@ function App() {
         </Route>
 
         <Route path="/addfoods">
-          <AddFoods selectedTicketType={selectedTicketType} onTicketSelection={handleTicketSelection} /> {/* Pass selectedCity to BookTickets */}
+          <AddFoods selectedTicketType={selectedTicketType} /> {/* Pass selectedCity to BookTickets */}
         </Route>
 
         <Route path="/payment">
-          <Payment selectedTicketType={selectedTicketType} movieData={selectedMovie}/> {/* Pass selectedCity to BookTickets */}
+          <Payment selectedTicketType={selectedTicketType}/> {/* Pass selectedCity to BookTickets */}
         </Route>
 
       </Switch>
