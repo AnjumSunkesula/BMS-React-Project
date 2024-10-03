@@ -19,7 +19,7 @@ const formatDate = (date) => {
 
 
 
-function Payment ({ selectedTicketType, movieData }) {
+function Payment ({ selectedTicketType }) {
 
 	const location = useLocation();
 	
@@ -48,6 +48,7 @@ function Payment ({ selectedTicketType, movieData }) {
             setIsMoneyAdded(true);
         }
     }
+	const finalAmount = amountPayable + totalMoney;
 
     // FOODD TOGGLE
 	const [showFoodDetails, setShowFoodDetails] = useState(true); // New state for toggle
@@ -67,8 +68,6 @@ function Payment ({ selectedTicketType, movieData }) {
 	}, []);
 
 
-
-
 	return(
 		<>
 			<div className='payment-header'>
@@ -76,7 +75,10 @@ function Payment ({ selectedTicketType, movieData }) {
 			</div>
 
 			<div className='bSaga'>
-				<div>payment options</div>
+
+				<div className='payment-container'>
+					payment options
+				</div>
 
 				<div className='ticket-container'>
 					<div className='vSHTa'>
@@ -84,11 +86,16 @@ function Payment ({ selectedTicketType, movieData }) {
 							<div className='hFAh'>
 								<div className='summary'>order summary</div>
 								<div className='hfvs'>
-								    <div className='name'>{movieName} ({movieData?.certification})</div>
-									<div className='certified'>{movieData?.duration}</div>
-
+								    <div className='name'>{movieName}</div>
+								    <div className='category'>
+										{genre.split(/[,\/]/).map((item, index) => (
+											<span key={index}>
+												{item.trim()}
+											    {index < genre.split(/[,\/]/).length - 1 && ', '}
+											</span>
+										))}
+									</div>
 								</div>
-								<div className='category'>{genre}</div>
 							</div>
 							<div className='no-of-tickets'>
 								<div className='number'>{seatCount}</div>
@@ -100,15 +107,17 @@ function Payment ({ selectedTicketType, movieData }) {
 							{selectedTicketType ? selectedTicketType : '(selected ticket type)'}
 						</div>
 
-						<div>
+						<div className='tickets-date'> 
 							<div>{selectedSeats.join(', ')}</div>
-							<div className='ticket-date'>
+							<div>
 								{currentDate ? `${currentDate}` : '(selected date)'}
 							</div>
 						</div>
 
-						<div>
-							<div>subtotal</div>
+						<div className='line'></div>
+
+						<div className='hHWGQ'>
+							<div>sub total</div>
 							<div>{totalPrice.toFixed(2)}</div>
 						</div>
 
@@ -229,7 +238,7 @@ function Payment ({ selectedTicketType, movieData }) {
 
 					<div className='final-price'>
 						<div>Amount Payable</div>
-						<div>Rs. {amountPayable}</div>
+						<div>Rs. {finalAmount}</div>
 					</div>
 
 
