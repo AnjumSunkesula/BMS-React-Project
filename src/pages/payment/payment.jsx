@@ -8,12 +8,12 @@ import { useState, useEffect } from 'react';
 
 // Helper function to format the date
 const formatDate = (date) => {
-  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-  const formattedDate = date.toLocaleDateString(undefined, options);
+	const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+	const formattedDate = date.toLocaleDateString(undefined, options);
 
-  // Reformat to "Thu, 3 Oct, 2024" (manually rearranging)
-  const [weekday, day, month, year] = formattedDate.split(' ');
-  return `${weekday} ${day} ${month} ${year}`;
+	// Reformat to "Thu, 3 Oct, 2024" (manually rearranging)
+	const [weekday, day, month, year] = formattedDate.split(' ');
+	return `${weekday} ${day} ${month} ${year}`;
 };
 
 
@@ -22,7 +22,8 @@ const formatDate = (date) => {
 function Payment ({ selectedTicketType, movieData }) {
 
 	const location = useLocation();
-
+	
+	const { movieName, genre } = location.state || {};
 	const { selectedSeats, totalPrice, seatCount, amountPayable, selectedFoods } = location.state || { selectedSeats: [], totalPrice: totalPrice, seatCount: seatCount, amountPayable: 0, selectedFoods: [] };
 
 	// to toggle convenience fee
@@ -66,7 +67,6 @@ function Payment ({ selectedTicketType, movieData }) {
 	}, []);
 
 
-    const { movieName, genre } = location.state || {};
 
 
 	return(
@@ -84,8 +84,9 @@ function Payment ({ selectedTicketType, movieData }) {
 							<div className='hFAh'>
 								<div className='summary'>order summary</div>
 								<div className='hfvs'>
-								    <div className='name'>{movieName}</div>
-									<div className='certified'>{movieData?.certification}</div>
+								    <div className='name'>{movieName} ({movieData?.certification})</div>
+									<div className='certified'>{movieData?.duration}</div>
+
 								</div>
 								<div className='category'>{genre}</div>
 							</div>
