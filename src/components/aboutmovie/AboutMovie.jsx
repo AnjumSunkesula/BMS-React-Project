@@ -15,7 +15,7 @@ import img4 from '../../assets/book-tickets-popup/mini car.jpg';
 import img5 from '../../assets/book-tickets-popup/car.png';
 import img6 from '../../assets/book-tickets-popup/van.jpg';
 
-function AboutMovies ({ selectedCity, setSelectedCity }) {
+function AboutMovies ({ selectedCity, setSelectedCity, onMovieDataChange }) {
 
     const location = useLocation();
     const {movie, index} = location.state || {}; //get movie from RM.jsx    
@@ -141,7 +141,13 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
             ]);
     }, []);
 
-    
+    useEffect(() => {
+        if (movieDescriptions.length > 0) {
+            // Example: passing the first movie data to the parent
+            onMovieDataChange(movieDescriptions[0]); // You can customize this as needed
+        }
+    }, [movieDescriptions, onMovieDataChange]);
+
 
     const selectedDescription = movieDescriptions[index];
 
@@ -204,6 +210,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
         history.push({
             pathname: '/booktickets',
             state: { 
+                movie, index,
                 movieName: movie.movieName, //to pass the movieName to display the movie name in the booktickets header.
                 genre: movie.genre,
                 selectedSeat ,
