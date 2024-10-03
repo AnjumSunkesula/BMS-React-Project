@@ -15,7 +15,7 @@ import img4 from '../../assets/book-tickets-popup/mini car.jpg';
 import img5 from '../../assets/book-tickets-popup/car.png';
 import img6 from '../../assets/book-tickets-popup/van.jpg';
 
-function AboutMovies ({ selectedCity, setSelectedCity, onMovieDataChange }) {
+function AboutMovies ({ selectedCity, setSelectedCity }) {
 
     const location = useLocation();
     const {movie, index} = location.state || {}; //get movie from RM.jsx    
