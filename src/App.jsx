@@ -20,6 +20,25 @@ function App() {
     localStorage.setItem('selectedCity', selectedCity);
   }, [selectedCity]);
 
+  // STATE FOR TICKET TYPE
+
+  const [selectedTicketType, setSelectedTicketType] = useState('m-ticket'); //In the AddFoods component, when the user selects a ticket type, the handleSelection function is called, which updates the state in the parent component.The Payment component receives the selectedTicketType as a prop and displays it.
+
+  const handleTicketSelection = (ticketType) => {
+    setSelectedTicketType(ticketType); // Update the ticket type
+  };
+
+
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+    const handleMovieDataChange = (movieData) => {
+        setSelectedMovie(movieData);  // Store movie data
+    };
+
+
+
+
+
   
 
 
@@ -34,7 +53,7 @@ function App() {
         </Route>
 
         <Route  path="/aboutmovies"> 
-          <AboutMovies selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
+          <AboutMovies selectedCity={selectedCity} setSelectedCity={setSelectedCity} onMovieDataChange={handleMovieDataChange}/> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
         </Route>
 
         <Route  path="/seeall"> 
@@ -45,9 +64,13 @@ function App() {
           <BookTickets selectedCity={selectedCity} /> {/* Pass selectedCity to BookTickets */}
         </Route>
 
-        <Route path='/addfoods' component={AddFoods}/>
+        <Route path="/addfoods">
+          <AddFoods selectedTicketType={selectedTicketType} onTicketSelection={handleTicketSelection} /> {/* Pass selectedCity to BookTickets */}
+        </Route>
 
-        <Route path='/payment' component={Payment} />
+        <Route path="/payment">
+          <Payment selectedTicketType={selectedTicketType} movieData={selectedMovie}/> {/* Pass selectedCity to BookTickets */}
+        </Route>
 
       </Switch>
     </Router>
