@@ -1,20 +1,18 @@
 import '../Recommended Movies/RM.css'
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { MdOutlineArrowRight } from "react-icons/md";
-import img1 from '../../assets/recommended movies/D & W.avif'
-import img2  from '../../assets/recommended movies/IEWU.avif'
-import img3 from '../../assets/recommended movies/double ismart.avif'
-import img4     from '../../assets/recommended movies/stree 2.avif'
-import img5 from '../../assets/recommended movies/inside out 2.avif'
-import img6  from '../../assets/recommended movies/DM4.avif'
-import img7   from '../../assets/recommended movies/gharat ganpati.avif'
-import img8    from '../../assets/recommended movies/KKM.avif'
-import img9    from '../../assets/recommended movies/nunakkuzhi.avif'
-import img10 from '../../assets/recommended movies/vedaa.avif'
-import stream from '../../assets/recommended movies/stream-leadin-web-collection-202210241242.avif'
-// import AboutMovies from '../aboutmovie/AboutMovie';
+import img1 from '../../assets/recommended movies/movie-cards/D & W.avif'
+import img2  from '../../assets/recommended movies/movie-cards/IEWU.avif'
+import img3 from '../../assets/recommended movies/movie-cards/double ismart.avif'
+import img4     from '../../assets/recommended movies/movie-cards/stree 2.avif'
+import img5 from '../../assets/recommended movies/movie-cards/inside out 2.avif'
+import img6  from '../../assets/recommended movies/movie-cards/DM4.avif'
+import img7   from '../../assets/recommended movies/movie-cards/gharat ganpati.avif'
+import img8    from '../../assets/recommended movies/movie-cards/KKM.avif'
+import img9    from '../../assets/recommended movies/movie-cards/nunakkuzhi.avif'
+import img10 from '../../assets/recommended movies/movie-cards/vedaa.avif'
+import stream from '../../assets/recommended movies/movie-cards/stream-leadin-web-collection-202210241242.avif'
 
 
 function RecommendedMovies () {
@@ -22,17 +20,18 @@ function RecommendedMovies () {
        
     const history = useHistory();//hook for navigation
 
-    const handleMovieClick = (movie, index,) => { //function to handle movie click and navigate to aboutmovies component
+    const handleMovieClick = (movie, index) => { //function to handle movie click and navigate to aboutmovies component
         history.push({
             pathname: '/aboutmovies',
-            state: {movie, index} //passing movie data and index to aboutmovies as/via state
+            state: {movie, index}, //passing movie data and index from here to aboutmovies as/via state
         });
     };
 
-    // const navigate = useNavigate();
-    // const handleMovieClick = (movie) => {
-    //     navigate('/aboutmovies', { state: {movie} });
-    // };
+    const handleSeeAllClick = () => {
+        history.push("/seeall"); // Navigate to the See All page
+    };
+
+    
     
 
 
@@ -79,11 +78,10 @@ function RecommendedMovies () {
                 <div className='r-m'>
                     <h3>Recommended Movies</h3>
                 </div>
-                <div className='s-a'>
-                    <h3>see all <span className='arrow-right'><MdOutlineArrowRight /></span> </h3>
+                <div className='s-a' onClick={handleSeeAllClick}>
+                    <h3 className='div-cursor'>see all <span className='arrow-right'><MdOutlineArrowRight /></span> </h3>
                 </div>
             </div>
-
 
             <div className='movies-captions'>
                 {displayedMovies.map((movie, index) => (
@@ -132,32 +130,9 @@ function RecommendedMovies () {
                         </div>
                     </div>  
                 )}
-
-
-
-                 
-
-
-
-            
-               
-
-                
-
             </div>
             <img src={stream} className='stream' alt="" />
         </div>
-
-
-
-
-
-
-
-
-
-
-
         </>
     );
 

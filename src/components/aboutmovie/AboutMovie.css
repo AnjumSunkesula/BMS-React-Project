@@ -180,6 +180,84 @@
     color: aliceblue;
 }
 
+/* BOOK TICKETS POPUP */
+.seats-popup-container{
+    display: flex;
+    flex-direction: column;
+}
+/* haeder div */
+.gBUY{
+    display: flex;
+    justify-content: center;
+}
+/* header */
+.YBFWy{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 16px;
+    margin: 10px 0;
+    padding-top: 5px;
+}
+.pId{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 40px 0;
+}
+/* images */
+.popup-images{
+    width: 150px;
+    height: 100px;
+}
+/* seat numbers */
+.ngasy{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    justify-content: center;
+    gap: 5px;
+    
+}
+.seat-number{
+    font-family: sans-serif;
+    font-size: 14px;
+    width: 18px;
+    text-align: center;
+    padding:5px;
+    display: flex;
+    justify-content: center;
+}
+.seat-number:hover{
+    background-color: hsl(349, 93%, 62%);
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.HYUs{
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    box-shadow: 0 -1px 13px 0 hsla(211, 21%, 57%, 0.388);
+}
+.select-seats{
+    width: 90%;
+    background-color: hsl(349, 93%, 62%);
+    color: whitesmoke;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 7.5px;
+    letter-spacing: 0.3px;
+}
+.select-seats:hover{
+    background-color: hsl(349, 72%, 57%);
+    cursor: pointer;
+}
+
 /* MOVIE DETAILS */
 
 /* movie-details-container */

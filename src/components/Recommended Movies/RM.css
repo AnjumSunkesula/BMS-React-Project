@@ -22,9 +22,12 @@
 .s-a{
     display: flex;
     align-items: center;
-    cursor: grab;
+    cursor: pointer;
+    z-index: 1000; 
+    /* z-index needed because without it, the cursor and the routing was not working.
+    this could happen cuz of stacking and layout contexts. */
 }
-.s-a h3{
+.s-a .div-cursor{
     color: hsl(0, 61%, 54%);
     font-family: 'Roboto Condensed';
     font-size: 20px;
@@ -37,7 +40,7 @@
 .arrow-right{
     font-size: 30px;
     display: flex;
-}
+} 
 
 
 

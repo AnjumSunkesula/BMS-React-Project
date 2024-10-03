@@ -5,7 +5,7 @@ import img2 from '../assets/image slider/offer.avif'
 import img3 from '../assets/image slider/standup-comedy.avif'
 import img4 from '../assets/image slider/goa-pic.avif'
 import RecommendedMovies from '../components/Recommended Movies/RM'
-function Home() {
+function Home({ selectedCity, setSelectedCity }) {
 
     const slides = [
         {
@@ -32,7 +32,7 @@ function Home() {
         <>
 
         <div>
-         <Header/>
+         <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
          <ImageSlider slides={slides}/>
          <RecommendedMovies/>
 
