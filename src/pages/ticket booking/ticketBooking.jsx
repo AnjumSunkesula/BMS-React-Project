@@ -11,7 +11,6 @@ function BookTickets ({ selectedCity }) {
     const location = useLocation();
 
     const history = useHistory();
-     const { movie, index } = location.state || {}; 
 
     const handleSeatSelectionClose = () => {
         history.push('/seeall');
@@ -24,14 +23,16 @@ function BookTickets ({ selectedCity }) {
 
     const handleFoodAdditionPage = () => {
         history.push('/addfoods', {
-            movie, index,
-            selectedSeats: selectedSeats,   //array of selected seat numbers like [A1,A2]
-            totalPrice: totalPrice,         //total price of the selected seats
+            movie,
+            selectedSeats,   //array of selected seat numbers like [A1,A2]
+            totalPrice,         //total price of the selected seats
             seatCount: selectedSeats.length //number of selected seats
         })
     };
-     
 
+    
+     
+    const { movie } = location.state || {};
     const { movieName } = location.state || { movieName: 'no movies selected' };
     const { selectedSeat } = location.state || { selectedSeat };                 //default to empty array if no selectedd seat
     const { certification } = location.state || { certification };
