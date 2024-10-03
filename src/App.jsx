@@ -28,12 +28,13 @@ function App() {
     setSelectedTicketType(ticketType); // Update the ticket type
   };
 
+  // MOVIE DESCRIPTION FROM ABOUTMOVIE TO PAYMENT
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-    const handleMovieDataChange = (movieData) => {
-        setSelectedMovie(movieData);  // Store movie data
-    };
+  const handleMovieDataChange = (movieData) => {
+    setSelectedMovie(movieData);  // Store movie data
+  };
 
 
 
