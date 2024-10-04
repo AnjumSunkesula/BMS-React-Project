@@ -141,12 +141,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
             ]);
     }, []);
 
-    useEffect(() => {
-        if (movieDescriptions.length > 0) {
-            // Example: passing the first movie data to the parent
-            onMovieDataChange(movieDescriptions[0]); // You can customize this as needed
-        }
-    }, [movieDescriptions, onMovieDataChange]);
+    
 
 
     const selectedDescription = movieDescriptions[index];
