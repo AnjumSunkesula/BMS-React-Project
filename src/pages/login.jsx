@@ -129,6 +129,10 @@ function Login() {
 		e.preventDefault(); // to prevent the default form submission
 
 
+        // Store form data in local storage
+        localStorage.setItem('formData', JSON.stringify(formData));
+        history.push('/payment'); //can pass the formdata to payment
+
 
         const validationErrors = {};		
 		
