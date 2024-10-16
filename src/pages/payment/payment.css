@@ -1,10 +1,9 @@
 .payment-header{
     width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
     box-shadow: 0px 8px 7px -6px rgba(0, 0, 0, 0.76);
-    position: relative;
-    bottom: 6em;
-    display: flex;
-    margin-bottom: 15px;
 }
 .bms-logo{
     margin-left: 12em;
@@ -12,8 +11,217 @@
 .bSaga{
     display: flex;
     gap: 10px;
-    
 }
+.payment-container{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 770px;
+}
+/* CONTACT DETAILS */
+.contact-details-wrapper, .payment-details-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.contact-heading{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    padding: 8px ;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.drop-down{
+    font-size: 25px;
+    display: flex;
+}
+.contact-inputs{
+    display: flex;
+    gap: 8px;
+    padding: 20px 5px;
+    margin-left: 10px;
+}
+.jqzw, .jqzwn{
+    border: 1px solid hsl(240, 1%, 73%);
+    width: 13.5em;
+    padding: 10px 14px;
+    transition: box-shadow 0.3s ease;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+.jqzwn:focus{
+    outline: none;
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8) ;
+}
+.continue-button{
+    background-color: hsl(349, 93%, 62%);
+    color: white;
+    padding: 0px 20px;
+    border-radius: 4px;
+    border: none;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+/* PAYMENT DETAILS */
+.payment-options-wrapper{
+    display: flex;
+    height: 330px;
+}
+.payment-wrapper{
+    background: #f7f7f7;
+}
+.payment-tabs{
+    margin: 0;
+    padding: 0;
+}
+.payment-list{
+    cursor: pointer;
+    font-size: 12px;
+    color: #7b7d82;
+    padding: 15px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    word-spacing: 0.8px;
+    width: 10vw;
+    transition: background-color 0.3s;
+}
+.payment-list.active{
+    background-color: white;
+    color: #7b7d82;
+}
+.payment-selections{
+    padding-left: 15px;
+}
+.payment-selections ul{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+.upi-heading{
+    display: flex;
+    gap: 5px;
+    margin-top: 13px;
+    margin-bottom: 16px;
+}
+.upi-logo{
+    width: 50px;
+}
+.upi-caption{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+.payment-selection{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 220px;
+}
+.payment-icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.option-name{
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #7b7d82;
+}
+label{
+    display: flex;
+    align-items: center;
+}
+input[type="radio"] {
+    cursor: pointer;
+    margin-right: 10px;
+}
+/* MAKE PAYMNETS */
+.makePayment-wrapper {
+    padding: 10px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.GHVFh {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.backClick-icon {
+    display: flex;
+    padding-top: 3px;
+    cursor: pointer;
+}
+.pay-info {
+    font-family: system-ui; 
+    font-weight: 600;
+    font-size: 17px;
+}
+.upi-inputs{
+    display: flex;
+    gap: 20px;
+}
+.bank-details{
+    width: 70%;
+    padding: 10px;
+    border: 1px solid hsl(240, 1%, 73%);
+}
+.bank-details:focus{
+    outline: none;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8);
+}
+.bank-details::placeholder{
+    color: #a9abb1;
+    font-size: 1px;
+    letter-spacing: 0.5px;
+    font-family: system-ui;
+}
+.make-payment{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    padding: 10px;
+    width: 35%;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.make-payment:hover{
+    background-color: hsl(349, 79%, 48%);
+}
+.shaj{
+    color: #7b7d82;
+    font-family: system-ui;
+    font-size: 10px;
+}
+.shaj span{
+    color: black;
+}
+
+
+
+
+
+
+
 
 
 
@@ -30,7 +238,6 @@
     position: relative;         /* Required for absolute positioning of pseudo-elements */
     background: white;
     border: 1px solid #ccc;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: fit-content;
     gap: 10px;
@@ -119,8 +326,6 @@
 }
 .ticket-container .line{
     border-top: 1.5px dashed #666;
-    position:relative ;
-    top: 30px;
 }
 .hHWGQ{
     display: flex;
@@ -128,8 +333,6 @@
     text-transform: capitalize;
     font-family: sans-serif;
     font-size: 14px;
-    position: relative;
-    top: 23px;
 }
 
 /* hide and view all */
@@ -140,4 +343,6 @@
     font-size: 14px;
 
 }
+
+
 

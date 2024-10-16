@@ -3,8 +3,15 @@ import img1 from '../../assets/loginpage-images/main-logo.png';
 import { useLocation } from 'react-router-dom';
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { useState, useEffect } from 'react';
-
-
+import { MdOutlineArrowDropDown } from "react-icons/md";
+import { BsArrowLeftCircle } from "react-icons/bs";
+import gpay from '../../assets/payment/gpay.avif';
+import phonepe from '../../assets/payment/phonepe.avif';
+import cred from '../../assets/payment/cred.avif';
+import upi from '../../assets/payment/UPI.avif';
+import bhim from '../../assets/payment/bhim.avif';
+import amazonpay from '../../assets/payment/Amazonpay.avif';
+import paytm from '../../assets/payment/paytm.avif'
 
 // Helper function to format the date
 const formatDate = (date) => {
@@ -67,6 +74,78 @@ function Payment ({ selectedTicketType }) {
 		setCurrentDate(formatDate(today)); // Set the formatted date
 	}, []);
 
+	// EMAIL ACCESS
+
+	const [formData, setFormData] = useState({});
+
+    useEffect(() => {
+        // Retrieve form data from local storage
+        const storedData = localStorage.getItem('formData');
+        if (storedData) {
+            setFormData(JSON.parse(storedData)); // Parse and set form data
+        }
+    }, []);
+
+	// PHONE NUMBER
+
+	const [phoneNumber, setPhoneNumber] = useState('+91');
+
+	const handleInput = (e) => {
+		const value = e.target.value;
+
+		if(value.startsWith('+91')) {
+			const inputValue = value.replace(/[^\d+]/g, '');
+			setPhoneNumber(inputValue);
+		}
+	};
+
+	// PAYMENT OPTIONS
+
+	const[selectedTab, setSelectedTab] = useState('UPI');  // state to store the selected tab
+	const [showOptions, setShowOptions] = useState(true);  //state to track the visibility of options
+	const [selectedOption, setSelectedOption] = useState(''); //state for selected option
+
+	// Options for each payment method
+    const paymentOptions = {
+        UPI: [
+			{name: 'Cred UPI',         img: cred},
+			{name: 'GooglePay',        img: gpay },
+			{name: 'AmazonPay',        img: amazonpay },
+			{name: 'BHIM',             img: bhim },
+			{name: 'Paytm',            img: paytm },
+			{name: 'PhonePe',          img: phonepe },
+			{name: 'Other UPI',        img: upi }
+
+		],
+        card: ['Visa', 'MasterCard', 'American Express'],
+        netBanking: ['State Bank of India', 'HDFC Bank', 'ICICI Bank'],
+        wallets: ['Paytm Wallet', 'Mobikwik', 'Freecharge']
+    };
+
+	// Function to handle tab click
+    const handleTabClick = (tab) => {
+        if (selectedTab === tab) {    // If the selected tab is already active, toggle visibility
+            setShowOptions(!showOptions);
+        } else {
+            setSelectedTab(tab);
+			setSelectedOption(''); //reset selected option when vhanging tabs
+            setShowOptions(true); // Show options for the newly selected tab
+        }
+    };
+
+	// Function to handle radio button selection
+    const handleOptionChange = (option) => {
+        setSelectedOption(option);
+		setShowOptions(false); // Hide options once an option is selected
+    };
+
+	// Function to handle back arrow click
+    const handleBackClick = () => {
+        setShowOptions(true); // Show the options again
+        setSelectedOption(''); // Reset the selected option
+    };
+
+
 
 	return(
 		<>
@@ -77,7 +156,114 @@ function Payment ({ selectedTicketType }) {
 			<div className='bSaga'>
 
 				<div className='payment-container'>
-					payment options
+					<div className='contact-details-wrapper'>
+
+					    <div className='contact-heading'> 
+							<span className='drop-down'><MdOutlineArrowDropDown /></span>
+						    share your contact details
+						</div>
+
+					    <div className='contact-inputs'>
+							<div className='jqzw'>{formData.email}</div>
+							<input 
+							    type="tel" 
+								name=""  
+								className='jqzwn'
+								value={phoneNumber}
+								onInput={handleInput}
+								maxLength={13}/>
+							<div className='continue-button'>continue</div>
+					    </div>
+
+					</div>
+
+					<div className='payment-details-wrapper'>
+						
+						<div className='contact-heading'> 
+							<span className='drop-down'><MdOutlineArrowDropDown /></span>
+						    payment options
+						</div>
+
+						<div className='payment-options-wrapper'>
+
+							<div className='payment-wrapper'>
+								<ul className='payment-tabs'>
+									<li 
+									    className={`payment-list ${selectedTab === 'UPI' ? 'active' : ''}`} 
+										onClick={() => handleTabClick('UPI')}>pay by any UPI app
+									</li>
+									<li 
+									    className={`payment-list ${selectedTab === 'card' ? 'active' : ''}`} 
+										onClick={() => handleTabClick('card')}>debit/credit card
+									</li>
+									<li 
+									    className={`payment-list ${selectedTab === 'netBanking' ? 'active' : ''}`} 
+										onClick={() => handleTabClick('netBanking')}>net banking
+									</li>
+									<li 
+									    className={`payment-list ${selectedTab === 'wallets' ? 'active' : ''}`} 
+										onClick={() => handleTabClick('wallets')}>mobile wallets
+									</li>
+								</ul>
+							</div>
+
+							<div className='payment-selections'>
+								{showOptions && (
+									<>
+									    <div className='upi-heading'>
+											<img src={upi} alt="" className='upi-logo'/>
+											<div className='upi-caption'>pay by any UPI app</div>
+										</div>
+										<ul>
+											{paymentOptions[selectedTab].map((option, index) => (
+												<li key={index} className='payment-selection'>
+													<label>
+														<input
+														type='radio'
+														name='payment-option'
+														value={option.name}
+														checked={selectedOption === option.name}
+														onChange={() => handleOptionChange(option.name)}
+														/>
+													</label>
+													<img src={option.img} alt="" className='payment-icon' />
+													<div className='option-name'>{option.name}</div>
+												</li>
+											))}
+										</ul>
+										<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+									</>
+								)}
+							</div>
+
+							{!showOptions && selectedOption && (
+								<div className='makePayment-wrapper'>
+									<div className='GHVFh'>
+										<div onClick={handleBackClick} className='backClick-icon'><BsArrowLeftCircle /></div>
+										<div className='pay-info'>Pay using  {selectedOption}</div>
+									</div>
+
+									<div className='upi-inputs'>
+										<input 
+											type="text"
+											placeholder='Enter UPI Id'
+											className='bank-details'
+										/>
+
+										<input 
+											type="text"
+											placeholder='Enter Bank'
+											className='bank-details'
+										/>
+									</div>
+
+									<div className='make-payment'>make payment</div>
+
+									<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+								</div>
+							)}
+						</div>
+					</div>
 				</div>
 
 				<div className='ticket-container'>
