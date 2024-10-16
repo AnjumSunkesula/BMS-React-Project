@@ -101,9 +101,14 @@ function Payment ({ selectedTicketType }) {
 
 	// PAYMENT OPTIONS
 
-	const[selectedTab, setSelectedTab] = useState('UPI');  // state to store the selected tab
+	const [selectedTab, setSelectedTab] = useState('UPI');  // state to store the selected tab
 	const [showOptions, setShowOptions] = useState(true);  //state to track the visibility of options
 	const [selectedOption, setSelectedOption] = useState(''); //state for selected option
+	const [upiId, setUpiId] = useState(''); // State for UPI ID
+    const [bankDetails, setBankDetails] = useState(''); // State for Bank Details
+	const [phoneError, setPhoneError] = useState('');
+	const [upiError, setUpiError] = useState('');
+    const [bankError, setBankError] = useState('');
 
 	// Options for each payment method
     const paymentOptions = {
@@ -143,7 +148,63 @@ function Payment ({ selectedTicketType }) {
     const handleBackClick = () => {
         setShowOptions(true); // Show the options again
         setSelectedOption(''); // Reset the selected option
+		// setError(''); // Clear error when going back
+        setUpiId(''); // Reset UPI ID
+        setBankDetails(''); // Reset Bank Details
+		set
     };
+
+	// error messgaes for upi and bank details
+	const handleMakePayment = () => {
+       let hasError = false; // Track if there are any errors
+
+		// Reset error messages
+		setUpiError('');
+		setBankError('');
+		setPhoneError('');
+
+		// Check if UPI ID is filled
+		if (!upiId) {
+			setUpiError('Please fill in the UPI ID.');
+			hasError = true;
+		}
+
+		// Check if Bank Details are filled
+		if (!bankDetails) {
+			setBankError('Please fill in the bank details.');
+			hasError = true;
+		}
+
+		// Check if Bank Details are filled
+		if (!phoneNumber || phoneNumber === '+91') {
+			setPhoneError('Please enter a valid Mobile Number.');
+			hasError = true;
+		}
+
+		// If there are any errors, exit
+		if (hasError) {
+			return; // Exit if validation fails
+		}
+
+
+		// If validation passes, proceed with payment
+		handlePayment();
+    };
+
+	// PAYMENT PROCESS
+
+	const [paymentStatus, setPaymentStatus] = useState(null);              // null means no payment status yet
+
+  // Simulate a payment by randomly determining if it's successful
+
+    const handlePayment = () => {
+        const isSuccess = Math.random() > 0.5;                               // 50% chance of success or failure
+        setPaymentStatus(isSuccess ? 'success' : 'failure');
+    };
+
+
+
+
 
 
 
@@ -163,18 +224,24 @@ function Payment ({ selectedTicketType }) {
 						    share your contact details
 						</div>
 
-					    <div className='contact-inputs'>
-							<div className='jqzw'>{formData.email}</div>
-							<input 
-							    type="tel" 
-								name=""  
-								className='jqzwn'
-								value={phoneNumber}
-								onInput={handleInput}
-								maxLength={13}/>
-							<div className='continue-button'>continue</div>
-					    </div>
+					    <div className='contact-inputs-wrapper'>
+							<div className='contact-inputs'>
+								<div className='jqzw'>{formData.email}</div>
 
+									<input 
+										type="tel" 
+										name=""  
+										className='jqzwn'
+										value={phoneNumber}
+										onInput={handleInput}
+										maxLength={13}
+										onChange={(e) => setPhoneNumber(e.target.value)}
+									/>
+
+								<div className='continue-button'>continue</div>
+							</div>
+							{phoneError && <div className='phone-error-messages'>{phoneError}</div>}
+						</div>
 					</div>
 
 					<div className='payment-details-wrapper'>
@@ -244,20 +311,54 @@ function Payment ({ selectedTicketType }) {
 									</div>
 
 									<div className='upi-inputs'>
-										<input 
-											type="text"
-											placeholder='Enter UPI Id'
-											className='bank-details'
-										/>
 
-										<input 
-											type="text"
-											placeholder='Enter Bank'
-											className='bank-details'
-										/>
+										<div className='input-wrapper'>
+											<input 
+												type="text"
+												placeholder='Enter UPI Id'
+												className='bank-details'
+												value={upiId}
+												onChange={(e) => setUpiId(e.target.value)} //update upi id
+										    />
+										    {upiError && <div className='error-messages'>{upiError}</div>} {/* Display UPI ID error message */}
+										</div>
+
+										<div className='input-wrapper'>
+											<input 
+												type="text"
+												placeholder='Enter Bank'
+												className='bank-details'
+												value={bankDetails}
+												onChange={(e) => setBankDetails(e.target.value)} // Update Bank Details
+											/>
+											{bankError && <div className='error-messages'>{bankError}</div>} {/* Display bank details error message */}
+										</div>
+
 									</div>
 
-									<div className='make-payment'>make payment</div>
+
+									{paymentStatus === null && (
+										<div className='make-payment' onClick={handleMakePayment}>make payment</div>
+									)}
+
+									{paymentStatus === 'success' && (
+										<div>
+											<h2>Payment Successful!</h2>
+											<p>Your booking is confirmed. You can now view your booking details.</p>
+											<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+											<button onClick={() => window.location.href = '/booking-details'}>View Booking Details</button>
+										</div>
+										)}
+
+										{paymentStatus === 'failure' && (
+										<div>
+											<h2>Payment Failed!</h2>
+											<p>Something went wrong. Please try again.</p>
+											<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+											<button onClick={handlePayment}>Retry Payment</button>
+										</div>
+										)}
+
 
 									<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
 								</div>
@@ -266,6 +367,11 @@ function Payment ({ selectedTicketType }) {
 					</div>
 				</div>
 
+
+
+
+
+                {/* TICKET CONTAINER */}
 				<div className='ticket-container'>
 					<div className='vSHTa'>
 						<div className='hgVAs'>

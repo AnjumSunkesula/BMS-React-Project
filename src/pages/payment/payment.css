@@ -37,10 +37,12 @@
     font-size: 25px;
     display: flex;
 }
+.contact-inputs-wrapper{
+    padding: 20px 5px;
+}
 .contact-inputs{
     display: flex;
     gap: 8px;
-    padding: 20px 5px;
     margin-left: 10px;
 }
 .jqzw, .jqzwn{
@@ -174,8 +176,29 @@ input[type="radio"] {
     display: flex;
     gap: 20px;
 }
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.phone-error-messages{
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 10px;
+    font-family: system-ui;
+    margin-right: 10em;
+    margin-top: 5px;
+}
+.error-messages{
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-size: 10px;
+}
 .bank-details{
-    width: 70%;
+    width: 90%;
     padding: 10px;
     border: 1px solid hsl(240, 1%, 73%);
 }
