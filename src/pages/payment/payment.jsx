@@ -88,24 +88,50 @@ function Payment ({ selectedTicketType }) {
 
 	// PHONE NUMBER
 
-	const [phoneNumber, setPhoneNumber] = useState('+91');
+	const [phoneNumber, setPhoneNumber] = useState('+91 ');
 
 	const handleInput = (e) => {
 		const value = e.target.value;
 
-		if(value.startsWith('+91')) {
+		if(value.startsWith('+91 ')) {
 			const inputValue = value.replace(/[^\d+]/g, '');
 			setPhoneNumber(inputValue);
 		}
 	};
 
+	
+
+	// TICKET MESSAGE
+
+	const [message, setMessage] = useState('');
+
+	const handleContinue = () => {
+		if (phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) { 
+            setPhoneError('Please enter a valid Phone number.');
+        } else {
+            setPhoneError('');
+            const mail = formData.email;
+            const phone = phoneNumber;
+
+            setMessage(`Send tickets to ${mail}/ ${phone}`);
+        }
+	};
+	
+	// TOGGLE PAYMNET VISIBILITY
+
+	const [paymentVisibility, setPaymentVisibility] = useState(true);
+
+	const toggleVisibility = () => {
+		setPaymentVisibility(!paymentVisibility);
+	}
+
 	// PAYMENT OPTIONS
 
-	const [selectedTab, setSelectedTab] = useState('UPI');  // state to store the selected tab
-	const [showOptions, setShowOptions] = useState(true);  //state to track the visibility of options
-	const [selectedOption, setSelectedOption] = useState(''); //state for selected option
-	const [upiId, setUpiId] = useState(''); // State for UPI ID
-    const [bankDetails, setBankDetails] = useState(''); // State for Bank Details
+	const [selectedTab, setSelectedTab] = useState('UPI');         // state to store the selected tab
+	const [showOptions, setShowOptions] = useState(true);         //state to track the visibility of options
+	const [selectedOption, setSelectedOption] = useState('');     //state for selected option
+	const [upiId, setUpiId] = useState('');                       // State for UPI ID
+    const [bankDetails, setBankDetails] = useState('');           // State for Bank Details
 	const [phoneError, setPhoneError] = useState('');
 	const [upiError, setUpiError] = useState('');
     const [bankError, setBankError] = useState('');
@@ -129,34 +155,34 @@ function Payment ({ selectedTicketType }) {
 
 	// Function to handle tab click
     const handleTabClick = (tab) => {
-        if (selectedTab === tab) {    // If the selected tab is already active, toggle visibility
+        if (selectedTab === tab) {                                // If the selected tab is already active, toggle visibility
             setShowOptions(!showOptions);
         } else {
             setSelectedTab(tab);
-			setSelectedOption(''); //reset selected option when vhanging tabs
-            setShowOptions(true); // Show options for the newly selected tab
+			setSelectedOption('');                                 //reset selected option when vhanging tabs
+            setShowOptions(true);                                 // Show options for the newly selected tab
         }
     };
 
 	// Function to handle radio button selection
     const handleOptionChange = (option) => {
         setSelectedOption(option);
-		setShowOptions(false); // Hide options once an option is selected
+		setShowOptions(false);                                    // Hide options once an option is selected
     };
 
 	// Function to handle back arrow click
     const handleBackClick = () => {
-        setShowOptions(true); // Show the options again
-        setSelectedOption(''); // Reset the selected option
-		// setError(''); // Clear error when going back
-        setUpiId(''); // Reset UPI ID
-        setBankDetails(''); // Reset Bank Details
-		set
+        setShowOptions(true);                                     // Show the options again
+        setSelectedOption('');                                     // Reset the selected option
+        setUpiId('');                                              // Reset UPI ID
+        setBankDetails('');                                       // Reset Bank Details
+		setUpiError('');                                            // Clear error when going back
+		setBankError('');
     };
 
 	// error messgaes for upi and bank details
 	const handleMakePayment = () => {
-       let hasError = false; // Track if there are any errors
+       let hasError = false;                                       // Track if there are any errors
 
 		// Reset error messages
 		setUpiError('');
@@ -175,15 +201,15 @@ function Payment ({ selectedTicketType }) {
 			hasError = true;
 		}
 
-		// Check if Bank Details are filled
-		if (!phoneNumber || phoneNumber === '+91') {
-			setPhoneError('Please enter a valid Mobile Number.');
+		// Check if phone number is filled
+		if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
+			setPhoneError('Please enter a valid Phone Number.');
 			hasError = true;
 		}
 
 		// If there are any errors, exit
 		if (hasError) {
-			return; // Exit if validation fails
+			return;                                                          // Exit if validation fails
 		}
 
 
@@ -195,7 +221,7 @@ function Payment ({ selectedTicketType }) {
 
 	const [paymentStatus, setPaymentStatus] = useState(null);              // null means no payment status yet
 
-  // Simulate a payment by randomly determining if it's successful
+    // Simulate a payment by randomly determining if it's successful
 
     const handlePayment = () => {
         const isSuccess = Math.random() > 0.5;                               // 50% chance of success or failure
@@ -216,154 +242,161 @@ function Payment ({ selectedTicketType }) {
 
 			<div className='bSaga'>
 
-				<div className='payment-container'>
+				<div className={`payment-container ${paymentVisibility ? 'visible' : 'hidden'}`}>
 					<div className='contact-details-wrapper'>
+						{message ? (
+							<div className='success-message'>{message}</div>
+						) : (
+							<>
+							    <div className='contact-heading'> 
+									<span className='drop-down'><MdOutlineArrowDropDown /></span>
+									share your contact details
+								</div>
 
-					    <div className='contact-heading'> 
-							<span className='drop-down'><MdOutlineArrowDropDown /></span>
-						    share your contact details
-						</div>
+								<div className='contact-inputs-wrapper'>
+									<div className='contact-inputs'>
+										<div className='jqzw'>{formData.email}</div>
 
-					    <div className='contact-inputs-wrapper'>
-							<div className='contact-inputs'>
-								<div className='jqzw'>{formData.email}</div>
+											<input 
+												type="tel" 
+												name=""  
+												className='jqzwn'
+												value={phoneNumber}
+												onInput={handleInput}
+												maxLength={14}
+												onChange={(e) => setPhoneNumber(e.target.value)}
+											/>
 
-									<input 
-										type="tel" 
-										name=""  
-										className='jqzwn'
-										value={phoneNumber}
-										onInput={handleInput}
-										maxLength={13}
-										onChange={(e) => setPhoneNumber(e.target.value)}
-									/>
-
-								<div className='continue-button'>continue</div>
-							</div>
-							{phoneError && <div className='phone-error-messages'>{phoneError}</div>}
-						</div>
+										<div className='continue-button' onClick={handleContinue}>continue</div>
+								    </div>
+								    {phoneError && <div className='phone-error-messages'>{phoneError}</div>}
+								</div>
+							</>
+						)}
 					</div>
 
 					<div className='payment-details-wrapper'>
 						
 						<div className='contact-heading'> 
-							<span className='drop-down'><MdOutlineArrowDropDown /></span>
+							<span className='drop-down' onClick={toggleVisibility}><MdOutlineArrowDropDown /></span>
 						    payment options
 						</div>
 
-						<div className='payment-options-wrapper'>
+						{paymentVisibility && (
+							<div className={`payment-options-wrapper ${paymentVisibility ? 'visible' : 'hidden'}`}>
 
-							<div className='payment-wrapper'>
-								<ul className='payment-tabs'>
-									<li 
-									    className={`payment-list ${selectedTab === 'UPI' ? 'active' : ''}`} 
-										onClick={() => handleTabClick('UPI')}>pay by any UPI app
-									</li>
-									<li 
-									    className={`payment-list ${selectedTab === 'card' ? 'active' : ''}`} 
-										onClick={() => handleTabClick('card')}>debit/credit card
-									</li>
-									<li 
-									    className={`payment-list ${selectedTab === 'netBanking' ? 'active' : ''}`} 
-										onClick={() => handleTabClick('netBanking')}>net banking
-									</li>
-									<li 
-									    className={`payment-list ${selectedTab === 'wallets' ? 'active' : ''}`} 
-										onClick={() => handleTabClick('wallets')}>mobile wallets
-									</li>
-								</ul>
-							</div>
-
-							<div className='payment-selections'>
-								{showOptions && (
-									<>
-									    <div className='upi-heading'>
-											<img src={upi} alt="" className='upi-logo'/>
-											<div className='upi-caption'>pay by any UPI app</div>
-										</div>
-										<ul>
-											{paymentOptions[selectedTab].map((option, index) => (
-												<li key={index} className='payment-selection'>
-													<label>
-														<input
-														type='radio'
-														name='payment-option'
-														value={option.name}
-														checked={selectedOption === option.name}
-														onChange={() => handleOptionChange(option.name)}
-														/>
-													</label>
-													<img src={option.img} alt="" className='payment-icon' />
-													<div className='option-name'>{option.name}</div>
-												</li>
-											))}
-										</ul>
-										<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
-									</>
-								)}
-							</div>
-
-							{!showOptions && selectedOption && (
-								<div className='makePayment-wrapper'>
-									<div className='GHVFh'>
-										<div onClick={handleBackClick} className='backClick-icon'><BsArrowLeftCircle /></div>
-										<div className='pay-info'>Pay using  {selectedOption}</div>
-									</div>
-
-									<div className='upi-inputs'>
-
-										<div className='input-wrapper'>
-											<input 
-												type="text"
-												placeholder='Enter UPI Id'
-												className='bank-details'
-												value={upiId}
-												onChange={(e) => setUpiId(e.target.value)} //update upi id
-										    />
-										    {upiError && <div className='error-messages'>{upiError}</div>} {/* Display UPI ID error message */}
-										</div>
-
-										<div className='input-wrapper'>
-											<input 
-												type="text"
-												placeholder='Enter Bank'
-												className='bank-details'
-												value={bankDetails}
-												onChange={(e) => setBankDetails(e.target.value)} // Update Bank Details
-											/>
-											{bankError && <div className='error-messages'>{bankError}</div>} {/* Display bank details error message */}
-										</div>
-
-									</div>
-
-
-									{paymentStatus === null && (
-										<div className='make-payment' onClick={handleMakePayment}>make payment</div>
-									)}
-
-									{paymentStatus === 'success' && (
-										<div>
-											<h2>Payment Successful!</h2>
-											<p>Your booking is confirmed. You can now view your booking details.</p>
-											<button onClick={() => window.location.href = '/home'}>Go to Home</button>
-											<button onClick={() => window.location.href = '/booking-details'}>View Booking Details</button>
-										</div>
-										)}
-
-										{paymentStatus === 'failure' && (
-										<div>
-											<h2>Payment Failed!</h2>
-											<p>Something went wrong. Please try again.</p>
-											<button onClick={() => window.location.href = '/home'}>Go to Home</button>
-											<button onClick={handlePayment}>Retry Payment</button>
-										</div>
-										)}
-
-
-									<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+								<div className='payment-wrapper'>
+									<ul className='payment-tabs'>
+										<li 
+											className={`payment-list ${selectedTab === 'UPI' ? 'active' : ''}`} 
+											onClick={() => handleTabClick('UPI')}>pay by any UPI app
+										</li>
+										<li 
+											className={`payment-list ${selectedTab === 'card' ? 'active' : ''}`} 
+											onClick={() => handleTabClick('card')}>debit/credit card
+										</li>
+										<li 
+											className={`payment-list ${selectedTab === 'netBanking' ? 'active' : ''}`} 
+											onClick={() => handleTabClick('netBanking')}>net banking
+										</li>
+										<li 
+											className={`payment-list ${selectedTab === 'wallets' ? 'active' : ''}`} 
+											onClick={() => handleTabClick('wallets')}>mobile wallets
+										</li>
+									</ul>
 								</div>
-							)}
-						</div>
+
+								<div className='payment-selections'>
+									{showOptions && (
+										<>
+											<div className='upi-heading'>
+												<img src={upi} alt="" className='upi-logo'/>
+												<div className='upi-caption'>pay by any UPI app</div>
+											</div>
+											<ul>
+												{paymentOptions[selectedTab].map((option, index) => (
+													<li key={index} className='payment-selection'>
+														<label>
+															<input
+															type='radio'
+															name='payment-option'
+															value={option.name}
+															checked={selectedOption === option.name}
+															onChange={() => handleOptionChange(option.name)}
+															/>
+														</label>
+														<img src={option.img} alt="" className='payment-icon' />
+														<div className='option-name'>{option.name}</div>
+													</li>
+												))}
+											</ul>
+											<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+										</>
+									)}
+								</div>
+
+								{!showOptions && selectedOption && (
+									<div className='makePayment-wrapper'>
+										<div className='GHVFh'>
+											<div onClick={handleBackClick} className='backClick-icon'><BsArrowLeftCircle /></div>
+											<div className='pay-info'>Pay using  {selectedOption}</div>
+										</div>
+
+										<div className='upi-inputs'>
+
+											<div className='input-wrapper'>
+												<input 
+													type="text"
+													placeholder='Enter UPI Id'
+													className='bank-details'
+													value={upiId}
+													onChange={(e) => setUpiId(e.target.value)} //update upi id
+												/>
+												{upiError && <div className='error-messages'>{upiError}</div>} {/* Display UPI ID error message */}
+											</div>
+
+											<div className='input-wrapper'>
+												<input 
+													type="text"
+													placeholder='Enter Bank'
+													className='bank-details'
+													value={bankDetails}
+													onChange={(e) => setBankDetails(e.target.value)} // Update Bank Details
+												/>
+												{bankError && <div className='error-messages'>{bankError}</div>} {/* Display bank details error message */}
+											</div>
+
+										</div>
+
+
+										{paymentStatus === null && (
+											<div className='make-payment' onClick={handleMakePayment}>make payment</div>
+										)}
+
+										{paymentStatus === 'success' && (
+											<div>
+												<h2>Payment Successful!</h2>
+												<p>Your booking is confirmed. You can now view your booking details.</p>
+												<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+												<button onClick={() => window.location.href = '/booking-details'}>View Booking Details</button>
+											</div>
+											)}
+
+											{paymentStatus === 'failure' && (
+											<div>
+												<h2>Payment Failed!</h2>
+												<p>Something went wrong. Please try again.</p>
+												<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+												<button onClick={handlePayment}>Retry Payment</button>
+											</div>
+											)}
+
+
+										<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+									</div>
+								)}
+						    </div>
+						)}
 					</div>
 				</div>
 
