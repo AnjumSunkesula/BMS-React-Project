@@ -152,6 +152,69 @@
     height: 30px;
     margin-right: 10px;
 }
+/* debit/credit card */
+.card-container {
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card-container label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.card-expiry-cvv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-expiry-cvv label {
+    width: 48%;
+}
+/* netbanking */
+.netBanking-icon{
+    width: 100px;
+    margin-right: 10px;
+}
+.ndknwn{
+    letter-spacing: 0.5px;
+    font-family: sans-serif;
+}
+.all-banks{
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #7b7d82;
+    margin-top: 15px;
+}
+#bank-options{
+    padding: 8px;
+    text-transform: capitalize;
+    margin-top: 8px;
+    margin-bottom: 35px;
+    width: 40%;
+    border: 1px solid #b9b9ba;
+    outline: none;
+    cursor: pointer;
+}
+#bank-options:focus{
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8);
+}
+.shaja{
+    padding-top: 12px;
+}
+
 .option-name{
     font-family: sans-serif;
     font-size: 14px;
@@ -233,20 +296,20 @@ input[type="radio"] {
     background-color: hsl(349, 93%, 62%);
     color: #fff;
     padding: 10px;
-    width: 35%;
+    width: 25%;
     cursor: pointer;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     text-transform: uppercase;
     font-family: sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.5px;
 }
 .make-payment:hover{
     background-color: hsl(349, 79%, 48%);
 }
-.shaj{
+.shaj, .shaja{
     color: #7b7d82;
     font-family: system-ui;
     font-size: 10px;

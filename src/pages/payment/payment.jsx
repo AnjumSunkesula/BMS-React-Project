@@ -5,13 +5,19 @@ import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { useState, useEffect } from 'react';
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { BsArrowLeftCircle } from "react-icons/bs";
+// upi
 import gpay from '../../assets/payment/gpay.avif';
 import phonepe from '../../assets/payment/phonepe.avif';
 import cred from '../../assets/payment/cred.avif';
 import upi from '../../assets/payment/UPI.avif';
 import bhim from '../../assets/payment/bhim.avif';
 import amazonpay from '../../assets/payment/Amazonpay.avif';
-import paytm from '../../assets/payment/paytm.avif'
+import paytm from '../../assets/payment/paytm.avif';
+// netbanking
+import SBI from '../../assets/payment/sbi-na.avif'
+import axis from '../../assets/payment/axis-na.avif';
+import hdfc from '../../assets/payment/hdf-na.avif';
+import icici from '../../assets/payment/ici-na.avif';
 
 // Helper function to format the date
 const formatDate = (date) => {
@@ -148,8 +154,12 @@ function Payment ({ selectedTicketType }) {
 			{name: 'Other UPI',        img: upi }
 
 		],
-        card: ['Visa', 'MasterCard', 'American Express'],
-        netBanking: ['State Bank of India', 'HDFC Bank', 'ICICI Bank'],
+        netBanking: [
+			{ name: 'State Bank of India', img: SBI },
+			{ name: 'ICICI Bank', img: icici },
+			{ name: 'HDFC Bank', img: hdfc },
+			{ name: 'Axis Bank', img: axis }
+		],
         wallets: ['Paytm Wallet', 'Mobikwik', 'Freecharge']
     };
 
@@ -189,23 +199,32 @@ function Payment ({ selectedTicketType }) {
 		setBankError('');
 		setPhoneError('');
 
-		// Check if UPI ID is filled
-		if (!upiId) {
-			setUpiError('Please fill in the UPI ID.');
-			hasError = true;
+
+		if (selectedTab === 'UPI') {
+			// Check if UPI ID is filled
+			if (!upiId) {
+				setUpiError('Please fill in the UPI ID.');
+				hasError = true;
+			}
+			// Check if Bank Details are filled
+			if (!bankDetails) {
+				setBankError('Please fill in the bank details.');
+				hasError = true;
+			}
+	
+			// Check if phone number is filled
+			if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
+				setPhoneError('Please enter a valid Phone Number.');
+				hasError = true;
+			}
+
+		} else if (selectedTab === 'netBanking') {
+			if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
+				setPhoneError('Please enter a valid Phone Number.');
+				hasError = true;
+			}                                                             //its fine even if this function doesnt exist.
 		}
 
-		// Check if Bank Details are filled
-		if (!bankDetails) {
-			setBankError('Please fill in the bank details.');
-			hasError = true;
-		}
-
-		// Check if phone number is filled
-		if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
-			setPhoneError('Please enter a valid Phone Number.');
-			hasError = true;
-		}
 
 		// If there are any errors, exit
 		if (hasError) {
@@ -227,6 +246,24 @@ function Payment ({ selectedTicketType }) {
         const isSuccess = Math.random() > 0.5;                               // 50% chance of success or failure
         setPaymentStatus(isSuccess ? 'success' : 'failure');
     };
+
+	// BANK OPTIONS
+
+	const banks = [
+		"SBI Bank", "HDFC Bank", "ICICI Bank", "AXIS Bank", "Kotak Bank", "Airtel Payments Bank",
+		"Bank of India", "Bank of Maharashtra", "Central Bank of India", "Canara Bank", "Cosmos Bank",
+		"PNB Corporate Bank", "Catholic Syrian Bank", "City Union Bank", "Deutsche Bank", "DCB Bank Ltd",
+		"Dhanalaxmi Bank", "Federal Bank", "IndusInd Bank", "Indian Bank", "Indian Overseas Bank",
+		"Jammu and Kashmir Bank", "Janata Sahakari Bank Limited", "Karnataka Bank", "Karur Vysya Bank",
+		"PNB Bank", "Punjab and Sind Bank", "RBL Bank Limited", "South Indian Bank", "Saraswat Bank",
+		"Tamilnad Mercantile Bank", "UCO Bank NetBanking", "Yes Bank"
+	];
+
+	const handleSelectChange = (bank) => {
+		setSelectedOption(bank); // Set selected bank from dropdown
+		setShowOptions(false);   // Hide options and go to confirmation screen
+	};
+
 
 
 
@@ -283,7 +320,7 @@ function Payment ({ selectedTicketType }) {
 						</div>
 
 						{paymentVisibility && (
-							<div className={`payment-options-wrapper ${paymentVisibility ? 'visible' : 'hidden'}`}>
+							<div className='payment-options-wrapper'>
 
 								<div className='payment-wrapper'>
 									<ul className='payment-tabs'>
@@ -307,7 +344,9 @@ function Payment ({ selectedTicketType }) {
 								</div>
 
 								<div className='payment-selections'>
-									{showOptions && (
+
+									{/* UPI */}
+									{showOptions && selectedTab === 'UPI' && (
 										<>
 											<div className='upi-heading'>
 												<img src={upi} alt="" className='upi-logo'/>
@@ -333,6 +372,85 @@ function Payment ({ selectedTicketType }) {
 											<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
 										</>
 									)}
+
+
+
+
+									
+
+									{/* DEBIT/CREDIT CARD */}
+
+									{showOptions && selectedTab === 'card' && (
+										<div className='card-payment-wrapper'>
+											<div className='card-container'>
+												<label>
+												<span>Card Number</span>
+												<input type='text' placeholder='Enter Your Card Number' />
+												</label>
+												<label>
+												<span>Name on the card</span>
+												<input type='text' placeholder='Name on the card' />
+												</label>
+												<div className='card-expiry-cvv'>
+												<label>
+													<span>Expiry</span>
+													<input type='text' placeholder='MM/YY' />
+												</label>
+												<label>
+													<span>CVV</span>
+													<input type='text' placeholder='CVV' />
+												</label>
+												</div>
+											</div>
+											<button className='make-payment-btn' onClick={handleMakePayment}>MAKE PAYMENT</button>
+										</div>
+									)}
+
+
+
+
+
+
+									{/* NETBANKING */}
+									{showOptions && selectedTab === 'netBanking' && (
+										<>
+										    <div className='upi-heading'>
+												<div className='upi-caption'>pay by Net Banking</div>
+											</div>
+
+											<ul>
+												{paymentOptions[selectedTab].map((option, index) => (
+													<li key={index} className='payment-selection'>
+														<label>
+															<input
+															type='radio'
+															name='payment-option'
+															value={option.name}
+															checked={selectedOption === option.name}
+															onChange={() => handleOptionChange(option.name)}
+															/>
+														</label>
+														<img src={option.img} alt={option.name} className='netBanking-icon' />
+													</li>
+												))}
+											</ul>
+
+											<div className='ndknwn'>
+												<div className='all-banks'>All Banks</div>
+												<select
+												    id="bank-options"
+													onChange={(e) => handleSelectChange(e.target.value)}  // Handle dropdown change
+                                                    value={selectedOption || ''}
+												>
+													<option value="">Select Bank</option>
+													{banks.map((bank, index) => (
+														<option key={index} value={bank}>{bank}</option>
+													))}
+												</select>
+											</div>
+
+										</>
+									)}
 								</div>
 
 								{!showOptions && selectedOption && (
@@ -342,31 +460,37 @@ function Payment ({ selectedTicketType }) {
 											<div className='pay-info'>Pay using  {selectedOption}</div>
 										</div>
 
-										<div className='upi-inputs'>
-
-											<div className='input-wrapper'>
-												<input 
+										{selectedTab === 'UPI' && (
+											<div className='upi-inputs'>
+												<div className='input-wrapper'>
+													<input
 													type="text"
 													placeholder='Enter UPI Id'
 													className='bank-details'
 													value={upiId}
-													onChange={(e) => setUpiId(e.target.value)} //update upi id
-												/>
-												{upiError && <div className='error-messages'>{upiError}</div>} {/* Display UPI ID error message */}
-											</div>
+													onChange={(e) => setUpiId(e.target.value)} // Update UPI ID
+													/>
+													{upiError && <div className='error-messages'>{upiError}</div>} {/* Display UPI ID error message */}
+												</div>
 
-											<div className='input-wrapper'>
-												<input 
+												<div className='input-wrapper'>
+													<input
 													type="text"
 													placeholder='Enter Bank'
 													className='bank-details'
 													value={bankDetails}
 													onChange={(e) => setBankDetails(e.target.value)} // Update Bank Details
-												/>
-												{bankError && <div className='error-messages'>{bankError}</div>} {/* Display bank details error message */}
+													/>
+													{bankError && <div className='error-messages'>{bankError}</div>} {/* Display bank details error message */}
+												</div>
 											</div>
+                                        )}
 
-										</div>
+										{selectedTab === 'netBanking' && (
+											<div className='netbanking-confirmation'>
+												<p>Click the button below to proceed with your bank's net banking.</p>
+											</div>
+										)}
 
 
 										{paymentStatus === null && (
