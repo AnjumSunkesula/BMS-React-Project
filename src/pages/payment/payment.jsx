@@ -18,6 +18,12 @@ import SBI from '../../assets/payment/sbi-na.avif'
 import axis from '../../assets/payment/axis-na.avif';
 import hdfc from '../../assets/payment/hdf-na.avif';
 import icici from '../../assets/payment/ici-na.avif';
+// mobile wallets
+import Amobile from '../../assets/payment/Amazonpay (1).avif';
+import mobikwik from '../../assets/payment/mobikwik_web.avif';
+import paytmIOS from '../../assets/payment/paytm_ios.png';
+import payzapp from '../../assets/payment/PAYZAPP.avif';
+
 
 // Helper function to format the date
 const formatDate = (date) => {
@@ -107,7 +113,7 @@ function Payment ({ selectedTicketType }) {
 
 	
 
-	// TICKET MESSAGE
+	// TICKET MESSAGE IN CONTACT DETAILS
 
 	const [message, setMessage] = useState('');
 
@@ -123,7 +129,7 @@ function Payment ({ selectedTicketType }) {
         }
 	};
 	
-	// TOGGLE PAYMNET VISIBILITY
+	// TOGGLE PAYMNET WRAPPER VISIBILITY
 
 	const [paymentVisibility, setPaymentVisibility] = useState(true);
 
@@ -145,13 +151,13 @@ function Payment ({ selectedTicketType }) {
 	// Options for each payment method
     const paymentOptions = {
         UPI: [
-			{name: 'Cred UPI',         img: cred},
-			{name: 'GooglePay',        img: gpay },
-			{name: 'AmazonPay',        img: amazonpay },
-			{name: 'BHIM',             img: bhim },
-			{name: 'Paytm',            img: paytm },
-			{name: 'PhonePe',          img: phonepe },
-			{name: 'Other UPI',        img: upi }
+			{ name: 'Cred UPI',         img: cred},
+			{ name: 'GooglePay',        img: gpay },
+			{ name: 'AmazonPay',        img: amazonpay },
+			{ name: 'BHIM',             img: bhim },
+			{ name: 'Paytm',            img: paytm },
+			{ name: 'PhonePe',          img: phonepe },
+			{ name: 'Other UPI',        img: upi }
 
 		],
         netBanking: [
@@ -160,7 +166,12 @@ function Payment ({ selectedTicketType }) {
 			{ name: 'HDFC Bank', img: hdfc },
 			{ name: 'Axis Bank', img: axis }
 		],
-        wallets: ['Paytm Wallet', 'Mobikwik', 'Freecharge']
+        wallets: [
+			{ name: 'AmazonPay', text: 'Pay using Amazon Pay Balance and get upto INR 75* back. *T&C Apply', img:Amobile },
+			{ name: 'Mobikwik | Zip (Pay Later)', text: 'Pay using Mobikwik & Get upto 30% Cashback. *T&C Apply', img:mobikwik },
+			{ name: 'Paytm (Wallet | UPI | Saved Cards)', text: '', img:paytmIOS },
+			{ name: 'PayZapp(Wallet | Saved Cards)', text: 'Pay using PayZapp and get 5% cashback upto INR 100 T&C Apply ', img:payzapp }
+		]
     };
 
 	// Function to handle tab click
@@ -195,10 +206,15 @@ function Payment ({ selectedTicketType }) {
        let hasError = false;                                       // Track if there are any errors
 
 		// Reset error messages
+		setPhoneError('');
 		setUpiError('');
 		setBankError('');
-		setPhoneError('');
 
+		// Check if phone number is filled
+		if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
+			setPhoneError('Please enter a valid Phone Number.');
+			hasError = true;
+		}
 
 		if (selectedTab === 'UPI') {
 			// Check if UPI ID is filled
@@ -212,11 +228,6 @@ function Payment ({ selectedTicketType }) {
 				hasError = true;
 			}
 	
-			// Check if phone number is filled
-			if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
-				setPhoneError('Please enter a valid Phone Number.');
-				hasError = true;
-			}
 
 		} else if (selectedTab === 'netBanking') {
 			if (!phoneNumber || phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) {
@@ -266,9 +277,86 @@ function Payment ({ selectedTicketType }) {
 
 
 
+	
+	
+    // CARD VALIDATIONS
+	
+	const [cardNumber, setCardNumber] = useState('');
+	const [cardName, setCardName] = useState('');
+	const [expiryMonth, setExpiryMonth] = useState('');
+	const [expiryYear, setExpiryYear] = useState('');
+	const [cvv, setCvv] = useState('');
+	const [isCardFormValid, setIsCardFormValid] = useState(false);
+    const [showCardDetails, setShowCardDetails] = useState(false); // New state for showing card details
+
+	// Helper function to format card number
+	const formatCardNumber = (value) => {
+		const digitsOnly = value.replace(/\D/g, ''); // Remove all non-digits
+		const formattedValue = digitsOnly.replace(/(.{4})/g, '$1 ').trim(); // Add space after every 4 digits
+		return formattedValue;
+	};
+
+	// Handle input changes
+	const handleInputChange = (e) => {
+		const formattedValue = formatCardNumber(e.target.value);
+		setCardNumber(formattedValue);
+		validateCardForm(formattedValue, cardName, expiryMonth, expiryYear, cvv);
+	};
+
+	// Function to validate card form
+	const validateCardForm = (number = cardNumber, name = cardName, month = expiryMonth, year = expiryYear, cardCvv = cvv) => {
+		const cardNumberValid = number.replace(/\s/g, '').length === 16; // Validate card number length
+		const nameValid = name.trim() !== ''; // Validate card name
+		const expiryValid = month.length === 2 && year.length === 2; // Validate expiry date
+		const cvvValid = cardCvv.length === 3; // Validate CVV
+
+		setIsCardFormValid(cardNumberValid && nameValid && expiryValid && cvvValid);
+	};
+
+	// Individual input change handlers
+	const handleCardNameChange = (e) => {
+		setCardName(e.target.value);
+		validateCardForm(cardNumber, e.target.value, expiryMonth, expiryYear, cvv);
+	};
+
+	const handleExpiryMonthChange = (e) => {
+		const {value} = e.target;
+		const numericValue = value.replace(/[^0-9]/g, '');    // Filter out non-numeric characters
+
+		// Update state only if it's valid (max length check)
+		if (numericValue.length <= 2) {
+			setExpiryMonth(numericValue);
+		}
+		validateCardForm(cardNumber, cardName, numericValue, expiryYear, cvv);
+	};
+
+	const handleExpiryYearChange = (e) => {
+		setExpiryYear(e.target.value);
+		validateCardForm(cardNumber, cardName, expiryMonth, e.target.value, cvv);
+	};
+
+	const handleCvvChange = (e) => {
+		setCvv(e.target.value);
+		validateCardForm(cardNumber, cardName, expiryMonth, expiryYear, e.target.value);
+	};
+
+	// Handler for the "Next" button
+	const handleNext = () => {
+		if (isCardFormValid) {
+			setShowCardDetails(true); // Show card details on successful validation
+		} 
+	};
+
+	
+
+
+  
 
 
 
+
+
+	
 
 
 	return(
@@ -374,44 +462,131 @@ function Payment ({ selectedTicketType }) {
 									)}
 
 
-
-
-									
-
 									{/* DEBIT/CREDIT CARD */}
 
-									{showOptions && selectedTab === 'card' && (
-										<div className='card-payment-wrapper'>
-											<div className='card-container'>
-												<label>
-												<span>Card Number</span>
-												<input type='text' placeholder='Enter Your Card Number' />
-												</label>
-												<label>
-												<span>Name on the card</span>
-												<input type='text' placeholder='Name on the card' />
-												</label>
-												<div className='card-expiry-cvv'>
-												<label>
-													<span>Expiry</span>
-													<input type='text' placeholder='MM/YY' />
-												</label>
-												<label>
-													<span>CVV</span>
-													<input type='text' placeholder='CVV' />
-												</label>
+									{showOptions && selectedTab === 'card' && !showCardDetails && (
+										<> 
+										    <div className='upi-heading'>
+												<div className='upi-caption'>enter your card details </div>
+											</div>
+
+										    <div className='card-container'>
+												<div className='card-number-wrapper'>
+													<div className='card-headings'>card number</div>
+													<div className='card-inputs'>
+														<input 
+														    type="text"
+															placeholder='enter your card number'
+															className='input-values number-input'
+															maxLength={19}
+															value={cardNumber}
+															onChange={handleInputChange}
+														/>
+
+														<input 
+														    type="text"
+															placeholder='name on the card' 
+															className='input-values'
+															value={cardName}
+															onChange={handleCardNameChange}
+														/>
+													</div>
+												</div>
+												<div className='expiry-cvv'>
+													<div className='expiry'>
+														<div className='card-headings'>expiry</div>
+														<div className='expiry-inputs'>
+															<input 
+															    type="text"
+																inputMode='numeric'
+																placeholder='mm'
+																maxLength={2} 
+																className='GUYSq'
+																value={expiryMonth}
+																onChange={handleExpiryMonthChange}
+															/>
+															<input 
+															    type="text"
+																inputMode='numeric'
+																placeholder='yy' 
+																maxLength={2}
+																className='GUYSq'
+																value={expiryYear}
+																onChange={handleExpiryYearChange}
+
+															/>
+														</div>
+													</div>
+													<div className='cvv'>
+														<div className='card-headings'>CVV</div>
+														<div>
+															<input 
+															    type="password"
+																placeholder='cvv' 
+																maxLength={3}
+																className='GUYq'
+																value={cvv}
+																onChange={handleCvvChange}
+															/>
+														</div>
+													</div>
 												</div>
 											</div>
-											<button className='make-payment-btn' onClick={handleMakePayment}>MAKE PAYMENT</button>
+
+											<button className='next-button' onClick={handleNext} disabled={!isCardFormValid}>Next</button> {/* Next Button */}
+											
+										</>
+									)}
+
+                                    {/* this logic is supposed to be right after the input logic because When you placed the conditional logic ({showCardDetails && ...}) right after the card input, React only renders that part of the UI based on whether the showCardDetails state is true or false.
+									If you placed the conditional logic far from where the actual card input is rendered, React would either not rerender correctly or it would not reflect the updated state in the part of the component where it's needed. */}
+
+									{selectedTab === 'card' && showCardDetails && (            
+										<div className='payment-info'>
+											<div>
+												<div className='card-heading'>card details</div>
+												<div className='card-details'>Card Number: <span>{cardNumber}</span></div>
+												<div className='card-details'>Name on Card: <span>{cardName}</span></div>
+												<div className='card-details'>Expiry Date: <span>{expiryMonth}/{expiryYear}</span></div>
+												<div className='card-details'>CVV: <span>{cvv}</span></div>
+											</div>
+
+											<div className='card-payment'>
+                                                {paymentStatus === null && (
+													<div className='make-payment' onClick={handleMakePayment}>make payment</div>
+												)}
+                                                <div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span>.</div>
+											</div>
+
+											
+
+										{paymentStatus === 'success' && (
+											<div>
+												<h2>Payment Successful!</h2>
+												<p>Your booking is confirmed. You can now view your booking details.</p>
+												<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+												<button onClick={() => window.location.href = '/booking-details'}>View Booking Details</button>
+											</div>
+										)}
+
+											{paymentStatus === 'failure' && (
+											<div>
+												<h2>Payment Failed!</h2>
+												<p>Something went wrong. Please try again.</p>
+												<button onClick={() => window.location.href = '/home'}>Go to Home</button>
+												<button onClick={handlePayment}>Retry Payment</button>
+											</div>
+											)}
+
+
 										</div>
+
+										
 									)}
 
 
-
-
-
-
 									{/* NETBANKING */}
+
 									{showOptions && selectedTab === 'netBanking' && (
 										<>
 										    <div className='upi-heading'>
@@ -451,15 +626,67 @@ function Payment ({ selectedTicketType }) {
 
 										</>
 									)}
+
+
+									{/* MOBILE WALLETS */}
+
+									{showOptions && selectedTab === 'wallets' && (
+										<>
+											<div className='upi-heading'>
+												<div className='upi-caption'>pay using wallets</div>
+											</div>
+
+											<ul>
+												{paymentOptions[selectedTab].map((option, index) => (
+													<li key={index} className='payment-selection'>
+														<label>
+															<input
+															type='radio'
+															name='payment-option'
+															value={option.name}
+															checked={selectedOption === option.name}
+															onChange={() => handleOptionChange(option.name)}
+															/>
+														</label>
+														<div>
+														   <img src={option.img} alt={option.name} className='wallets-icon' />
+														   <div className='wallets-name'>{option.text}</div>
+														</div>
+													</li>
+												))}
+											</ul>
+										</>
+									)}
+
 								</div>
 
-								{!showOptions && selectedOption && (
+
+
+								{!showOptions && selectedOption &&  (
 									<div className='makePayment-wrapper'>
 										<div className='GHVFh'>
 											<div onClick={handleBackClick} className='backClick-icon'><BsArrowLeftCircle /></div>
-											<div className='pay-info'>Pay using  {selectedOption}</div>
+											<div className='pay-info'>
+												{selectedTab === 'wallets' 
+												? selectedOption   // Just show the selected option for wallets
+												: `Pay using ${selectedOption}`} {/* Show "Pay using" for other payment methods */}
+											</div>
 										</div>
 
+										 
+
+										{/* Show Card Details after Next is clicked */}
+										{selectedTab === 'card' && showCardDetails && (
+											<div className='pay-info'>
+												{/* <h3>Card Details</h3> */}
+												<p><strong>Card Number:</strong> {cardNumber}</p>
+												<p><strong>Name on Card:</strong> {cardName}</p>
+												<p><strong>Expiry Date:</strong> {expiryMonth}/{expiryYear}</p>
+												<p><strong>CVV:</strong> {cvv}</p>
+											</div>
+										)}
+
+										
 										{selectedTab === 'UPI' && (
 											<div className='upi-inputs'>
 												<div className='input-wrapper'>
@@ -486,11 +713,20 @@ function Payment ({ selectedTicketType }) {
 											</div>
                                         )}
 
+										
+
 										{selectedTab === 'netBanking' && (
 											<div className='netbanking-confirmation'>
-												<p>Click the button below to proceed with your bank's net banking.</p>
+												Click the button below to proceed with <span>{selectedOption}</span>.
 											</div>
 										)}
+
+										{selectedTab === 'wallets' && (
+											<div className='wallet-info'>
+												{paymentOptions.wallets.find(option => option.name === selectedOption)?.text || ''}
+											</div>
+										)}
+
 
 
 										{paymentStatus === null && (
@@ -516,7 +752,7 @@ function Payment ({ selectedTicketType }) {
 											)}
 
 
-										<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span></div>
+										<div className='shaj'>By clicking "Make Payment" you agree to the <span>terms and conditions</span>.</div>
 									</div>
 								)}
 						    </div>
