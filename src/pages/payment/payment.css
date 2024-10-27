@@ -6,11 +6,16 @@
     box-shadow: 0px 8px 7px -6px rgba(0, 0, 0, 0.76);
 }
 .bms-logo{
-    margin-left: 12em;
+    margin-left: 14.3em;
+}
+.jAgsh{
+    display: flex;
+    flex-direction: column;
 }
 .bSaga{
     display: flex;
     gap: 10px;
+    margin-top: 78px;
 }
 .payment-container{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -577,6 +582,53 @@ input[type="radio"] {
     font-family: sans-serif;
     font-size: 14px;
 
+}
+
+/* NOTE */
+.note-wrapper{
+    display: flex;
+    flex-direction: column;
+    color: #bbbdc1;
+    font-family: system-ui;
+    font-size: xx-small;
+    position: relative;
+    top: 15px;
+}
+.gyFA{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.note{
+    font-weight: 600;
+}
+.note-points{
+    padding-left: 8px;
+    letter-spacing: 0.5px;
+}
+.note-points span{
+    color: hsl(349, 93%, 62%);
+    text-transform: capitalize;
+}
+.copyright-images{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.copyright span{
+    color: #333;
+}
+.copy-images-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.copy-images{
+    display: flex;
+    align-items: center;
+}
+.copy-images img{
+    width: 40px;
 }
 
 
