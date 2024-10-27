@@ -208,12 +208,22 @@ function Payment ({ selectedTicketType }) {
 	// PAYMENT PROCESS
 
 	const [paymentStatus, setPaymentStatus] = useState(null);              // null means no payment status yet
+	const [bookedSeats, setBookedSeats] = useState(JSON.parse(localStorage.getItem('bookedSeats') || "[]")); // Initial booked seats from local storage
+
 
 	// Simulate a payment by randomly determining if it's successful
 
 	const handlePayment = () => {
 		const isSuccess = Math.random() > 0.5;                               // 50% chance of success or failure
-		setPaymentStatus(isSuccess ? 'success' : 'failure');
+
+		if(isSuccess) {
+			const updatedBookedSeats = [...bookedSeats, ...selectedSeats];
+			localStorage.setItem('bookedSeats', JSON.stringify(updatedBookedSeats));       //store booked seats in local storage
+			setBookedSeats(updatedBookedSeats);
+			setPaymentStatus('success');
+		} else {
+			setPaymentStatus('failure');
+		}
 	};
 
 	// handle retry payment
