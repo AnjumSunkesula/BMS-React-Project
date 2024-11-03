@@ -28,6 +28,10 @@ function App() {
     setSelectedTicketType(ticketType); // Update the ticket type
   };
 
+  // STATE FOR SEARCH TERM
+
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   return(
     <>
@@ -36,7 +40,7 @@ function App() {
         <Route exact path="/" component={Login}/>
 
         <Route exact path="/home"> 
-          <Home selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to Home */}
+          <Home selectedCity={selectedCity} setSelectedCity={setSelectedCity}  setSearchTerm={setSearchTerm} searchTerm={searchTerm} /> {/* Pass selectedCity and setSelectedCity to Home */}
         </Route>
 
         <Route  path="/aboutmovies"> 
@@ -44,7 +48,7 @@ function App() {
         </Route>
 
         <Route  path="/seeall"> 
-          <SeeAll selectedCity={selectedCity} setSelectedCity={setSelectedCity} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
+          <SeeAll selectedCity={selectedCity} setSelectedCity={setSelectedCity} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> {/* Pass selectedCity and setSelectedCity to AboutMovies */}
         </Route>
 
         <Route path="/booktickets">
@@ -52,11 +56,11 @@ function App() {
         </Route>
 
         <Route path="/addfoods">
-          <AddFoods selectedTicketType={selectedTicketType} /> {/* Pass selectedCity to BookTickets */}
+          <AddFoods selectedTicketType={selectedTicketType} onTicketSelection={handleTicketSelection}/> 
         </Route>
 
         <Route path="/payment">
-          <Payment selectedTicketType={selectedTicketType}/> {/* Pass selectedCity to BookTickets */}
+          <Payment selectedTicketType={selectedTicketType}/>
         </Route>
 
       </Switch>
@@ -65,7 +69,3 @@ function App() {
   );
 }
 export default App;
-
-
-
-
