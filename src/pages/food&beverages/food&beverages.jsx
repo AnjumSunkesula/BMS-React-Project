@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 
 
-function AddFoods ({ selectedTicketType }) {
+function AddFoods ({ selectedTicketType, onTicketSelection }) {
 
     const location = useLocation();
     const history = useHistory();
