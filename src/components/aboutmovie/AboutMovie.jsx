@@ -143,6 +143,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
 
     
 
+
     const selectedDescription = movieDescriptions[index];
 
     const backgroundGradients = [
@@ -204,6 +205,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
         history.push({
             pathname: '/booktickets',
             state: { 
+                movie, index,
                 movieName: movie.movieName, //to pass the movieName to display the movie name in the booktickets header.
                 genre: movie.genre,
                 selectedSeat ,

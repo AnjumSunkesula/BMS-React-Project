@@ -22,31 +22,29 @@ import { useState } from 'react';
 
 
 
-function AddFoods () {
+function AddFoods ({ selectedTicketType }) {
 
     const location = useLocation();
     const history = useHistory();
-
     
-
     const { selectedSeats, totalPrice, seatCount } = location.state || { selectedSeats: [], totalPrice: 0, seatCount: 0 };
-
+    
     // to toggle convenience fee
     const [showFeeDetails, setShowFeeDetails] = useState(false);
-
+    
     const toggleDetails = () => {
         setShowFeeDetails(!showFeeDetails);
     };
-
     
-
+    
+    
     // subtotal
     const convenienceFee = 283.20;
-
+    
     const subTotal = totalPrice + convenienceFee;
-
+    
     // food details
-
+    
     const foodItems = [
         {id: 1,  name: 'medium tub salted popcorn (135g | 421.96 kcal)',  price: 590, info: 'medium tub salted popcorn (135g | 421.96 kcal)',                imgSrc: fig1, category: "popcorn"},
         {id: 2,  name: 'regular coke 540ml',                              price: 420, info: 'regular coke (540ml | 237.60 kcal)',                            imgSrc: fig2, category: "beverages"},
@@ -68,19 +66,19 @@ function AddFoods () {
         {id: 18, name: 'large coke 810ml',                                price: 600, info: 'large coke (810ml | 356.40 kcal)',                              imgSrc: fig2, category: "beverages"},
         {id: 19, name: 'large tub salted popcorn (240g | 750.15 kcal)',   price: 820, info: 'large tub salted popcorn (240g | 750.15 kcal)',                 imgSrc: fig1, category: "popcorn"} 
     ];
-
+    
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedFoods, setSelectedFoods] = useState([]); //to store selected food item
-
-
+    
+    
     // FOOD FUNCTIONALITY
     
     // food addition
     const handleAddFood = (food) => {
         setSelectedFoods((prevSelectedFoods) => {
-        const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
-        if (existingFood) {
-            return prevSelectedFoods.map((item) =>
+            const existingFood = prevSelectedFoods.find((item) => item.id === food.id);
+            if (existingFood) {
+                return prevSelectedFoods.map((item) =>
             item.id === food.id ? { ...item, quantity: item.quantity + 1 } : item
             );
         } else {
@@ -88,15 +86,13 @@ function AddFoods () {
         }
         });
     };
-
-
+    
+    
     const handleRemoveFood = (food) => {
         setSelectedFoods((prevSelectedFoods) => {
-        return prevSelectedFoods
-            .map((item) =>
-            item.id === food.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-            )
-            .filter((item) => item.quantity > 0);
+            return prevSelectedFoods.map((item) =>
+                item.id === food.id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+            ).filter((item) => item.quantity > 0);
         });
     };
 
@@ -120,19 +116,18 @@ function AddFoods () {
     const calculateTotalPrice = () => {
         return selectedFoods.reduce((total, food) => total + (food.price * food.quantity), 0);
     };
-    
+
     // function to delete a single item
     const deleteSingleItem = (foodId) => {
         const updatedFoods = selectedFoods.filter((food) => food.id !== foodId);    // Filter the selectedFoods array to exclude the item with the specified ID
-        
         setSelectedFoods(updatedFoods);                                             // Update the state with the new array
     };
-
+    
     // CONTRIBUTE MONEY
-
+    
     const [isMoneyAdded, setIsMoneyAdded] = useState(false);
     const [totalMoney, setTotalMoney] = useState(0);
-
+    
     const handleClick = () => {
         if(isMoneyAdded) {
             setTotalMoney(totalMoney - seatCount);
@@ -143,19 +138,22 @@ function AddFoods () {
             setIsMoneyAdded(true);
         }
     }
-
     
-
+    
+    
     // AMOUNT PAYABLE
-
+    
     const amountPayable = subTotal + calculateTotalPrice() + totalMoney ;
-
+    
     // STATE PASSAGE
-
+    const { movie } = location.state || {};     //passing movie object to payment component
+    
     const handlePaymentPage = () => {
         history.push({
             pathname: '/payment',
             state: {
+                movieName: movie.movieName,
+                genre: movie.genre,
                 selectedSeats: selectedSeats,
                 totalPrice: totalPrice,
                 seatCount : seatCount,
@@ -166,6 +164,9 @@ function AddFoods () {
         });
     }
 
+    
+
+    
     
     return(
         <>
@@ -423,11 +424,25 @@ function AddFoods () {
                             <div className='qnjhW'>select ticket type</div>
                             <div className='ticketOptions'>
                                 <div className='ticketOption'>
-                                   <input type="radio" name='ticket-type' className='radio'/>
-                                   <div className='ticket-name'>m-ticket</div>
+                                    <input 
+                                       type="radio" 
+                                       name='ticket-type' 
+                                       className='radio'
+                                       value='m-ticket'
+                                       checked={selectedTicketType === 'm-ticket'} // Check if this option is selected
+                                       onChange={() => onTicketSelection('m-ticket')} // Update the state in Parent Component
+                                    />
+                                    <div className='ticket-name'>m-ticket</div>
                                 </div>
                                 <div className='ticketOption'>
-                                    <input type="radio" name='ticket-type' className='radio'/>
+                                    <input 
+                                        type="radio" 
+                                        name='ticket-type' 
+                                        className='radio'
+                                        value='box-office'
+                                        checked={selectedTicketType === 'box-office'}
+                                        onChange={() => onTicketSelection('box-office')}
+                                    />
                                     <div className='ticket-name'>box-office</div>
                                 </div>
                             </div>

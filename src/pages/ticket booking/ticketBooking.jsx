@@ -12,6 +12,8 @@ function BookTickets ({ selectedCity }) {
 
     const history = useHistory();
 
+    const bookedSeats = JSON.parse(localStorage.getItem("bookedSeats") || "[]");  //retrive the booked seats from local storage
+
     const handleSeatSelectionClose = () => {
         history.push('/seeall');
     }
@@ -22,14 +24,19 @@ function BookTickets ({ selectedCity }) {
 
 
     const handleFoodAdditionPage = () => {
-        history.push('/addfoods', {
-            selectedSeats: selectedSeats,   //array of selected seat numbers like [A1,A2]
-            totalPrice: totalPrice,         //total price of the selected seats
+        const bookingDetails = {
+            movie,
+            selectedSeats,   //array of selected seat numbers like [A1,A2]
+            totalPrice,         //total price of the selected seats
             seatCount: selectedSeats.length //number of selected seats
-        })
+        };
+        history.push('/addfoods', bookingDetails);
+        localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
     };
-     
 
+    
+     
+    const { movie } = location.state || {};
     const { movieName } = location.state || { movieName: 'no movies selected' };
     const { selectedSeat } = location.state || { selectedSeat };                 //default to empty array if no selectedd seat
     const { certification } = location.state || { certification };
@@ -49,45 +56,52 @@ function BookTickets ({ selectedCity }) {
 
     // Automatic adjacent seat selection    
 
-    // const handleSeatClick = (seatNumber, seatType) => {
-    //     setSelectedSeats([]);                                                    // Reset all previously selected seats when selecting a new seat
+    const handleSeatClick = (seatNumber, seatType) => {
+        if(bookedSeats.includes(seatNumber)) return;
+        setSelectedSeats([]);                                                    // Reset all previously selected seats when selecting a new seat
 
-    //     const selectedRow = seatNumber[0];                                          // Get the row letter (e.g., 'A', 'B')
-    //     const seatIndex = parseInt(seatNumber.slice(1));                            // Get the seat number (e.g., '1', '2', etc.)
+        const selectedRow = seatNumber[0];                                          // Get the row letter (e.g., 'A', 'B')
+        const seatIndex = parseInt(seatNumber.slice(1));                            // Get the seat number (e.g., '1', '2', etc.)
 
-    //     // Generate new selection based on the clicked seat
-    //     const newSelection = [];
-    //     for (let i = 0; i < totalSeatsToSelect; i++) {
-    //         const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
-    //         newSelection.push(nextSeatNumber);
-    //     }
+        // Generate new selection based on the clicked seat
+        const newSelection = [];
+        for (let i = 0; i < totalSeatsToSelect; i++) {
+            const nextSeatNumber = `${selectedRow}${seatIndex + i}`;
+            newSelection.push(nextSeatNumber);
+        }
         
-    //     // Update selected seats with the new selection
-    //     setSelectedSeats(newSelection);
-    //     setSelectedDivision(seatType);                                               // Set the currently selected division
-    // };
+        // Update selected seats with the new selection
+        setSelectedSeats(newSelection);
+        setSelectedDivision(seatType);                                               // Set the currently selected division
+    };
 
     // manual seat selection
 
-    const handleSeatClick = (seatNumber, seatType) => {
-        if (selectedSeats.includes(seatNumber)) {                                       // Check if the seat is already selected
-            setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));      // If the seat is already selected, deselect it
-        } else {
-            if (selectedSeats.length < totalSeatsToSelect) {                             // If the seat is not already selected, and we haven't reached the total seats limit
-                setSelectedSeats([...selectedSeats, seatNumber]);                        // Select the seat
-                setSelectedDivision(seatType);                                           // Set the seat type when selecting a new seat
-            }
-        }
-    };
+    // const handleSeatClick = (seatNumber, seatType) => {
+        
+    //     if(bookedSeats.includes(seatNumber)) return;                                    // ignore clicks on booked seats
 
 
-    const isSelected = (seatNumber) => selectedSeats.includes(seatNumber);
+    //     if (selectedSeats.includes(seatNumber)) {                                       // Check if the seat is already selected
+    //         setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));      // If the seat is already selected, deselect it
+    //     } else {
+    //         if (selectedSeats.length < totalSeatsToSelect) {                             // If the seat is not already selected, and we haven't reached the total seats limit
+    //             setSelectedSeats([...selectedSeats, seatNumber]);                        // Select the seat
+    //             setSelectedDivision(seatType);                                           // Set the seat type when selecting a new seat
+    //         }
+    //     }
+    // };
+
+
+    const isSelected = (seatNumber) => selectedSeats.includes(seatNumber);              //check if seat is selected
+    const isBooked = (seat) => bookedSeats.includes(seat);
+      
 
     // Calculate total price
     const totalPrice = selectedSeats.length * (seatPrices[selectedDivision] || 0);
-
+  
     
-
+    
     return (
         <>
 {/* HEADER  */}
@@ -148,8 +162,8 @@ function BookTickets ({ selectedCity }) {
                                             {['14', '13', '12', '11'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
+                                                    className={`seat ${isBooked(`A${seat}`) ? 'grey' : isSelected(`A${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`A${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -159,8 +173,8 @@ function BookTickets ({ selectedCity }) {
                                             {['10', '9'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
+                                                    className={`seat ${isBooked(`A${seat}`) ? 'grey' : isSelected(`A${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`A${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -170,8 +184,8 @@ function BookTickets ({ selectedCity }) {
                                             {['8', '7', '6', '5'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
+                                                    className={`seat ${isBooked(`A${seat}`) ? 'grey' : isSelected(`A${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`A${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -180,8 +194,8 @@ function BookTickets ({ selectedCity }) {
                                             {['4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`J${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`J${seat}`, 'recliner')}
+                                                    className={`seat ${isBooked(`A${seat}`) ? 'grey' : isSelected(`A${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`A${seat}`, 'recliner')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -211,8 +225,8 @@ function BookTickets ({ selectedCity }) {
                                             {['17', '16', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`H${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`H${seat}`, 'prime')}
+                                                    className={`seat ${isBooked(`B${seat}`) ? 'grey' : isSelected(`B${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`B${seat}`, 'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -231,8 +245,8 @@ function BookTickets ({ selectedCity }) {
                                             {['17', '16', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`G${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`G${seat}`,'prime')}
+                                                    className={`seat ${isBooked(`C${seat}`) ? 'grey' : isSelected(`C${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`C${seat}`,'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -251,8 +265,8 @@ function BookTickets ({ selectedCity }) {
                                             {['17', '16', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`F${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`F${seat}`,'prime')}
+                                                    className={`seat ${isBooked(`D${seat}`) ? 'grey' : isSelected(`D${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`D${seat}`,'prime')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -271,7 +285,7 @@ function BookTickets ({ selectedCity }) {
                                             {['17', '16', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`E${seat}`) ? 'selected' : ''}`}
+                                                    className={`seat ${isBooked(`E${seat}`) ? 'grey' : isSelected(`E${seat}`) ? 'selected' : ''}`}
                                                     onClick={() => handleSeatClick(`E${seat}`,'prime')}
                                                 >
                                                     {seat}
@@ -284,8 +298,8 @@ function BookTickets ({ selectedCity }) {
     {/* THIRD ROW DIV */}  
                             <div className='HGVYT'>
                                 <tr>
-                                    <td>
-                                    <div className='recliner'>rs. {seatPrices.classic} classic</div>
+                                     <td>
+                                        <div className='recliner'>rs. {seatPrices.classic} classic</div>
                                     </td> 
                                 </tr>
                                 {/*third row line-1  */}
@@ -301,8 +315,8 @@ function BookTickets ({ selectedCity }) {
                                             {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`D${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`D${seat}`, 'classic')}
+                                                    className={`seat ${isBooked(`F${seat}`) ? 'grey' : isSelected(`F${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`F${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -321,8 +335,8 @@ function BookTickets ({ selectedCity }) {
                                             {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`C${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`C${seat}`, 'classic')}
+                                                    className={`seat ${isBooked(`G${seat}`) ? 'grey' : isSelected(`G${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`G${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -341,8 +355,8 @@ function BookTickets ({ selectedCity }) {
                                             {['14', '13', '12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`B${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`B${seat}`, 'classic')}
+                                                    className={`seat ${isBooked(`H${seat}`) ? 'grey' : isSelected(`H${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`H${seat}`, 'classic')}
                                                 >
                                                     {seat}
                                                 </div>
@@ -374,8 +388,8 @@ function BookTickets ({ selectedCity }) {
                                             {['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'].map((seat) => (
                                                 <div
                                                     key={seat}
-                                                    className={`seat ${isSelected(`A${seat}`) ? 'selected' : ''}`}
-                                                    onClick={() => handleSeatClick(`A${seat}`, 'lounger')}
+                                                    className={`seat ${isBooked(`I${seat}`) ? 'grey' : isSelected(`I${seat}`) ? 'selected' : ''}`}
+                                                    onClick={() => handleSeatClick(`I${seat}`, 'lounger')}
                                                 >
                                                     {seat}
                                                 </div>

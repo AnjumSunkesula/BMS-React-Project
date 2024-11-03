@@ -1,17 +1,510 @@
 .payment-header{
     width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
     box-shadow: 0px 8px 7px -6px rgba(0, 0, 0, 0.76);
-    position: relative;
-    bottom: 2em;
-    display: flex;
 }
 .bms-logo{
-    margin-left: 12em;
+    margin-left: 14.3em;
+}
+.jAgsh{
+    display: flex;
+    flex-direction: column;
+}
+.payment-status{
+    font-family: sans-serif;
+    text-transform: capitalize;
+    max-width: 100vw;
+    width: 840px;
+}
+.success-wrapper{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.success-heading{
+    font-size: 28px;
+    font-weight: 500;
+    font-family: 'Montserrat';
+}
+.success-note{
+    color: #7b7d82;
+    text-transform: none;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+.success-note a{
+    color: hsl(349, 93%, 62%);
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+.home-button{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.buttons-wrapper{
+    display: flex;
+    margin: 0 auto;
+    gap: 10px;
+
 }
 .bSaga{
     display: flex;
     gap: 10px;
+    margin-top: 78px;
 }
+.payment-container{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 770px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.payment-container.hidden{
+    box-shadow: none;
+}
+/* CONTACT DETAILS */
+.contact-details-wrapper, .payment-details-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.contact-details-wrapper{
+    border: 1px solid rgb(231, 224, 224);
+}
+.contact-heading{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    padding: 8px ;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.drop-down{
+    font-size: 25px;
+    display: flex;
+    cursor: pointer;
+}
+.contact-inputs-wrapper{
+    padding: 20px 5px;
+}
+.contact-inputs{
+    display: flex;
+    gap: 8px;
+    margin-left: 10px;
+}
+.jqzw, .jqzwn{
+    border: 1px solid hsl(240, 1%, 73%);
+    width: 13.5em;
+    padding: 10px 14px;
+    transition: box-shadow 0.3s ease;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+.jqzwn:focus{
+    outline: none;
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8) ;
+}
+.continue-button{
+    background-color: hsl(349, 93%, 62%);
+    color: white;
+    padding: 0px 20px;
+    border-radius: 4px;
+    border: none;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+.success-message{
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 10px;
+    color: rgb(73, 69, 69);
+}
+/* PAYMENT DETAILS */
+.payment-options-wrapper{
+    display: flex;
+    height: 330px;
+}
+.payment-wrapper{
+    background: #f7f7f7;
+}
+.payment-tabs{
+    margin: 0;
+    padding: 0;
+}
+.payment-list{
+    cursor: pointer;
+    font-size: 12px;
+    color: #7b7d82;
+    padding: 15px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #f0f0f0;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    word-spacing: 0.8px;
+    width: 10vw;
+    transition: background-color 0.3s;
+}
+.payment-list.active{
+    background-color: white;
+    color: #7b7d82;
+}
+.payment-selections{
+    padding-left: 15px;
+}
+.payment-selections ul{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+.upi-heading{
+    display: flex;
+    gap: 5px;
+    margin-top: 13px;
+    margin-bottom: 16px;
+}
+.upi-logo{
+    width: 50px;
+}
+.upi-caption{
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+.payment-selection{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 220px;
+}
+.payment-icon{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* debit/credit card */
+.card-container {
+    background: linear-gradient(125deg, #dadee3 0, #dadee3 50%, #d2d6de 51%, #d2d6de 100%);;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.card-number-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.card-headings{
+    text-transform: capitalize;
+    color: #969696;
+    font-family: Roboto, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+.card-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.input-values{
+    padding: 12px;
+    outline: none;
+    border: none;
+    width: 100%;
+    max-width: 200px;
+    text-transform: capitalize;
+    box-shadow: inset 2px 1px 0 #bec1c9;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+.input-values::placeholder{
+    font-size: 10px;
+    color: #979494;
+    letter-spacing: 0.5px;
+}
+.input-values:focus::placeholder, .GUYSq:focus::placeholder,
+.GUYq:focus::placeholder{
+    color: #c8c4c4;
+}
+.number-input::placeholder{
+    color: #c6c3c3;
+    letter-spacing: 2px;
+    font-family: monospace;
+}
+.expiry-cvv{
+    display: flex;
+    align-items: center;
+}
+.expiry, .cvv{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.cvv{
+    margin-left: 100px;
+}
+.expiry-inputs{
+    display: flex;
+    gap: 5px;
+}
+.GUYSq, .GUYq{
+    box-shadow: inset 2px 1px 0 #bec1c9;
+    width: 100%;
+    max-width: 20px;
+    padding: 6px;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+.GUYq{
+    max-width: 40px;
+}
+.GUYSq::placeholder, .GUYq::placeholder{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+.djsja{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.next-button{
+    padding: 6px 20px;
+    cursor: pointer;
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 0.8px;
+}
+
+/* debit/credit card */
+.payment-info{
+    font-family: 'Lora';
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 100%;
+    margin-top: 10px;
+}
+.card-heading{
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    font-weight: bold;
+    font-family: 'Montserrat';
+    padding-bottom: 10px;
+}
+.card-details{
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    color: #666;
+}
+.card-details span{
+    color: #b2b3b5;
+    font-family: monospace;
+}
+.card-payment{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* netbanking */
+.netBanking-icon{
+    width: 100px;
+    margin-right: 10px;
+}
+.ndknwn{
+    letter-spacing: 0.5px;
+    font-family: sans-serif;
+}
+.all-banks{
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #7b7d82;
+    margin-top: 15px;
+}
+#bank-options{
+    padding: 8px;
+    text-transform: capitalize;
+    margin-top: 8px;
+    margin-bottom: 35px;
+    width: 40%;
+    border: 1px solid #b9b9ba;
+    outline: none;
+    cursor: pointer;
+}
+#bank-options:focus{
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8);
+}
+.shaja{
+    padding-top: 12px;
+}
+.option-name{
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #7b7d82;
+}
+label{
+    display: flex;
+    align-items: center;
+}
+input[type="radio"] {
+    cursor: pointer;
+    margin-right: 10px;
+}
+.netbanking-confirmation{
+    text-transform: capitalize;
+    font-family: math;
+    padding-bottom: 20px;
+}
+.netbanking-confirmation span{
+    font-weight: 700;
+}
+
+/* wallets */
+.wallets-icon{
+    width: 70px;
+}
+.wallets-name{
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #7b7d82;
+}
+.wallet-info{
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+    padding-bottom: 20px;
+}
+
+
+/* MAKE PAYMNETS */
+.makePayment-wrapper {
+    padding: 10px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.GHVFh {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.backClick-icon {
+    display: flex;
+    padding-top: 3px;
+    cursor: pointer;
+}
+.pay-info {
+    font-family: system-ui; 
+    font-weight: 600;
+    font-size: 17px;
+}
+.upi-inputs{
+    display: flex;
+    gap: 20px;
+}
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.phone-error-messages{
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 10px;
+    font-family: system-ui;
+    margin-right: 10em;
+    margin-top: 5px;
+}
+.error-messages{
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-size: 10px;
+}
+.bank-details{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid hsl(240, 1%, 73%);
+}
+.bank-details:focus{
+    outline: none;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0px 0px 8px hsl(240, 1%, 73%, 0.8);
+}
+.bank-details::placeholder{
+    color: #a9abb1;
+    font-size: 1px;
+    letter-spacing: 0.5px;
+    font-family: system-ui;
+}
+.make-payment{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+    padding: 12px 24px;
+    width: max-content;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+.make-payment:hover{
+    background-color: hsl(349, 79%, 48%);
+}
+.shaj, .shaja{
+    color: #7b7d82;
+    font-family: system-ui;
+    font-size: 10px;
+}
+.shaj span{
+    color: black;
+}
+
+
+
+
+
+
+
 
 
 
@@ -28,11 +521,10 @@
     position: relative;         /* Required for absolute positioning of pseudo-elements */
     background: white;
     border: 1px solid #ccc;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: fit-content;
     gap: 10px;
-
+    width: 300px;
 }
 .ticket-container::before, .ticket-container::after{
     content: "";
@@ -56,11 +548,11 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
 }
 .hgVAs{
     display: flex;
-    gap: 28px;
+    justify-content: space-between;
 }
 .hFAh{
     display: flex;
@@ -80,12 +572,10 @@
     text-transform: capitalize;
     font-family: sans-serif;
     letter-spacing: 0.3px;
+    gap: 3px;
 }
 .name{
     font-size: 14px;
-}
-.certified{
-    font-size: 13px;
 }
 .category{
     text-transform: capitalize;
@@ -101,7 +591,7 @@
     font-family: sans-serif;
 }
 .number{
-    font-size: 30px;
+    font-size: 36px;
 }
 .tickets{
     text-transform: capitalize;
@@ -113,6 +603,21 @@
     font-size: 12px;
     color: #666;
 }
+.tickets-date{
+    font-family: sans-serif;
+    font-size: 13px;
+}
+.ticket-container .line{
+    border-top: 1.5px dashed #666;
+}
+.hHWGQ{
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
 /* hide and view all */
 .Uhdw{
     display: flex;
@@ -121,4 +626,53 @@
     font-size: 14px;
 
 }
+
+/* NOTE */
+.note-wrapper{
+    display: flex;
+    flex-direction: column;
+    color: #bbbdc1;
+    font-family: system-ui;
+    font-size: xx-small;
+    position: relative;
+    top: 15px;
+}
+.gyFA{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.note{
+    font-weight: 600;
+}
+.note-points{
+    padding-left: 8px;
+    letter-spacing: 0.5px;
+}
+.note-points span{
+    color: hsl(349, 93%, 62%);
+    text-transform: capitalize;
+}
+.copyright-images{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.copyright span{
+    color: #333;
+}
+.copy-images-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.copy-images{
+    display: flex;
+    align-items: center;
+}
+.copy-images img{
+    width: 40px;
+}
+
+
 

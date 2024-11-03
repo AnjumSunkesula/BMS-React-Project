@@ -167,6 +167,12 @@
 .no-seat{
     width: 25px;
 }
+/* sold-seats */
+.seat.grey{
+    background-color: hsl(0, 4%, 89%);
+    color: hsl(0, 4%, 89%);
+    border: none;
+}
 /*each seat  */
 .seat{
     box-sizing: border-box ;
@@ -312,5 +318,3 @@
     cursor: pointer;
     padding: 5px 0;
 }
-
-
