@@ -5,7 +5,8 @@ import img2 from '../assets/image slider/offer.avif'
 import img3 from '../assets/image slider/standup-comedy.avif'
 import img4 from '../assets/image slider/goa-pic.avif'
 import RecommendedMovies from '../components/Recommended Movies/RM'
-function Home({ selectedCity, setSelectedCity }) {
+
+function Home({ selectedCity, setSelectedCity, setSearchTerm}) {
 
     const slides = [
         {
@@ -26,22 +27,22 @@ function Home({ selectedCity, setSelectedCity }) {
         },
     ]
 
+    
 
-
+    
     return(
         <>
-
-        <div>
-         <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
-         <ImageSlider slides={slides}/>
-         <RecommendedMovies/>
-
+            <div>
+                <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity} setSearchTerm={setSearchTerm}/>
+                <ImageSlider slides={slides}/>
+                <RecommendedMovies/>
 
 
-        
-        </div>
+
+            
+            </div>
         </>
     );
     
 }
-export default Home
+export default Home;
