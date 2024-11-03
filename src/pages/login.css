@@ -17,11 +17,11 @@ body{
 }
 /* divided containers */
 .sign-up{
-    width:80%;
+    width: 90%;
     padding: 40px 20px;
 }
 .section-image{
-    width:78%;
+    width: 78%;
     background-image: url(../assets/loginpage-images/image.avif);
     border-radius: 5px;
     
@@ -48,6 +48,14 @@ body{
     bottom: 50px;
     font-family: "Lora", serif;
     margin: 0;
+    padding-top: 25px;
+}
+.title span{
+    font-family: 'Roboto Condensed';
+}
+.title .my{
+    color: rgb(245, 66, 90);
+    font-style: italic;
 }
 /* bookmyshow image adjust */
 .logo {
@@ -119,7 +127,7 @@ form{
 /* sign up */
 .submit-button{
     cursor: pointer;
-    background-color: hsl(223, 88%, 46%);
+    background-color: hsl(349, 93%, 62%);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -130,7 +138,7 @@ form{
     top: 15px;
 }
 .submit-button:hover{
-    background-color: hsl(223, 88%, 36%);
+    background-color: hsl(349, 76%, 59%);
 }
 /* divider */
 .divider{
@@ -154,31 +162,3 @@ form{
     left: 6em;
     top: 30px;
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-

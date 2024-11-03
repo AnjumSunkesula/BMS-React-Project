@@ -198,7 +198,7 @@ function Login() {
     <div className='container'>
 {/* sign up */}
 		<div className='sign-up'>
-			<h1 className='title'>Create Your <img src={topLogo} className='logo' alt="" />Account</h1>
+			<h1 className='title'>Create Your <span>book<span className='my'>my</span>show</span> Account</h1>
 			<form onSubmit={handleSubmit}>
             <InputGroup
                 name="firstName"
