@@ -151,13 +151,10 @@ function SeeAll ({ selectedCity, setSelectedCity, searchTerm, setSearchTerm }) {
 
     });
 
-   
-
-
     return(
         <>
             <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity} setSearchTerm={setSearchTerm}/>
-            {/* filter container */}
+                  {/* filter container */}
             <div className='see-all-container'>
                 <div className='filter-container'>
                     <div className='filters'>
@@ -363,5 +360,6 @@ function SeeAll ({ selectedCity, setSelectedCity, searchTerm, setSearchTerm }) {
             </div>
         </>
     );
+
 }
 export default SeeAll;
