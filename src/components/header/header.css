@@ -19,7 +19,7 @@
 .header1 input{
     width: 30em;
     padding: 8px 0;
-    margin-right:25em;
+    margin-right:21em;
     border: none;
     outline-style: none;
     border-radius: 3px;
@@ -48,7 +48,6 @@
 }
 /* user and city selection header */
 .header-right{
-    
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -87,6 +86,22 @@
 /* hi,user */
 .user-profile{
     margin-left: 5px;
+}
+/* user popup */
+.user-popup{
+    background-color: rgb(174, 189, 184);
+    position: fixed;
+    top: 0;
+    right: -200px;
+    width: 400px;
+    height: 100%;
+    color: white;
+    padding: 20px;
+    transition: slide-left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1001;
+}
+.user-popup .open{
+    right: 0;
 }
 
 
