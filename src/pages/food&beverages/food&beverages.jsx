@@ -236,7 +236,7 @@ function AddFoods ({ selectedTicketType, onTicketSelection }) {
                         </div>
 {/* NOTE */}
                         <div className='note-inox'>
-                            <div className='note'>
+                            <div className='notes'>
                                 <div>Note:</div>
                                 <div className='gHDs'>
                                     1. Images are for representation purposes only.
