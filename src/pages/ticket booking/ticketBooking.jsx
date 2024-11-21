@@ -427,7 +427,7 @@ function BookTickets ({ selectedCity }) {
                     <Popup 
                        modal 
                        nested
-                       contentStyle={{ width : '27%' }}
+                       contentStyle={{ width : '33%' }}
                        trigger={
                             <div className='payment-popup'>
                                 <div className='payment-price'>pay rs: {totalPrice}</div>

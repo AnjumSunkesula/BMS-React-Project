@@ -185,7 +185,7 @@
     letter-spacing: 0.2px;
     margin-left: 18px;
 }
-.note, .inox{
+.notes, .inox{
     display: flex;
     flex-direction: column;
     gap: 4px;

@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 
 
-function AddFoods ({ selectedTicketType }) {
+function AddFoods ({ selectedTicketType, onTicketSelection }) {
 
     const location = useLocation();
     const history = useHistory();
@@ -236,7 +236,7 @@ function AddFoods ({ selectedTicketType }) {
                         </div>
 {/* NOTE */}
                         <div className='note-inox'>
-                            <div className='note'>
+                            <div className='notes'>
                                 <div>Note:</div>
                                 <div className='gHDs'>
                                     1. Images are for representation purposes only.

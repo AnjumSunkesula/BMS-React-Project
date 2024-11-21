@@ -36,7 +36,7 @@ import img30   from '../../assets/recommended movies/movie-cards/laila majnu.avi
 import img31   from  '../../assets/recommended movies/movie-cards/DDLJ.avif'
 
 
-function SeeAll ({ selectedCity, setSelectedCity }) {
+function SeeAll ({ selectedCity, setSelectedCity, searchTerm, setSearchTerm }) {
 
     const history = useHistory();
     // const startIndex = 0;
@@ -136,169 +136,203 @@ function SeeAll ({ selectedCity, setSelectedCity }) {
     { img: img31 ,  movieName: 'dilwale dulhaniya le jayenge',genre: 'classic, drama, romantic',           languages: 'hindi',  formats: '2D'}
     ];
 
-    //filter the movies based on selected filters
-    const filteredMovies = movies.filter((movie) => {
+    // Filter movies based on the search term
+    const filteredMovies = movies.filter(movie => 
+        movie.movieName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    //further filter movies based on selected filters
+    const finalFilteredMovies = filteredMovies.filter((movie) => {
         const languageMatch = selectedLanguages.length === 0 || selectedLanguages.some((lang) => movie.languages.includes(lang));
         const genreMatch = selectedGenres.length === 0 || selectedGenres.some((genre) => movie.genre.includes(genre));
         const formatMatch = selectedFormats.length === 0 || selectedFormats.some((format) => movie.formats.includes(format));
 
         return languageMatch && genreMatch && formatMatch ;
 
-    })
-
+    });
 
     return(
         <>
-        <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
-        {/* filter container */}
-        <div className='see-all-container'>
-            <div className='filter-container'>
-                <div className='filters'>
-                    filters
-                </div>
-                <div className='filters-division'>
-                    {/* language container */}
-                    <div className='language-container '>
-                        <div className='bGHvsh'  onClick={() => handleToggleDropDown('language')}>
-                            <div className='jadFjh'>
-                                <span className='arrow' >
-                                    {visibleDropdown === 'language' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
-                                </span>
-                                <h4 className='Gsjsa'>languages</h4>
-                            </div>
-                            <div className='clear' onClick={(e) => handleClearSelection('language', e)}>clear</div>
+            <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity} setSearchTerm={setSearchTerm}/>
+                  {/* filter container */}
+            <div className='see-all-container'>
+                <div className='filter-container'>
+                    <div className='filters'>
+                        filters
+                    </div>
+                    <div className='filters-division'>
+                        {/* language container */}
+                        <div className='language-container '>
+                            <div className='bGHvsh'  onClick={() => handleToggleDropDown('language')}>
+                                <div className='jadFjh'>
+                                    <span className='arrow' >
+                                        {visibleDropdown === 'language' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
+                                    </span>
+                                    <h4 className='Gsjsa'>languages</h4>
+                                </div>
+                                <div className='clear' onClick={(e) => handleClearSelection('language', e)}>clear</div>
 
+                            </div>
+                            {visibleDropdown === 'language' && (
+                                <div className='language-options'>
+                                    {['english', 'hindi', 'marathi', 'tamil', 'telugu', 'kannada', 'gujarathi', 'japanese', 
+                                    'bhojpuri', 'malayalam', 'multi-language', 'punjabi'].map(option => (
+                                        <div
+                                            key={option}
+                                            className={`yGpFs ${selectedLanguages.includes(option) ? 'selected' : ''}`}
+                                            onClick={() => handleSelectOption(option, 'language')}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                    
+
+                                </div>
+                            )}
                         </div>
-                        {visibleDropdown === 'language' && (
-                            <div className='language-options'>
-                                {['english', 'hindi', 'marathi', 'tamil', 'telugu', 'kannada', 'gujarathi', 'japanese', 
-                                'bhojpuri', 'malayalam', 'multi-language', 'punjabi'].map(option => (
-                                    <div
-                                        key={option}
-                                        className={`yGpFs ${selectedLanguages.includes(option) ? 'selected' : ''}`}
-                                        onClick={() => handleSelectOption(option, 'language')}
-                                    >
-                                        {option}
-                                    </div>
-                                ))}
+                        {/* genre container */}
+                        <div className='genre-container'>
+                            <div className='bGHvsh'  onClick={() => handleToggleDropDown('genre')}>
+                                <div className='jadFjh'>
+                                    <span className='arrow' >
+                                        {visibleDropdown === 'genre' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
+                                    </span>
+                                    <h4 className='Gsjsa'>genre</h4>
+                                </div>
+                                <div className='clear' onClick={(e) => handleClearSelection('genre', e)}>clear</div>
+
+                            </div>
+                            {visibleDropdown === 'genre' && (
+                                <div className='genre-options'>
+                                    {['drama', 'action', 'thriller', 'comedy', 'horror', 'romantic', 'adventure', 'fantasy', 'crime', 'anime', 'family', 'biography', 'classic', 'sci-fi', 'animation', 'mystery', 'devotional', 'documentary', 'historical', 'sports'].map(option => (
+                                        <div
+                                            key={option}
+                                            className={`yGpFs ${selectedGenres.includes(option) ? 'selected' : ''}`}
+                                            onClick={() => handleSelectOption(option, 'genre')}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        {/* format-container */}
+                        <div className='format-container'>
+                            <div className='bGHvsh'  onClick={() => handleToggleDropDown('format')}>
+                                <div className='jadFjh'>
+                                    <span className='arrow' >
+                                        {visibleDropdown === 'format' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
+                                    </span>
+                                    <h4 className='Gsjsa'>format</h4>
+                                </div>
+                                <div className='clear' onClick={(e) => handleClearSelection('format', e)}>clear</div>
+                                    
                                 
-
                             </div>
-                        )}
-                    </div>
-                    {/* genre container */}
-                    <div className='genre-container'>
-                        <div className='bGHvsh'  onClick={() => handleToggleDropDown('genre')}>
-                            <div className='jadFjh'>
-                                <span className='arrow' >
-                                    {visibleDropdown === 'genre' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
-                                </span>
-                                <h4 className='Gsjsa'>genre</h4>
-                            </div>
-                            <div className='clear' onClick={(e) => handleClearSelection('genre', e)}>clear</div>
-
+                            {visibleDropdown === 'format' && (
+                                <div className='format-options'>
+                                    {['2D', '4DX', 'IMAX 2D', '3D', '4DX 3D', 'MX4D', '2D SCREEN X', 'MX4D 3D', 'IMAX 3D', 'ICE'].map(option => (
+                                        <div
+                                            key={option}
+                                            className={`yGpFs ${selectedFormats.includes(option) ? 'selected' : ''}`}
+                                            onClick={() => handleSelectOption(option, 'format')}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                        {visibleDropdown === 'genre' && (
-                            <div className='genre-options'>
-                                {['drama', 'action', 'thriller', 'comedy', 'horror', 'romantic', 'adventure', 'fantasy', 'crime', 'anime', 'family', 'biography', 'classic', 'sci-fi', 'animation', 'mystery', 'devotional', 'documentary', 'historical', 'sports'].map(option => (
-                                    <div
-                                        key={option}
-                                        className={`yGpFs ${selectedGenres.includes(option) ? 'selected' : ''}`}
-                                        onClick={() => handleSelectOption(option, 'genre')}
-                                    >
-                                        {option}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
                     </div>
-                    {/* format-container */}
-                    <div className='format-container'>
-                        <div className='bGHvsh'  onClick={() => handleToggleDropDown('format')}>
-                            <div className='jadFjh'>
-                                <span className='arrow' >
-                                    {visibleDropdown === 'format' ? <IoIosArrowUp /> : <IoIosArrowDown/>}
-                                </span>
-                                <h4 className='Gsjsa'>format</h4>
-                            </div>
-                            <div className='clear' onClick={(e) => handleClearSelection('format', e)}>clear</div>
-                                
-                            
+                </div>
+
+            {/*  container */}
+
+                <div className='movie-container'>
+                    <div className='selected-heading'>
+                        selected filters:
+                    </div>
+                    <div className='hbVTjn'>
+                        <div className='selected-options'>
+                            {selectedLanguages.length > 0 && (
+                                <ul className='uo-li'>
+                                    {selectedLanguages.map(filter => (
+                                        <li 
+                                        className='o-l' 
+                                        key={filter} 
+                                        onClick={() => handleSelectOption(filter, 'language')}>
+                                            {filter}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
-                        {visibleDropdown === 'format' && (
-                            <div className='format-options'>
-                                {['2D', '4DX', 'IMAX 2D', '3D', '4DX 3D', 'MX4D', '2D SCREEN X', 'MX4D 3D', 'IMAX 3D', 'ICE'].map(option => (
-                                    <div
-                                        key={option}
-                                        className={`yGpFs ${selectedFormats.includes(option) ? 'selected' : ''}`}
-                                        onClick={() => handleSelectOption(option, 'format')}
-                                    >
-                                        {option}
+                        <div className='selected-options'>
+                            {selectedGenres.length > 0 && (
+                                <ul className='uo-li'>
+                                    {selectedGenres.map(filter => (
+                                        <li 
+                                        className='o-l'
+                                        key={filter} 
+                                        onClick={() => handleSelectOption(filter, 'genre')}>
+                                            {filter}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        <div className='selected-options'>
+                            {selectedFormats.length > 0 && (
+                                <ul className='uo-li'>
+                                    {selectedFormats.map(filter => (
+                                        <li 
+                                        className='o-l'
+                                        key={filter} 
+                                        onClick={() => handleSelectOption(filter, 'format')}>
+                                            {filter}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                        
+                    </div>
+
+
+
+                    <div className='movie-cards-container'>
+                        {finalFilteredMovies.length > 0 ? (finalFilteredMovies.map((movie, index) => (
+                        <div className='movie' key={index} >
+                                <div className='image'>
+                                    <img 
+                                        src={movie.img} 
+                                        className='displayed-movie-cards'  
+                                        alt={movie.movieName}
+                                        onClick={() => handleMovieClick(movie, index)}
+                                    />
+                                </div>
+                                <div className='dVLjtu'>
+                                    <div className='dshUgd'>
+                                        <div className='film-title'>{movie.movieName}</div>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className='dshUgd'>
+                                        <div className='Ylsgya'>{movie.genre}</div>
+                                    </div>
+                                    <div className='dshUgd'>
+                                        <div className='Ylsgya'>{movie.languages}</div>
+                                    </div>
+                                </div>
+                            </div> 
+                            ))
+                        ) : (
+                            <p>No movies found for the selected filters.</p>
                         )}
-                    </div>
-                </div>
-            </div>
-
-          {/*  container */}
-
-            <div className='movie-container'>
-                <div className='selected-heading'>
-                    selected filters:
-                </div>
-                <div className='hbVTjn'>
-                    <div className='selected-options'>
-                        {selectedLanguages.length > 0 && (
-                            <ul className='uo-li'>
-                                {selectedLanguages.map(filter => (
-                                    <li 
-                                    className='o-l' 
-                                    key={filter} 
-                                    onClick={() => handleSelectOption(filter, 'language')}>
-                                        {filter}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    <div className='selected-options'>
-                        {selectedGenres.length > 0 && (
-                            <ul className='uo-li'>
-                                {selectedGenres.map(filter => (
-                                    <li 
-                                    className='o-l'
-                                    key={filter} 
-                                    onClick={() => handleSelectOption(filter, 'genre')}>
-                                        {filter}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    <div className='selected-options'>
-                        {selectedFormats.length > 0 && (
-                            <ul className='uo-li'>
-                                {selectedFormats.map(filter => (
-                                    <li 
-                                    className='o-l'
-                                    key={filter} 
-                                    onClick={() => handleSelectOption(filter, 'format')}>
-                                        {filter}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    
-                </div>
 
 
 
-                <div className='movie-cards-container'>
-                    {filteredMovies.length > 0 ? (filteredMovies.map((movie, index) => (
-                       <div className='movie' key={index} >
+
+                        {/* {movies.slice(startIndex, startIndex + 31).map((movie, index) => (
+                            <div className='movie' key={index} >
                             <div className='image'>
                                 <img 
                                     src={movie.img} 
@@ -318,51 +352,12 @@ function SeeAll ({ selectedCity, setSelectedCity }) {
                                     <div className='Ylsgya'>{movie.languages}</div>
                                 </div>
                             </div>
-                        </div> 
-                        ))
-                    ) : (
-                          <p>No movies found for the selected filters.</p>
-                    )}
-
-
-
-
-                    {/* {movies.slice(startIndex, startIndex + 31).map((movie, index) => (
-                        <div className='movie' key={index} >
-                        <div className='image'>
-                            <img 
-                                src={movie.img} 
-                                className='displayed-movie-cards'  
-                                alt={movie.movieName}
-                                onClick={() => handleMovieClick(movie, index)}
-                            />
                         </div>
-                        <div className='dVLjtu'>
-                            <div className='dshUgd'>
-                                <div className='film-title'>{movie.movieName}</div>
-                            </div>
-                            <div className='dshUgd'>
-                                <div className='Ylsgya'>{movie.genre}</div>
-                            </div>
-                            <div className='dshUgd'>
-                                <div className='Ylsgya'>{movie.languages}</div>
-                            </div>
-                        </div>
+                        ))} */}
+                        
                     </div>
-                    ))} */}
-                    
                 </div>
-
-                
-                
-
-
-
             </div>
-
-        </div>
-       
-               
         </>
     );
 
