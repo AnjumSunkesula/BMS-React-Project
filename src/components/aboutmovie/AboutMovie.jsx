@@ -19,7 +19,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
 
     const location = useLocation();
     const {movie, index} = location.state || {}; //get movie from RM.jsx    
- 
+    
     const history = useHistory();
 
     const [currentCastIndex, setCurrentCastIndex] = useState(0); // state to manage cast sliding
@@ -73,11 +73,6 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
         setSubmittedRating(rating);                                                 //store the submitted rating
         close();
     }
-    
-    
-    
-    
-    
     
     
     const castPerPage = 5;
