@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useState, useEffect} from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
-import topLogo from '../assets/loginpage-images/main-logo.png'
 import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 
@@ -132,6 +131,7 @@ function Login() {
         // Store form data in local storage
         localStorage.setItem('formData', JSON.stringify(formData));
         history.push('/payment'); //can pass the formdata to payment
+		history.push('/home');
 
 
         const validationErrors = {};		
