@@ -6,6 +6,7 @@ import img2 from '../assets/image slider/offer.avif'
 import img3 from '../assets/image slider/standup-comedy.avif'
 import img4 from '../assets/image slider/goa-pic.avif'
 import RecommendedMovies from '../components/Recommended Movies/RM'
+import Footer from '../components/footer/footer';
 import { useHistory} from 'react-router-dom'
 // movie cards
 import fig1 from '../assets/recommended movies/movie-cards/D & W.avif'
@@ -129,6 +130,7 @@ function Home({ selectedCity, setSelectedCity, setSearchTerm, searchTerm}) {
 
                 <ImageSlider slides={slides}/>
                 <RecommendedMovies  movies={movies} handleMovieClick={handleMovieClick}/>
+                <Footer />
 
 
 
