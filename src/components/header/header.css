@@ -82,6 +82,7 @@
     position: relative;
     top: 0;
     margin-left: 30px;
+    cursor: pointer;
 }
 /* hi,user */
 .user-profile{
@@ -116,7 +117,9 @@
     box-shadow: 0px 8px 7px -6px rgba(0, 0, 0, 0.76); ;
 }
 .user-details{
-    margin-right: 7.5em;
+    margin-right: 6em;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .close-btn{
     cursor: pointer;
