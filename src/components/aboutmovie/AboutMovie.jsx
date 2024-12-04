@@ -1,5 +1,6 @@
 import Header from "../header/header";
 import '../aboutmovie/AboutMovie.css';
+import Footer from '../footer/footer';
 import MovieDetails from "./movieDetails";
 import React, {useState, useEffect} from "react";
 import { useLocation, useHistory } from "react-router-dom";
@@ -491,6 +492,9 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
                     </div>
                 </div>
             </div>
+            <footer>
+                <Footer/>
+            </footer>
         </div>
         </>
     );
