@@ -124,7 +124,7 @@ form{
     margin-left: 12px;
     margin-top: 12px;
 }
-.password-icons{
+.password-icons, .calendar-icon{
     position: absolute;
     left: 12px;
     top: 12px;
