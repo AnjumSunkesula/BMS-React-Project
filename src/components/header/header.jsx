@@ -49,11 +49,11 @@ function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
 
 	const [formData, setFormData] = useState({});
 
+    // Retrieve form data from local storage
     useEffect(() => {
-        // Retrieve form data from local storage
-        const storedData = localStorage.getItem('formData');
-        if (storedData) {
-            setFormData(JSON.parse(storedData)); // Parse and set form data
+        const savedFormData = JSON.parse(localStorage.getItem('formData'));
+        if (savedFormData) {
+            setFormData(savedFormData); 
         }
     }, []);
 
