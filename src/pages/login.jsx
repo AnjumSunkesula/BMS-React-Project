@@ -14,58 +14,55 @@ import { faUser, faEnvelope, faCalendarDays, faLock, faLockOpen } from '@fortawe
 
 function InputGroup({ name, label, value, onChange, error, type= "text", toggleVisibility, isDatePicker = false, onDateChange, ...rest}) {
 
-	const datePickerRef = useRef(null);
-
+	
 	// state to track whether the input is focused
 	const [isFocused, setIsFocused] = useState(false);
-
+	
 	// handle input focus event
 	const handleFocus = () => {
 		setIsFocused(true);
 	};
-
+	
 	// handle input blur event
 	const handleBlur = () => {
 		setIsFocused(false);  //handleBlur Function: This function sets the isFocused state to false when the input loses focus.
-
+		
 	};
 	/*the blur event is an event triggered when an input field loses focus. This event is part of the focus-related events in JavaScript, 
     which also include focus, focusin, and focusout.This typically happens when the user clicks outside the input field or switches to another input field.
     When the input field loses focus, handleBlur is triggered.handleBlur sets isFocused to false, which typically affects the styling or behavior of the input field (e.g., label position).*/
-
-
-
-
+	
+	
 	// check if the input has any value
 	const hasValue = value.trim() !== '';
-
+	
 	// update focus state based on the input value
 	useEffect(() => {
 		if (hasValue) {
 			setIsFocused(true);
 		}
 	}, [value]);
+	
+	const [isCalendarOpen, setIsCalendarOpen] = useState(false); // State to track calendar visibility
 
+	// Toggle calendar visibility
+	const handleIconClick = () => {
+		setIsCalendarOpen(!isCalendarOpen); // Toggle the calendar state
+	};
 
 	return(
 		<div className={`input-group ${error ?  'has-error' : ''} ${error && name === 'password' ? 'password-error' : ''}`}>
 			{isDatePicker ? (
-				<>
-					<DatePicker
-						ref={datePickerRef}
-						selected={value ? new Date(value) : null}
-						onChange={onDateChange}
-						dateFormat="yyyy-MM-dd"
-						placeholderText='YYYY-MM-DD'
-						className='form-control'
-						{...rest}
-					/>
-					<FontAwesomeIcon
-						icon={faCalendarDays}
-						className="input-icons"
-						onClick={() => datePickerRef.current.setFocus()}
-					/>
-				</>
+				<DatePicker
+				    id='datePicker'
+					selected={value ? new Date(value) : null}
+					onChange={onDateChange}
+					dateFormat="yyyy-MM-dd"
+					className='form-control'
+					open={isCalendarOpen}
+					onClickOutside={() => setIsCalendarOpen(false)}
+					{...rest}
+				/>
 			) : (
 				<input
 					type={type}
@@ -76,7 +73,6 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 					onBlur={handleBlur}  //sets focus state to false when blurred //onBlur Prop: Attaches the handleBlur function to the blur event of the input field.
 					id={name}
 					placeholder=''
-					{...rest}
 				/>
 			)}
 			<label htmlFor={name} className={isFocused || hasValue  ? 'focused' : ''}>{label}</label>
@@ -86,6 +82,12 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 				</span>
 			)}
 			{error && <div className='error-message'>{error}</div>} 
+
+			{isDatePicker && (
+				<span onClick={handleIconClick}>
+				    <FontAwesomeIcon icon={faCalendarDays} className='calendar-icon'/>
+				</span>
+			)}
 		</div>
 		//displays error message if present
 	);
@@ -255,14 +257,10 @@ function Login() {
 								/>
 							</div>
 							<div>
-								<FontAwesomeIcon 
-								    icon={faCalendarDays} 
-									className='input-icons'
-									onClick={() => document.getElementById('datePicker').focus()}
-								/>
 								<InputGroup
 									name="dateOfBirth"
 									label="Date Of Birth"
+									isDatePicker={true}
 									value={formData.dateOfBirth}
 									onDateChange={(date) => 
 										setFormData ({
