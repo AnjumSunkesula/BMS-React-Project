@@ -90,15 +90,15 @@ function Payment ({ selectedTicketType }) {
 		setCurrentDate(formatDate(today)); // Set the formatted date
 	}, []);
 
-	// EMAIL ACCESS
+	// EMAIL ACCESS FROM LOGIN PAGE
 
-	const [formData, setFormData] = useState({});
-
+	const [email, setEmail] = useState('');
+	
+	// Retrieve form data from local storage
     useEffect(() => {
-        // Retrieve form data from local storage
-        const storedData = localStorage.getItem('formData');
-        if (storedData) {
-            setFormData(JSON.parse(storedData)); // Parse and set form data
+        const savedFormData = JSON.parse(localStorage.getItem('formData'));
+        if (savedFormData) {
+            setEmail(savedFormData.email); // Parse and set form data
         }
     }, []);
 
@@ -432,7 +432,7 @@ function Payment ({ selectedTicketType }) {
 
 											<div className='contact-inputs-wrapper'>
 												<div className='contact-inputs'>
-													<div className='jqzw'>{formData.email}</div>
+													<div className='jqzw'>{email}</div>
 
 														<input 
 															type="tel" 
