@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 // import Logo from '../assets/loginpage-images/main-logo.png'
 import Logo from '../assets/loginpage-images/bookmyshow-logo-vector.png'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { useState, useEffect, useRef} from 'react';
+import { useState, useEffect} from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 	
 	// state to track whether the input is focused
 	const [isFocused, setIsFocused] = useState(false);
+	const [hasValue, setHasValue] = useState(false);
 	
 	// handle input focus event
 	const handleFocus = () => {
@@ -33,15 +34,11 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
     When the input field loses focus, handleBlur is triggered.handleBlur sets isFocused to false, which typically affects the styling or behavior of the input field (e.g., label position).*/
 	
 	
-	// check if the input has any value
-	const hasValue = value.trim() !== '';
 	
 	// update focus state based on the input value
 	useEffect(() => {
-		if (hasValue) {
-			setIsFocused(true);
-		}
-	}, [value]);
+        setHasValue(!!value); // Convert the value to a boolean
+    }, [value]);
 	
 	const [isCalendarOpen, setIsCalendarOpen] = useState(false); // State to track calendar visibility
 
@@ -56,9 +53,14 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 				<DatePicker
 				    id='datePicker'
 					selected={value ? new Date(value) : null}
-					onChange={onDateChange}
-					dateFormat="yyyy-MM-dd"
-					className='form-control'
+					onChange={(date) => {
+						onDateChange(date);
+						setHasValue(!!date);
+					}}
+					dateFormat="dd-MM-yyyy"
+					className='react-datepicker__input-container'
+					onFocus={handleFocus}
+					onBlur={handleBlur}
 					open={isCalendarOpen}
 					onClickOutside={() => setIsCalendarOpen(false)}
 					{...rest}
@@ -68,9 +70,12 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 					type={type}
 					name={name}
 					value={value}
-					onChange={onChange} //handles input changes
-					onFocus={handleFocus} //sets focus state to true when focused
-					onBlur={handleBlur}  //sets focus state to false when blurred //onBlur Prop: Attaches the handleBlur function to the blur event of the input field.
+					onChange={onChange}                //handles input changes
+					onFocus={handleFocus}             //sets focus state to true when focused
+					onBlur={(e) => {
+						handleBlur();
+						setHasValue(!!e.target.value);
+					}}                               //sets focus state to false when blurred //onBlur Prop: Attaches the handleBlur function to the blur event of the input field.
 					id={name}
 					placeholder=''
 				/>
@@ -89,7 +94,6 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 				</span>
 			)}
 		</div>
-		//displays error message if present
 	);
 }
 
@@ -212,117 +216,116 @@ function Login() {
         }
     };
 
-  return(
-	<>
-		<div className='container'>
-			<div className='login-container'>
-				<div className='bms-display'>
-					<img src={Logo} alt="" />
-					<div className='bms-heading'>create an account</div>
-					<div className='login-wrapper'>Already have an account? <span>login</span> </div>
-			    </div>
-				<div className='register-container'>
-					<form onSubmit={handleSubmit}>
-					    <div className='formDetails-wrapper'>
-							<div className='names'>
-								<div className='NiaPi'>
-									<FontAwesomeIcon icon={faUser} className='input-icons'/>
+    return(
+		<>
+			<div className='container'>
+				<div className='login-container'>
+					<div className='bms-display'>
+						<img src={Logo} alt="" />
+						<div className='bms-heading'>create an account</div>
+						<div className='login-wrapper'>Already have an account? <span>login</span> </div>
+					</div>
+					<div className='register-container'>
+						<form onSubmit={handleSubmit}>
+							<div className='formDetails-wrapper'>
+								<div className='names'>
+									<div className='NiaPi'>
+										<FontAwesomeIcon icon={faUser} className='input-icons'/>
+										<InputGroup
+											name="firstName"
+											label="First Name"
+											value={formData.firstName}
+											onChange={handleChange}
+											error={formErrors.firstName}
+										/>
+									</div>
+									<div className='NiaPi'>
+										<FontAwesomeIcon icon={faUser} className='input-icons'/>
+										<InputGroup
+											name="lastName"
+											label="Last Name"
+											value={formData.lastName}
+											onChange={handleChange}
+											error={formErrors.lastName}
+										/>
+									</div>
+								</div>
+								<div>
+									<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
 									<InputGroup
-										name="firstName"
-										label="First Name"
-										value={formData.firstName}
+										name="email"
+										label="Email"
+										value={formData.email}
 										onChange={handleChange}
-										error={formErrors.firstName}
+										error={formErrors.email}
 									/>
 								</div>
-								<div className='NiaPi'>
-									<FontAwesomeIcon icon={faUser} className='input-icons'/>
+								<div>
 									<InputGroup
-										name="lastName"
-										label="Last Name"
-										value={formData.lastName}
-										onChange={handleChange}
-										error={formErrors.lastName}
+										name="dateOfBirth"
+										label="Date Of Birth"
+										isDatePicker={true}
+										value={formData.dateOfBirth}
+										onDateChange={(date) => 
+											setFormData ({
+												...formData,
+												dateOfBirth: date? date.toISOString().split("T")[0] : "",
+											})
+										}
+										error={formErrors.dateOfBirth}
 									/>
+								</div>
+								<div  className='passwords'>
+									<div className='NiaPi'>
+										<InputGroup
+											name="password"
+											label="Password"
+											type={visiblePassword ? "text" : "password"}
+											value={formData.password}
+											onChange={handleChange}
+											error={formErrors.password}
+											toggleVisibility={togglePasswordVisibility}
+										/>
+									</div>
+									<div className='NiaPi'>
+										<InputGroup
+											name="confirmPassword"
+											label="Confirm Password"
+											type={visibleConfirmPassword ? "text" : "password"}
+											value={formData.confirmPassword}
+											onChange={handleChange}
+											error={formErrors.confirmPassword}
+											toggleVisibility={toggleConfirmPasswordVisibility}
+										/>
+									</div>
 								</div>
 							</div>
 							<div>
-								<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
-								<InputGroup
-									name="email"
-									label="Email"
-									value={formData.email}
-									onChange={handleChange}
-									error={formErrors.email}
-								/>
+								<button type='submit' className='register-button'>
+									create your account
+								</button>
 							</div>
-							<div>
-								<InputGroup
-									name="dateOfBirth"
-									label="Date Of Birth"
-									isDatePicker={true}
-									value={formData.dateOfBirth}
-									onDateChange={(date) => 
-										setFormData ({
-											...formData,
-											dateOfBirth: date? date.toISOString().split("T")[0] : "",
-										})
-									}
-									error={formErrors.dateOfBirth}
-								/>
-							</div>
-							<div  className='passwords'>
-								<div className='NiaPi'>
-									<InputGroup
-										name="password"
-										label="Password"
-										type={visiblePassword ? "text" : "password"}
-										value={formData.password}
-										onChange={handleChange}
-										error={formErrors.password}
-										toggleVisibility={togglePasswordVisibility}
-									/>
-								</div>
-								<div className='NiaPi'>
-									<InputGroup
-										name="confirmPassword"
-										label="Confirm Password"
-										type={visibleConfirmPassword ? "text" : "password"}
-										value={formData.confirmPassword}
-										onChange={handleChange}
-										error={formErrors.confirmPassword}
-										toggleVisibility={toggleConfirmPasswordVisibility}
-									/>
-								</div>
-							</div>
-					    </div>
-						<div>
-							<button type='submit' className='register-button'>
-								create your account
-							</button>
+						</form>
+						<div className='divider'>
+							<hr />
+							<h2 className='or'>OR</h2>
 						</div>
-					</form>
-					<div className='divider'>
-			            <hr />
-			            <h2 className='or'>OR</h2>
-			        </div>
-		            <div className='google-login'>
-						<GoogleLogin 
-							onSuccess={credentialResponse => {
-							const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
-							console.log(credentialResponseDecoded);
-							homePage();
-							}}
-							onError={() => {
-							console.log('Login Failed');
-							}}
-						/>;      
-				    </div>
+						<div className='google-login'>
+							<GoogleLogin 
+								onSuccess={credentialResponse => {
+								const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
+								console.log(credentialResponseDecoded);
+								homePage();
+								}}
+								onError={() => {
+								console.log('Login Failed');
+								}}
+							/>;      
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	 
-	</>
-  )
+		</>
+    )
 };
 export default Login
