@@ -76,8 +76,10 @@ form{
     padding: 0 5px;
     pointer-events: none;
     font-family: 'Montserrat';
+    transition: all 0.3s ease;
 }
-.input-group input {
+.input-group input,
+.input-group .react-datepicker__input-container input {
     width: 454px;
     height: 40px;
     font-size: 16px;
@@ -104,20 +106,26 @@ form{
 .input-group input[type=password]{
     padding-left: 35px;
 }
-.input-group input:focus {
+.input-group input:focus,
+.input-group .react-datepicker__input-container input:focus {
     box-shadow: 0px 0px 4px #04AA6D;
 }
 .NiaPi .input-group input {
     width: 200px;
 }
-.input-group input:focus+label,
-.input-group input:not(:placeholder-shown)+label,
-.input-group input.focused+label {
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input.focused + label,
+.input-group label.focused,
+.input-group .react-datepicker__input-container input.date-picker-not-empty+label{
     top: 0;
     font-size: 12px;
     color: #04AA6D;
     background: #fff;
     transition: all 0.3s ease;
+}
+.input-group .react-datepicker-wrapper {
+    width: 100%;
 }
 .input-icons {
     position: absolute;
@@ -129,9 +137,6 @@ form{
     left: 12px;
     top: 12px;
 }
-/* img{
-    max-width: 100%;
-} */
 .register-button{
     width: 100%;
     background-color: hsl(240, 92%, 58%);
@@ -164,6 +169,7 @@ form{
     display: flex;
     justify-content: center;
 }
+
 
 
 
