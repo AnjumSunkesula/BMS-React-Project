@@ -129,8 +129,17 @@ form{
 }
 .input-icons {
     position: absolute;
+    top: 12%;
+    transform: translateY(-50%);
     margin-left: 12px;
-    margin-top: 12px;
+    pointer-events: none;
+}
+.mail-icon{
+    position: absolute;
+    top: 25.5%;
+    transform: translateY(-50%);
+    margin-left: 12px;
+
 }
 .password-icons, .calendar-icon{
     position: absolute;
