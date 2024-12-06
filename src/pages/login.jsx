@@ -2,8 +2,7 @@ import './login.css';
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// import Logo from '../assets/loginpage-images/main-logo.png'
-import Logo from '../assets/loginpage-images/bookmyshow-logo-vector.png'
+import Logo from '../assets/loginpage-images/main-logo.png'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { useState, useEffect} from 'react';
 import { GoogleLogin } from '@react-oauth/google';
@@ -251,7 +250,7 @@ function Login() {
 									</div>
 								</div>
 								<div>
-									<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
+									<FontAwesomeIcon icon={faEnvelope} className='mail-icon'/>
 									<InputGroup
 										name="email"
 										label="Email"
