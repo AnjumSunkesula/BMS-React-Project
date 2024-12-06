@@ -209,8 +209,26 @@ function Login() {
 
 
         if(Object.keys(validationErrors).length === 0) {
+			// Check if the email already exists in localStorage
+			const users = JSON.parse(localStorage.getItem('users')) || [];
+
+			if (users.some((user) => user.email === formData.email)) {
+			alert('This email is already registered. Please log in instead.');
+			return;
+			}
+
+			// Save new user data to localStorage
+			users.push({
+			firstName: formData.firstName,
+			lastName: formData.lastName,
+			email: formData.email,
+			dateOfBirth: formData.dateOfBirth,
+			password: formData.password
+			});
+
+			localStorage.setItem('users', JSON.stringify(users));
 			localStorage.setItem('formData', JSON.stringify(formData));
-			console.log('Form Submitted Successfully');
+			console.log('REgistration Successful');
 			homePage();
         } else{
             console.log('Form Submission Failed!', validationErrors);
@@ -236,6 +254,21 @@ function Login() {
         setFormErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
+			const users = JSON.parse(localStorage.getItem('users')) || [];
+
+			// Check if user exists
+			const user = users.find((user) => user.email === formData.email);
+
+			if (!user) {
+			alert('Account not found. Please register first.');
+			return;
+			}
+
+			// Validate password
+			if (user.password !== formData.password) {
+			alert('Incorrect password. Please try again.');
+			return;
+			}
             console.log("Login Successful");
             homePage();
         } else {
