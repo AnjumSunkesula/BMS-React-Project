@@ -21,19 +21,18 @@ body{
     align-items: center;
 }
 .login-container{
-    display: flex;
-    justify-content: space-between;
     gap: 25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.bms-display img{
-    position: relative;
-    bottom: 7em;
-    right: 120px;
+.heading-wrapper{
+    padding-bottom: 10em;
 }
 .bms-heading{
     text-transform: capitalize;
     font-family: 'Poppins';
-    font-size: 35px;
+    font-size: 40px;
 }
 .login-wrapper{
     font-family: sans-serif;
@@ -64,7 +63,7 @@ form{
     display: flex;
     gap: 5px;
 }
-.input-group {
+.input-group, .input-wrapper{
     position: relative;
 }
 .input-group label {
@@ -127,26 +126,18 @@ form{
 .input-group .react-datepicker-wrapper {
     width: 100%;
 }
-.input-icons {
+.input-icons{
     position: absolute;
-    top: 12%;
-    transform: translateY(-50%);
     margin-left: 12px;
+    margin-top: 12px;
     pointer-events: none;
-}
-.mail-icon{
-    position: absolute;
-    top: 25.5%;
-    transform: translateY(-50%);
-    margin-left: 12px;
-
 }
 .password-icons, .calendar-icon{
     position: absolute;
     left: 12px;
     top: 12px;
 }
-.register-button{
+.register-button, .login-button{
     width: 100%;
     background-color: hsl(240, 92%, 58%);
     color: #fff;
