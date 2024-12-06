@@ -105,6 +105,9 @@ function Login() {
       history.push("/Home")
     };
 
+	// State to toggle between Login and Register forms
+    const [isRegister, setIsRegister] = useState(true);
+
     // state to store form data
     const [formData ,setFormData] =useState({
       firstName : "" ,
@@ -129,7 +132,6 @@ function Login() {
       setFormData({
         ...formData, [name] : value
       });
-
     };
 	
 	const togglePasswordVisibility = () => {
@@ -158,7 +160,7 @@ function Login() {
 	
 
     // handle for submission
-    const handleSubmit = (e) => {
+    const handleRegisterSubmit = (e) => {
 
 		e.preventDefault(); // to prevent the default form submission
 
@@ -215,42 +217,167 @@ function Login() {
         }
     };
 
+
+	const handleLoginSubmit = (e) => {
+		e.preventDefault();
+
+		const validationErrors = {};
+
+		if (!formData.email.trim()) {
+            validationErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            validationErrors.email = "The Email Entered is not Valid!";
+        }
+
+        if (!formData.password.trim()) {
+            validationErrors.password = "Password is required";
+        }
+
+        setFormErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            console.log("Login Successful");
+            homePage();
+        } else {
+            console.log("Login Failed", validationErrors);
+        }
+	};
+
+	const toggleForm = () => {
+		setIsRegister((prev) => !prev);
+	};
+
     return(
 		<>
-			<div className='container'>
+		    <div className='container'>
 				<div className='login-container'>
-					<div className='bms-display'>
-						<img src={Logo} alt="" />
-						<div className='bms-heading'>create an account</div>
-						<div className='login-wrapper'>Already have an account? <span>login</span> </div>
+					<div className='heading-wrapper'>
+						<img src={Logo} alt="bookmyshow logo" />
+						<div className='bms-heading'>{isRegister ? "create an account" : "login to your account"}</div>
+						<div className='login-wrapper'>
+							{isRegister ? (
+								<>
+								Already have an account?{" "}
+								<span onClick={toggleForm}>login</span>
+								</>
+							): (
+								<>
+								Don't have an account? {" "}
+								<span onClick={toggleForm}>register</span> 
+								</>
+							)}
+						</div>
 					</div>
-					<div className='register-container'>
-						<form onSubmit={handleSubmit}>
-							<div className='formDetails-wrapper'>
-								<div className='names'>
-									<div className='NiaPi'>
-										<FontAwesomeIcon icon={faUser} className='input-icons'/>
+					{isRegister ? (
+						<div className='register-container'>
+							<form onSubmit={handleRegisterSubmit}>
+								<div className='formDetails-wrapper'>
+									<div className='names'>
+										<div className='NiaPi'>
+											<div className='input-wrapper'>
+												<FontAwesomeIcon icon={faUser} className='input-icons'/>
+												<InputGroup
+													name="firstName"
+													label="First Name"
+													value={formData.firstName}
+													onChange={handleChange}
+													error={formErrors.firstName}
+												/>
+											</div>
+										</div>
+										<div className='NiaPi'>
+											<div className='input-wrapper'>
+												<FontAwesomeIcon icon={faUser} className='input-icons'/>
+												<InputGroup
+													name="lastName"
+													label="Last Name"
+													value={formData.lastName}
+													onChange={handleChange}
+													error={formErrors.lastName}
+												/>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div className='input-wrapper'>
+											<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
+											<InputGroup
+												name="email"
+												label="Email"
+												value={formData.email}
+												onChange={handleChange}
+												error={formErrors.email}
+											/>
+										</div>
+									</div>
+									<div>
 										<InputGroup
-											name="firstName"
-											label="First Name"
-											value={formData.firstName}
-											onChange={handleChange}
-											error={formErrors.firstName}
+											name="dateOfBirth"
+											label="Date Of Birth"
+											isDatePicker={true}
+											value={formData.dateOfBirth}
+											onDateChange={(date) => 
+												setFormData ({
+													...formData,
+													dateOfBirth: date? date.toISOString().split("T")[0] : "",
+												})
+											}
+											error={formErrors.dateOfBirth}
 										/>
 									</div>
-									<div className='NiaPi'>
-										<FontAwesomeIcon icon={faUser} className='input-icons'/>
-										<InputGroup
-											name="lastName"
-											label="Last Name"
-											value={formData.lastName}
-											onChange={handleChange}
-											error={formErrors.lastName}
-										/>
+									<div  className='passwords'>
+										<div className='NiaPi'>
+											<InputGroup
+												name="password"
+												label="Password"
+												type={visiblePassword ? "text" : "password"}
+												value={formData.password}
+												onChange={handleChange}
+												error={formErrors.password}
+												toggleVisibility={togglePasswordVisibility}
+											/>
+										</div>
+										<div className='NiaPi'>
+											<InputGroup
+												name="confirmPassword"
+												label="Confirm Password"
+												type={visibleConfirmPassword ? "text" : "password"}
+												value={formData.confirmPassword}
+												onChange={handleChange}
+												error={formErrors.confirmPassword}
+												toggleVisibility={toggleConfirmPasswordVisibility}
+											/>
+										</div>
 									</div>
 								</div>
 								<div>
-									<FontAwesomeIcon icon={faEnvelope} className='mail-icon'/>
+									<button type='submit' className='register-button'>
+										create your account
+									</button>
+								</div>
+							</form>
+							<div className='divider'>
+								<hr />
+								<h2 className='or'>OR</h2>
+							</div>
+							<div className='google-login'>
+								<GoogleLogin 
+									onSuccess={credentialResponse => {
+									const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
+									console.log(credentialResponseDecoded);
+									homePage();
+									}}
+									onError={() => {
+									console.log('Login Failed');
+									}}
+								/>;      
+							</div>
+						</div>
+					) : (
+						<div className='login-container'>
+							<form onSubmit={handleLoginSubmit}>
+								<div>
+									<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
 									<InputGroup
 										name="email"
 										label="Email"
@@ -261,67 +388,23 @@ function Login() {
 								</div>
 								<div>
 									<InputGroup
-										name="dateOfBirth"
-										label="Date Of Birth"
-										isDatePicker={true}
-										value={formData.dateOfBirth}
-										onDateChange={(date) => 
-											setFormData ({
-												...formData,
-												dateOfBirth: date? date.toISOString().split("T")[0] : "",
-											})
-										}
-										error={formErrors.dateOfBirth}
+										name="password"
+										label="Password"
+										type={visiblePassword ? "text" : "password"}
+										value={formData.password}
+										onChange={handleChange}
+										error={formErrors.password}
+										toggleVisibility={togglePasswordVisibility}
 									/>
 								</div>
-								<div  className='passwords'>
-									<div className='NiaPi'>
-										<InputGroup
-											name="password"
-											label="Password"
-											type={visiblePassword ? "text" : "password"}
-											value={formData.password}
-											onChange={handleChange}
-											error={formErrors.password}
-											toggleVisibility={togglePasswordVisibility}
-										/>
-									</div>
-									<div className='NiaPi'>
-										<InputGroup
-											name="confirmPassword"
-											label="Confirm Password"
-											type={visibleConfirmPassword ? "text" : "password"}
-											value={formData.confirmPassword}
-											onChange={handleChange}
-											error={formErrors.confirmPassword}
-											toggleVisibility={toggleConfirmPasswordVisibility}
-										/>
-									</div>
+								<div>
+									<button type='submit' className='login-button'>
+										login to your account
+									</button>
 								</div>
-							</div>
-							<div>
-								<button type='submit' className='register-button'>
-									create your account
-								</button>
-							</div>
-						</form>
-						<div className='divider'>
-							<hr />
-							<h2 className='or'>OR</h2>
+							</form>
 						</div>
-						<div className='google-login'>
-							<GoogleLogin 
-								onSuccess={credentialResponse => {
-								const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
-								console.log(credentialResponseDecoded);
-								homePage();
-								}}
-								onError={() => {
-								console.log('Login Failed');
-								}}
-							/>;      
-						</div>
-					</div>
+					)}
 				</div>
 			</div>
 		</>
