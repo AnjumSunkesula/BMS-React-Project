@@ -228,7 +228,7 @@ function Login() {
 
 			localStorage.setItem('users', JSON.stringify(users));
 			localStorage.setItem('formData', JSON.stringify(formData));
-			console.log('REgistration Successful');
+			console.log('Registration Successful');
 			homePage();
         } else{
             console.log('Form Submission Failed!', validationErrors);
@@ -254,23 +254,15 @@ function Login() {
         setFormErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-			const users = JSON.parse(localStorage.getItem('users')) || [];
+			const storedUserData = JSON.parse(localStorage.getItem('formData'));                    // Check if the user has registered
 
-			// Check if user exists
-			const user = users.find((user) => user.email === formData.email);
-
-			if (!user) {
-			alert('Account not found. Please register first.');
-			return;
+			if (storedUserData && storedUserData.email === formData.email && storedUserData.password === formData.password) {
+				console.log("Login Successful");
+				homePage();
+			} else {
+				console.log("User not found. Please register first.");
+				setIsRegister(true);  // Switch to registration form
 			}
-
-			// Validate password
-			if (user.password !== formData.password) {
-			alert('Incorrect password. Please try again.');
-			return;
-			}
-            console.log("Login Successful");
-            homePage();
         } else {
             console.log("Login Failed", validationErrors);
         }
