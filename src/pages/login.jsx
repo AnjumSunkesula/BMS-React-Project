@@ -57,7 +57,7 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 						setHasValue(!!date);
 					}}
 					dateFormat="dd-MM-yyyy"
-					className='react-datepicker__input-container'
+					className='react-datepicker'
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 					open={isCalendarOpen}
@@ -400,14 +400,16 @@ function Login() {
 						<div className='login-container'>
 							<form onSubmit={handleLoginSubmit}>
 								<div>
-									<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
-									<InputGroup
-										name="email"
-										label="Email"
-										value={formData.email}
-										onChange={handleChange}
-										error={formErrors.email}
-									/>
+									<div className='input-wrapper'>
+										<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
+										<InputGroup
+											name="email"
+											label="Email"
+											value={formData.email}
+											onChange={handleChange}
+											error={formErrors.email}
+										/>
+									</div>
 								</div>
 								<div>
 									<InputGroup
