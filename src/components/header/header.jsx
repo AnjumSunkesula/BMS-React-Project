@@ -14,6 +14,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BiPurchaseTag } from "react-icons/bi";
 import { MdLiveTv } from "react-icons/md";
 import { AiOutlineMessage } from "react-icons/ai";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 
 
 function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
@@ -56,7 +57,6 @@ function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
             setFormData(savedFormData); 
         }
     }, []);
-
 
     
 
@@ -117,6 +117,7 @@ function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
                                 <div className='user-details-wrapper'>
                                     <div className='details'><FaRegUser />{formData.firstName} {formData.lastName}</div>
                                     <div className='details'><IoMailOutline />{formData.email}</div>
+                                    <div className='details'><LiaBirthdayCakeSolid />{formData.dateOfBirth}</div>
                                     <div className='details'><FaRegBell />Notifications</div>
                                     <div className='details'><BiPurchaseTag />Your Orders</div>
                                     <div className='details'><MdLiveTv />Stream Library</div>
