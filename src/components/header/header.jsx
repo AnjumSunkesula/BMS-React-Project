@@ -58,6 +58,15 @@ function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
         }
     }, []);
 
+    // LOGOUT BUTTON LOGIC
+
+    const handleLogout = () =>{
+        localStorage.removeItem('formData');
+        localStorage.removeItem('users');
+        alert("You have logged out Successfully")
+        console.log("User Logged out Successfully ");
+    }
+
     
 
     return(
@@ -128,7 +137,7 @@ function Header({ selectedCity, setSelectedCity, setSearchTerm, searchTerm }) {
 
                                 </div>
                                 <div className='logout-wrapper'>
-                                    <div className='logout'>logout</div>
+                                    <div className='logout' onClick={handleLogout}>logout</div>
                                 </div>
                             </div>
                         </div>
