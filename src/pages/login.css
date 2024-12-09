@@ -40,7 +40,7 @@ body{
 }
 .login-wrapper span{
     text-transform: capitalize;
-    color: blue;
+    color: hsl(240, 100%, 50%);
     cursor: pointer;
 }
 .register-container{
@@ -84,7 +84,7 @@ form{
     font-size: 16px;
     padding: 0 10px;
     background: transparent;
-    border: 2px solid #04AA6D;
+    border: 1px solid hsl(0, 0%, 86%);
     border-radius: 5px;
     outline: none;
     cursor: pointer;
@@ -107,7 +107,8 @@ form{
 }
 .input-group input:focus,
 .input-group .react-datepicker__input-container input:focus {
-    box-shadow: 0px 0px 4px #04AA6D;
+    box-shadow: 0px 0px 4px hsl(217, 89%, 61%);
+    border-color: #4285f4;
 }
 .NiaPi .input-group input {
     width: 200px;
@@ -119,7 +120,7 @@ form{
 .input-group .react-datepicker__input-container input.date-picker-not-empty+label{
     top: 0;
     font-size: 12px;
-    color: #04AA6D;
+    color: hsl(217, 90%, 43%);
     background: #fff;
     transition: all 0.3s ease;
 }
@@ -139,7 +140,7 @@ form{
 }
 .register-button, .login-button{
     width: 100%;
-    background-color: hsl(240, 92%, 58%);
+    background-color: hsl(217, 90%, 43%);
     color: #fff;
     padding: 12px 0px;
     border-radius: 5px;
@@ -147,9 +148,12 @@ form{
     justify-content: center;
     font-family: sans-serif;
     text-transform: capitalize;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
     font-size: 16px;
+}
+.register-button:hover, .login-button:hover{
+    background-color: blue;
 }
 .divider {
     position: relative;
