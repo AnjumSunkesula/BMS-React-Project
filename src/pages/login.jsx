@@ -97,8 +97,6 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 }
 
 function Login() {
-
-
     const history = useHistory();
 
     const homePage = () => {
@@ -260,7 +258,7 @@ function Login() {
 				console.log("Login Successful");
 				homePage();
 			} else {
-				console.log("User not found. Please register first.");
+				alert("User not found. Please register first.");
 				setIsRegister(true);  // Switch to registration form
 			}
         } else {
