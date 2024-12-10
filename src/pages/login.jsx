@@ -47,37 +47,49 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 	};
 
 	return(
-		<div className={`input-group ${error ?  'has-error' : ''} ${error && name === 'password' ? 'password-error' : ''}`}>
+		<div className={`input-group ${error ?  'has-error' : ''} ${error && name === 'password' ? 'password-error' : ''} ${hasValue ? 'filled' : ''}`}>
 			{isDatePicker ? (
-				<DatePicker
-				    id='datePicker'
-					selected={value ? new Date(value) : null}
-					onChange={(date) => {
-						onDateChange(date);
-						setHasValue(!!date);
-					}}
-					dateFormat="dd-MM-yyyy"
-					className='react-datepicker'
-					onFocus={handleFocus}
-					onBlur={handleBlur}
-					open={isCalendarOpen}
-					onClickOutside={() => setIsCalendarOpen(false)}
-					{...rest}
-				/>
+				<div className='input-wrapper'>
+					<FontAwesomeIcon icon={faCalendarDays} className='calendar-icon'/>
+					<DatePicker
+						id='datePicker'
+						selected={value ? new Date(value) : null}
+						onChange={(date) => {
+							onDateChange(date);
+							setHasValue(!!date);
+						}}
+						dateFormat="dd-MM-yyyy"
+						className='react-datepicker'
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						open={isCalendarOpen}
+						onClickOutside={() => setIsCalendarOpen(false)}
+						{...rest}
+					/>
+				</div>
 			) : (
-				<input
-					type={type}
-					name={name}
-					value={value}
-					onChange={onChange}                //handles input changes
-					onFocus={handleFocus}             //sets focus state to true when focused
-					onBlur={(e) => {
-						handleBlur();
-						setHasValue(!!e.target.value);
-					}}                               //sets focus state to false when blurred //onBlur Prop: Attaches the handleBlur function to the blur event of the input field.
-					id={name}
-					placeholder=''
-				/>
+				<div className='input-wrapper'>
+					{name === 'firstName' || name === 'lastName' ? (
+					    <FontAwesomeIcon icon={faUser} className='input-icons'/>
+					) : name === 'email' ? (
+						<FontAwesomeIcon icon={faEnvelope} className="input-icons" />
+					) : (
+                        <FontAwesomeIcon icon={faLock} className="password-icons" />
+					)}
+					<input
+						type={type}
+						name={name}
+						value={value}
+						onChange={onChange}                //handles input changes
+						onFocus={handleFocus}             //sets focus state to true when focused
+						onBlur={(e) => {
+							handleBlur();
+							setHasValue(!!e.target.value);
+						}}                               //sets focus state to false when blurred //onBlur Prop: Attaches the handleBlur function to the blur event of the input field.
+						id={name}
+						placeholder=''
+					/>
+				</div>
 			)}
 			<label htmlFor={name} className={isFocused || hasValue  ? 'focused' : ''}>{label}</label>
 			{toggleVisibility && (
@@ -85,175 +97,174 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 					<FontAwesomeIcon icon={type === "password" ? faLock : faLockOpen } className='password-icons'/>
 				</span>
 			)}
-			{error && <div className='error-message'>{error}</div>} 
-
 			{isDatePicker && (
 				<span onClick={handleIconClick}>
 				    <FontAwesomeIcon icon={faCalendarDays} className='calendar-icon'/>
 				</span>
 			)}
+			{error && <div className='error-message'>{error}</div>} 
 		</div>
 	);
 }
 
 function Login() {
-    const history = useHistory();
-
+	const history = useHistory();
+	
     const homePage = () => {
-      history.push("/Home")
+		history.push("/Home")
     };
-
+	
 	// State to toggle between Login and Register forms
     const [isRegister, setIsRegister] = useState(true);
-
+	
     // state to store form data
     const [formData ,setFormData] =useState({
-      firstName : "" ,
-      lastName : "" ,
-      email : "" ,
-	  dateOfBirth : "",
-      password : "",
-      confirmPassword : ""
+		firstName : "" ,
+		lastName : "" ,
+		email : "" ,
+		dateOfBirth : "",
+		password : "",
+		confirmPassword : ""
     });
-
-
+	
+	
     // state to store form validation errors
     const [formErrors, setFormErrors] = useState({});
 	const [visiblePassword, setVisiblePassword] = useState(false);
 	const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(false);
 
-
+	
 	
     // handle input change events
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData, [name] : value
-      });
+		const { name, value } = e.target;
+		setFormData({
+			...formData, [name] : value
+		});
     };
 	
 	const togglePasswordVisibility = () => {
-        setVisiblePassword(!visiblePassword);
-    };
-
-    const toggleConfirmPasswordVisibility = () => {
-        setVisibleConfirmPassword(!visibleConfirmPassword);
+		setVisiblePassword(!visiblePassword);
     };
 	
-
+    const toggleConfirmPasswordVisibility = () => {
+		setVisibleConfirmPassword(!visibleConfirmPassword);
+    };
+	
+	
     const isValidPassword = (password) => {
-        const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+		const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
         const numberRegex = /[0-9]/;
         const upperCaseRegex = /[A-Z]/;
         const lowerCaseRegex = /[a-z]/;
         return(
-          password.length >= 8 &&
-          symbolRegex.test(password) &&
-          numberRegex.test(password) &&
-          upperCaseRegex.test(password) &&
-          lowerCaseRegex.test(password) 
+			password.length >= 8 &&
+			symbolRegex.test(password) &&
+			numberRegex.test(password) &&
+			upperCaseRegex.test(password) &&
+			lowerCaseRegex.test(password) 
         );
     };
 	
 	
-
+	
     // handle for submission
     const handleRegisterSubmit = (e) => {
-
+		
 		e.preventDefault(); // to prevent the default form submission
-
+		
         const validationErrors = {};		
 		
 		//VALIDATION LOGIC
-
+		
         // first name validation
         if (!formData.firstName.trim()) {
-          validationErrors.firstName = "First Name is required";
+			validationErrors.firstName = "First Name is required";
         }
-
+		
         // last name validation
         if (!formData.lastName.trim()) {
-          validationErrors.lastName = "Last Name is required";
+			validationErrors.lastName = "Last Name is required";
         }
-
+		
         // email validation
         if(!formData.email.trim()){
-          validationErrors.email = "Email is required";
+			validationErrors.email = "Email is required";
         }else if(!/\S+@\S+\.\S+/.test(formData.email)){
-          validationErrors.email = "The Email Entered is not Valid!";
+			validationErrors.email = "The Email Entered is not Valid!";
         }
-
+		
 		// date-of-birth validation
-
+		
 		if(!formData.dateOfBirth.trim()){
 			validationErrors.dateOfBirth = "Date of Birth is required";
 		} else if (isNaN(Date.parse(formData.dateOfBirth))) {
 			validationErrors.dateOfBirth = "Invalid Date Format!"
 		}
-
+		
         // password validation
         if(!formData.password.trim()){
-          validationErrors.password = "Password is required";
+			validationErrors.password = "Password is required";
         }else if(!isValidPassword(formData.password)) {
-          validationErrors.password = "Password must be 8+ char, including 1 symbol, 1 number, 1 uppercase and lowercase.";
+			validationErrors.password = "Password must be 8+ char, including 1 symbol, 1 number, 1 uppercase and lowercase.";
         }
-
+		
         // confirm password validation
         if(formData.confirmPassword !== formData.password) {
-          validationErrors.confirmPassword = "Password must match!";
+			validationErrors.confirmPassword = "Password must match!";
         }
-
+		
         setFormErrors(validationErrors); //set validation errors
-
-
+		
+		
         if(Object.keys(validationErrors).length === 0) {
 			// Check if the email already exists in localStorage
 			const users = JSON.parse(localStorage.getItem('users')) || [];
-
+			
 			if (users.some((user) => user.email === formData.email)) {
-			alert('This email is already registered. Please log in instead.');
-			return;
+				alert('This email is already registered. Please log in instead.');
+				return;
 			}
-
+			
 			// Save new user data to localStorage
 			users.push({
-			firstName: formData.firstName,
-			lastName: formData.lastName,
-			email: formData.email,
-			dateOfBirth: formData.dateOfBirth,
-			password: formData.password
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				email: formData.email,
+				dateOfBirth: formData.dateOfBirth,
+				password: formData.password
 			});
-
+			
 			localStorage.setItem('users', JSON.stringify(users));
 			localStorage.setItem('formData', JSON.stringify(formData));
 			console.log('Registration Successful');
 			homePage();
         } else{
-            console.log('Form Submission Failed!', validationErrors);
+			console.log('Form Submission Failed!', validationErrors);
         }
     };
-
-
+	
+	
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
-
+		
 		const validationErrors = {};
-
+		
 		if (!formData.email.trim()) {
-            validationErrors.email = "Email is required";
+			validationErrors.email = "Email is required";
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             validationErrors.email = "The Email Entered is not Valid!";
         }
-
+		
         if (!formData.password.trim()) {
-            validationErrors.password = "Password is required";
+			validationErrors.password = "Password is required";
         }
-
+		
         setFormErrors(validationErrors);
-
+		
         if (Object.keys(validationErrors).length === 0) {
 			const storedUserData = JSON.parse(localStorage.getItem('formData'));                    // Check if the user has registered
-
+			
 			if (storedUserData && storedUserData.email === formData.email && storedUserData.password === formData.password) {
 				console.log("Login Successful");
 				homePage();
@@ -262,14 +273,14 @@ function Login() {
 				setIsRegister(true);  // Switch to registration form
 			}
         } else {
-            console.log("Login Failed", validationErrors);
+			console.log("Login Failed", validationErrors);
         }
 	};
-
+	
 	const toggleForm = () => {
 		setIsRegister((prev) => !prev);
 	};
-
+	
     return(
 		<>
 		    <div className='container'>
@@ -297,41 +308,32 @@ function Login() {
 								<div className='formDetails-wrapper'>
 									<div className='names'>
 										<div className='NiaPi'>
-											<div className='input-wrapper'>
-												<FontAwesomeIcon icon={faUser} className='input-icons'/>
-												<InputGroup
-													name="firstName"
-													label="First Name"
-													value={formData.firstName}
-													onChange={handleChange}
-													error={formErrors.firstName}
-												/>
-											</div>
+											<InputGroup
+												name="firstName"
+												label="First Name"
+												value={formData.firstName}
+												onChange={handleChange}
+												error={formErrors.firstName}
+											/>
 										</div>
 										<div className='NiaPi'>
-											<div className='input-wrapper'>
-												<FontAwesomeIcon icon={faUser} className='input-icons'/>
-												<InputGroup
-													name="lastName"
-													label="Last Name"
-													value={formData.lastName}
-													onChange={handleChange}
-													error={formErrors.lastName}
-												/>
-											</div>
+											<InputGroup
+												name="lastName"
+												label="Last Name"
+												value={formData.lastName}
+												onChange={handleChange}
+												error={formErrors.lastName}
+											/>
 										</div>
 									</div>
 									<div>
-										<div className='input-wrapper'>
-											<FontAwesomeIcon icon={faEnvelope} className='input-icons'/>
-											<InputGroup
-												name="email"
-												label="Email"
-												value={formData.email}
-												onChange={handleChange}
-												error={formErrors.email}
-											/>
-										</div>
+										<InputGroup
+											name="email"
+											label="Email"
+											value={formData.email}
+											onChange={handleChange}
+											error={formErrors.email}
+										/>
 									</div>
 									<div>
 										<InputGroup
