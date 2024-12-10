@@ -85,10 +85,13 @@ form{
     font-size: 16px;
     padding: 0 10px;
     background: transparent;
-    border: 1px solid hsl(0, 5%, 80%);
+    border: 1px solid hsl(0 ,5%, 80%);
     border-radius: 5px;
     outline: none;
     cursor: pointer;
+}
+.NiaPi .input-group input {
+    width: 200px;
 }
 .input-group .error-message {
     color: hsl(0, 96%, 44%);
@@ -106,58 +109,59 @@ form{
 .input-group input[type=password]{
     padding-left: 39px;
 }
-.input-group input:focus,
-.input-group .react-datepicker input:focus {
-    box-shadow: 0px 0px 4px hsl(217, 89%, 61%);
-    border-color: #4285f4;
-}
-.NiaPi .input-group input {
-    width: 200px;
-}
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label,
 .input-group input.focused + label,
 .input-group label.focused,
-.input-group .react-datepicker input.date-picker-not-empty + label{
+.input-group .react-datepicker input.date-picker-not-empty+label{
     top: 0;
     font-size: 12px;
     color: hsl(217, 90%, 43%);
     background: #fff;
     transition: all 0.3s ease;
 }
-.input-icons{
-    position: absolute;
-    margin-left: 12px;
-    margin-top: 12px;
-    pointer-events: none;
-}
-.password-icons, .calendar-icon{
-    position: absolute;
-    left: 12px;
-    top: 12px;
+.input-group .react-datepicker-wrapper {
+    width: 100%;
 }
 .input-icons, .password-icons, .calendar-icon{
     position: absolute;
-    color: hsl(0, 5%, 80%);
-    transition: all 0.3s ease-in;
+    color: hsl(0 ,5%, 80%);
+    transition: color 0.3s ease;
 }
 .input-icons{
+    pointer-events: none;
     margin-left: 12px;
     margin-top: 12px;
-    pointer-events: none;
 }
-.password-icons, .calendar-icon{
+.password-icons,.calendar-icon {
     left: 12px;
     top: 12px;
 }
+.input-group input:focus,
+.input-group .react-datepicker input:focus {
+    box-shadow: 0px 0px 4px hsl(217, 89%, 61%);
+    border-color: hsl(217, 89%, 61%);
+}
+/* to change icon color when  focused */
 .input-wrapper:focus-within .input-icons,
 .input-group:focus-within .password-icons,
 .input-group:focus-within .calendar-icon{
     color: hsl(217, 89%, 61%);
 }
+/* to keep the border-color blue after the input is filled */
+.input-group.filled input,
+.input-group.filled .react-datepicker input {
+    border-color: hsl(217, 89%, 61%);
+}
+/* to keep the icon color blue after input is filed */
+.input-group.filled .input-icons,
+.input-group.filled .password-icons,
+.input-group.filled .calendar-icon {
+    color: hsl(217, 89%, 61%);
+}
 .register-button, .login-button{
     width: 100%;
-    background-color: hsl(217, 90%, 43%);
+    background-color: hsl(240, 92%, 58%);
     color: #fff;
     padding: 12px 0px;
     border-radius: 5px;
@@ -165,12 +169,9 @@ form{
     justify-content: center;
     font-family: sans-serif;
     text-transform: capitalize;
-    border: none;
     cursor: pointer;
+    border: none;
     font-size: 16px;
-}
-.register-button:hover, .login-button:hover{
-    background-color: blue;
 }
 .divider {
     position: relative;
