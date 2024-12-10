@@ -2,11 +2,10 @@
     background-color: hsl(237, 17%, 23%);
     position: absolute;
     left: 0;
-    /* top: 1500px; */
     width: 100%;
     height: fit-content;
     width: -webkit-fill-available;
-    padding: 40px 0;
+    padding: 50px 0;
 }
 .footer-wrapper{
     display: flex;
@@ -14,7 +13,7 @@
     color: white;
     font-family: sans-serif;
     text-transform: capitalize;
-    padding-left: 9em;
+    padding: 0px 7em;
 }
 .footer-col ul{
     padding: 0;
