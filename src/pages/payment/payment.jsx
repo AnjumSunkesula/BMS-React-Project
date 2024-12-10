@@ -90,21 +90,22 @@ function Payment ({ selectedTicketType }) {
 		setCurrentDate(formatDate(today)); // Set the formatted date
 	}, []);
 
-	// EMAIL ACCESS FROM LOGIN PAGE
+	// RETRIEVE FORMDATA FROM LOCAL STORAGE
 
-	const [email, setEmail] = useState('');
+	const [formData, setFormData] = useState({ email : '' });
 	
-	// Retrieve form data from local storage
     useEffect(() => {
         const savedFormData = JSON.parse(localStorage.getItem('formData'));
         if (savedFormData) {
-            setEmail(savedFormData.email); // Parse and set form data
+            setFormData(savedFormData); // Parse and set form data
         }
     }, []);
 
 	// PHONE NUMBER
 
+	const [message, setMessage] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('+91 ');
+	const [phoneError, setPhoneError] = useState('');
 
 	const handleInput = (e) => {
 		const value = e.target.value;
@@ -118,8 +119,6 @@ function Payment ({ selectedTicketType }) {
 	
 
 	// TICKET MESSAGE IN CONTACT DETAILS
-
-	const [message, setMessage] = useState('');
 
 	const handleContinue = () => {
 		if (phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) { 
@@ -148,7 +147,6 @@ function Payment ({ selectedTicketType }) {
 	const [selectedOption, setSelectedOption] = useState('');     //state for selected option
 	const [upiId, setUpiId] = useState('');                       // State for UPI ID
     const [bankDetails, setBankDetails] = useState('');           // State for Bank Details
-	const [phoneError, setPhoneError] = useState('');
 	const [upiError, setUpiError] = useState('');
     const [bankError, setBankError] = useState('');
 
@@ -378,18 +376,6 @@ function Payment ({ selectedTicketType }) {
 		} 
 	};
 
-	
-
-
-  
-
-
-
-
-
-	
-
-
 	return(
 		<>
 			<div className='payment-header'>
@@ -432,7 +418,7 @@ function Payment ({ selectedTicketType }) {
 
 											<div className='contact-inputs-wrapper'>
 												<div className='contact-inputs'>
-													<div className='jqzw'>{email}</div>
+													<div className='jqzw'>{formData.email}</div>
 
 														<input 
 															type="tel" 
