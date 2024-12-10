@@ -40,8 +40,11 @@ body{
 }
 .login-wrapper span{
     text-transform: capitalize;
-    color: hsl(240, 100%, 50%);
+    color: hsl(240, 92%, 58%);
     cursor: pointer;
+}
+.login-wrapper span:hover{
+    color: hsl(217, 90%, 43%);
 }
 .register-container{
     display: flex;
