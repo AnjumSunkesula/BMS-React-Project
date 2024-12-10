@@ -1,5 +1,6 @@
 import Header from "../header/header";
 import '../aboutmovie/AboutMovie.css';
+import Footer from '../footer/footer';
 import MovieDetails from "./movieDetails";
 import React, {useState, useEffect} from "react";
 import { useLocation, useHistory } from "react-router-dom";
@@ -19,7 +20,7 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
 
     const location = useLocation();
     const {movie, index} = location.state || {}; //get movie from RM.jsx    
- 
+    
     const history = useHistory();
 
     const [currentCastIndex, setCurrentCastIndex] = useState(0); // state to manage cast sliding
@@ -73,11 +74,6 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
         setSubmittedRating(rating);                                                 //store the submitted rating
         close();
     }
-    
-    
-    
-    
-    
     
     
     const castPerPage = 5;
@@ -496,6 +492,9 @@ function AboutMovies ({ selectedCity, setSelectedCity }) {
                     </div>
                 </div>
             </div>
+            <footer>
+                <Footer/>
+            </footer>
         </div>
         </>
     );

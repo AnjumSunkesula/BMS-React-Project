@@ -82,6 +82,7 @@
     position: relative;
     top: 0;
     margin-left: 30px;
+    cursor: pointer;
 }
 /* hi,user */
 .user-profile{
@@ -89,20 +90,78 @@
 }
 /* user popup */
 .user-popup{
-    background-color: rgb(174, 189, 184);
+    background-color: #fff;
     position: fixed;
     top: 0;
     right: -200px;
-    width: 400px;
+    width: 440px;
     height: 100%;
-    color: white;
-    padding: 20px;
     transition: slide-left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 1001;
 }
 .user-popup .open{
     right: 0;
 }
+.user-popup-content{
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    height: 100%;
+}
+.user-heading{
+    display: flex;
+    align-items: center;
+    padding: 20px 8px;
+    box-shadow: 0px 8px 7px -6px rgba(0, 0, 0, 0.76); ;
+}
+.user-details{
+    margin-right: 6em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.close-btn{
+    cursor: pointer;
+}
+.user-details-wrapper{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.details{
+    padding: 15px 8px ;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 15px;
+}
+.details:hover{
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.logout-wrapper{
+    position: absolute;
+    bottom: 0;
+    padding: 20px 8px;
+    width: 100%;
+    box-shadow: 0px -6px 8px -6px rgba(0, 0, 0, 0.76);
+}
+.logout{
+    border: 1px solid  hsl(349, 93%, 62%);
+    border-radius: 5px;
+    width: 29%;
+    padding: 8px 5px;
+    padding-left: 90px;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+.logout:hover{
+    background-color: hsl(349, 93%, 62%);
+    color: #fff;
+}
+
 
 
 

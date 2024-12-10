@@ -90,21 +90,22 @@ function Payment ({ selectedTicketType }) {
 		setCurrentDate(formatDate(today)); // Set the formatted date
 	}, []);
 
-	// EMAIL ACCESS
+	// RETRIEVE FORMDATA FROM LOCAL STORAGE
 
-	const [formData, setFormData] = useState({});
-
+	const [formData, setFormData] = useState({ email : '' });
+	
     useEffect(() => {
-        // Retrieve form data from local storage
-        const storedData = localStorage.getItem('formData');
-        if (storedData) {
-            setFormData(JSON.parse(storedData)); // Parse and set form data
+        const savedFormData = JSON.parse(localStorage.getItem('formData'));
+        if (savedFormData) {
+            setFormData(savedFormData); // Parse and set form data
         }
     }, []);
 
 	// PHONE NUMBER
 
+	const [message, setMessage] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('+91 ');
+	const [phoneError, setPhoneError] = useState('');
 
 	const handleInput = (e) => {
 		const value = e.target.value;
@@ -118,8 +119,6 @@ function Payment ({ selectedTicketType }) {
 	
 
 	// TICKET MESSAGE IN CONTACT DETAILS
-
-	const [message, setMessage] = useState('');
 
 	const handleContinue = () => {
 		if (phoneNumber.trim() === '+91 ' || phoneNumber.length <= 13) { 
@@ -148,7 +147,6 @@ function Payment ({ selectedTicketType }) {
 	const [selectedOption, setSelectedOption] = useState('');     //state for selected option
 	const [upiId, setUpiId] = useState('');                       // State for UPI ID
     const [bankDetails, setBankDetails] = useState('');           // State for Bank Details
-	const [phoneError, setPhoneError] = useState('');
 	const [upiError, setUpiError] = useState('');
     const [bankError, setBankError] = useState('');
 
@@ -377,18 +375,6 @@ function Payment ({ selectedTicketType }) {
 			setShowCardDetails(true); // Show card details on successful validation
 		} 
 	};
-
-	
-
-
-  
-
-
-
-
-
-	
-
 
 	return(
 		<>

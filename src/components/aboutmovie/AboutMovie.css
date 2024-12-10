@@ -615,5 +615,10 @@
     color: #fff;
     font-weight: 500;
     display: inline;
-
+}
+footer{
+    position: absolute;
+    width: -webkit-fill-available;
+    top: 90em;
+    right: 0;
 }

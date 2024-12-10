@@ -6,162 +6,196 @@ body{
     justify-content: center;
     min-height: 100vh;
     &::-webkit-scrollbar {
-            display: none;
+        display: none;
     }
-    /* background-color: antiquewhite; */
 }
 .container{
     background-color: #fff;
-    width: 60em;
-    display: flex;
+    width: 95vw;
+    height: 94vh;
     box-sizing: border-box;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px #666;
-}
-/* divided containers */
-.sign-up{
-    width: 90%;
-    padding: 40px 20px;
-}
-.section-image{
-    width: 78%;
-    background-image: url(../assets/loginpage-images/image.avif);
-    border-radius: 5px;
-    
-}
-/* border-radius text */
-.paragraph{
-    background-color: hsl(0, 1%, 14%);
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 8em;
-    height: 8em;
-    text-align: center;
-    border-radius: 50%;
+    /* box-shadow: 0px 0px 10px 0px #666; */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    top: 14em;
-    left: 10em;
 }
-/* heading */
-.title {
-    position: relative;
-    bottom: 50px;
-    font-family: "Lora", serif;
-    margin: 0;
-    padding-top: 25px;
+.login-container{
+    gap: 25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.title span{
-    font-family: 'Roboto Condensed';
+.heading-wrapper{
+    padding-bottom: 10em;
 }
-.title .my{
-    color: rgb(245, 66, 90);
-    font-style: italic;
+.bms-heading{
+    text-transform: capitalize;
+    font-family: 'Poppins';
+    font-size: 40px;
 }
-/* bookmyshow image adjust */
-.logo {
-    position: relative;
-    top: 34px;
-    padding: 0px 2px;
+.login-wrapper{
+    font-family: sans-serif;
+    font-size: 16px;
 }
-/* form */
+.login-wrapper span{
+    text-transform: capitalize;
+    color: hsl(240, 92%, 58%);
+    cursor: pointer;
+}
+.login-wrapper span:hover{
+    color: hsl(217, 90%, 43%);
+}
+.register-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
 form{
-    position: relative;
-    bottom: 30px;
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-/* input transition */
-.input-group{
-    position: relative;
-    margin: 10px 0px;
+.formDetails-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-.input-group label{
+.names, .passwords{
+    display: flex;
+    gap: 5px;
+}
+.input-group, .input-wrapper{
+    position: relative;
+}
+.input-group label {
     position: absolute;
     top: 50%;
-    left: 5px;
+    left: 30px;
     transform: translateY(-50%);
-    font-size: 18px;
-    padding:0 5px;
+    font-size: 16px;
+    padding: 0 5px;
+    margin-left: 5px;
     pointer-events: none;
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: 'Montserrat';
+    transition: all 0.3s ease;
 }
-.input-group input{
-    width: 350px;
+.input-group input,
+.input-group .react-datepicker input {
+    width: 455px;
     height: 40px;
     font-size: 16px;
     padding: 0 10px;
     background: transparent;
-    border: 2px solid #04AA6D;
-    box-shadow: 0px 0px 3px #04AA6D ;
+    border: 1px solid hsl(0 ,5%, 80%);
     border-radius: 5px;
     outline: none;
     cursor: pointer;
 }
- .input-group input:focus+label,
-.input-group input:not(:placeholder-shown)+label,
-.input-group input.focused + label {
+.NiaPi .input-group input {
+    width: 200px;
+}
+.input-group .error-message {
+    color: hsl(0, 96%, 44%);
+    font-family: system-ui;
+    position: absolute;
+    top: 100%;
+}
+.input-group.has-error{
+    margin-bottom: 20px;
+}
+.input-group.password-error{
+    margin-bottom: 60px;
+}
+.input-group input[type=text],
+.input-group input[type=password]{
+    padding-left: 39px;
+}
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input.focused + label,
+.input-group label.focused,
+.input-group .react-datepicker input.date-picker-not-empty+label{
     top: 0;
     font-size: 12px;
-    color: #04AA6D;
+    color: hsl(217, 90%, 43%);
     background: #fff;
     transition: all 0.3s ease;
-} 
-/* password visibility */
-.Io-eye{
-    position: relative;
-    right: 30px;
-    top: 5px;
-    font-size: 20px;
-    color: hsl(0, 2%, 26%);
 }
-
-/* mail validation */
-.error-message {
-    color: hsl(0, 96%, 44%);
-    position: relative;
-    top: 5px;
-    margin-left: 5px;
-    padding-top: 2px;
-    font-family: 'Lora';
-    width: 350px;
-} 
-/* sign up */
-.submit-button{
-    cursor: pointer;
-    background-color: hsl(349, 93%, 62%);
-    color: white;
-    padding: 10px 20px;
-    border: none;
+.input-group .react-datepicker-wrapper {
+    width: 100%;
+}
+.input-icons, .password-icons, .calendar-icon{
+    position: absolute;
+    color: hsl(0 ,5%, 80%);
+    transition: color 0.3s ease;
+}
+.input-icons{
+    pointer-events: none;
+    margin-left: 12px;
+    margin-top: 12px;
+}
+.password-icons,.calendar-icon {
+    left: 12px;
+    top: 12px;
+}
+.input-group input:focus,
+.input-group .react-datepicker input:focus {
+    box-shadow: 0px 0px 4px hsl(217, 89%, 61%);
+    border-color: hsl(217, 89%, 61%);
+}
+/* to change icon color when  focused */
+.input-wrapper:focus-within .input-icons,
+.input-group:focus-within .password-icons,
+.input-group:focus-within .calendar-icon{
+    color: hsl(217, 89%, 61%);
+}
+/* to keep the border-color blue after the input is filled */
+.input-group.filled input,
+.input-group.filled .react-datepicker input {
+    border-color: hsl(217, 89%, 61%);
+}
+/* to keep the icon color blue after input is filed */
+.input-group.filled .input-icons,
+.input-group.filled .password-icons,
+.input-group.filled .calendar-icon {
+    color: hsl(217, 89%, 61%);
+}
+.register-button, .login-button{
+    width: 100%;
+    background-color: hsl(240, 92%, 58%);
+    color: #fff;
+    padding: 12px 0px;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: none;
     font-size: 16px;
+}
+.divider {
+    position: relative;
+    top: 15px;
+    width: 100%;
+}
+.or{
     position: relative;
     left: 9em;
-    top: 15px;
-}
-.submit-button:hover{
-    background-color: hsl(349, 76%, 59%);
-}
-/* divider */
-.divider{
-    position: relative;
-    top: 15px;
-    width: 80%;
-}
-.h2-divider{
-    position: relative;
-    left: 7em;
     top: -23px;
     margin: 0px;
     padding: 0 10px;
     background: #fff;
     display: inline;
-    
 }
-/* google login */
-.google-login{
-    position: relative;
-    left: 6em;
-    top: 30px;
-} 
+.google-login {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
