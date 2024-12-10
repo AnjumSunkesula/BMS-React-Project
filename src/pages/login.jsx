@@ -73,9 +73,7 @@ function InputGroup({ name, label, value, onChange, error, type= "text", toggleV
 					    <FontAwesomeIcon icon={faUser} className='input-icons'/>
 					) : name === 'email' ? (
 						<FontAwesomeIcon icon={faEnvelope} className="input-icons" />
-					) : (
-                        <FontAwesomeIcon icon={faLock} className="password-icons" />
-					)}
+					) : ''}
 					<input
 						type={type}
 						name={name}
