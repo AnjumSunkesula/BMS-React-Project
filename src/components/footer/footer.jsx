@@ -46,14 +46,14 @@ function Footer () {
                     <div className='footer-col'>
                         <div className='footer-heading'>BookMyShow exclusives</div>
                         <ul>
-                            <li><a href="https://www.bookachange.org/">BookAChange</a></li>
-                            <li><a href="https://in.bookmyshow.com/voucher">corporate vouchers</a></li>
-                            <li><a href="https://in.bookmyshow.com/giftcards">gift cards</a></li>
-                            <li><a href="https://in.bookmyshow.com/list-your-show">list my show</a></li>
                             <li><a href="https://in.bookmyshow.com/offers">offers</a></li>
                             <li><a href="https://in.bookmyshow.com/explore/c/stream">stream</a></li>
                             <li><a href="https://in.bookmyshow.com/explore/upcoming-movie-trailers">trailers</a></li>
+                            <li><a href="https://in.bookmyshow.com/giftcards">gift cards</a></li>
+                            <li><a href="https://in.bookmyshow.com/list-your-show">list my show</a></li>
+                            <li><a href="https://www.bookachange.org/">BookAChange</a></li>
                             <li><a href="https://lollaindia.com/">lollapalooza india</a></li>
+                            <li><a href="https://in.bookmyshow.com/voucher">corporate vouchers</a></li>
                         </ul>
                     </div>
 
